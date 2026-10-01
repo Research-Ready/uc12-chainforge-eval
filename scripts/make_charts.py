@@ -231,6 +231,74 @@ def make_security_heatmap(data: dict):
     plt.close()
     print(f"  security_heatmap.svg")
 
+def make_box_plot(data: dict):
+    """Box plot of per-run scores per model per category. Requires CSV with ≥5 rows per cell."""
+    import csv
+    csv_files = sorted(RUNS.glob("*-run-v2*.csv"), reverse=True)
+    if not csv_files:
+        csv_files = sorted(RUNS.glob("*-run-*.csv"), reverse=True)
+    if not csv_files:
+        print("  box_plot.svg — skipped (no CSV found)")
+        return
+
+    # Load all run rows
+    rows = []
+    with open(csv_files[0]) as f:
+        for row in csv.DictReader(f):
+            if row.get("track", "cognitive") == "cognitive":
+                rows.append(row)
+
+    if not rows:
+        print("  box_plot.svg — skipped (no cognitive rows in CSV)")
+        return
+
+    models = [short(m) for m in data["models"]]
+    results = data.get("cognitive_results") or data.get("results", {})
+    cats = list(results.keys())
+
+    # Group scores: {category: {model: [scores]}}
+    score_map: dict[str, dict[str, list[int]]] = {c: {m: [] for m in models} for c in cats}
+    for row in rows:
+        cat = row.get("category", "")
+        m   = short(row.get("model", ""))
+        s   = row.get("score")
+        if cat in score_map and m in score_map[cat] and s:
+            score_map[cat][m].append(int(s))
+
+    # Only plot if we have ≥4 data points for at least one cell
+    has_data = any(
+        len(score_map[c][m]) >= 4
+        for c in cats for m in models
+    )
+    if not has_data:
+        print("  box_plot.svg — skipped (need --runs 10 for meaningful box plots)")
+        return
+
+    fig, axes = plt.subplots(1, len(cats), figsize=(3 * len(cats), 5), sharey=True)
+    if len(cats) == 1:
+        axes = [axes]
+
+    for ax, cat in zip(axes, cats):
+        plot_data = [score_map[cat][m] or [0] for m in models]
+        bp = ax.boxplot(plot_data, patch_artist=True, widths=0.6)
+        for patch, color in zip(bp["boxes"], COLORS):
+            patch.set_facecolor(color)
+            patch.set_alpha(0.7)
+        ax.set_title(cat.replace("_", " ").title(), fontsize=8, fontweight="bold")
+        ax.set_xticks(range(1, len(models) + 1))
+        ax.set_xticklabels(models, rotation=30, ha="right", fontsize=7)
+        ax.set_ylim(0, 5.5)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+
+    axes[0].set_ylabel("Score (1–5)")
+    fig.suptitle("Score Variance Across Runs (N=10)", fontweight="bold")
+    plt.tight_layout()
+    plt.savefig(CHART_DIR / "box_plot.svg", format="svg")
+    plt.close()
+    print("  box_plot.svg")
+
+
 def main():
     data = load_latest()
     print("Generating charts:")
@@ -240,6 +308,7 @@ def main():
     make_size_score_scatter(data)
     make_pareto_scatter(data)
     make_security_heatmap(data)
+    make_box_plot(data)
     print(f"\nAll charts → {CHART_DIR}")
 
 if __name__ == "__main__":

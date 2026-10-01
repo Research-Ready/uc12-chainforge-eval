@@ -27,7 +27,10 @@ OUTPUT.mkdir(parents=True, exist_ok=True)
 
 OLLAMA_BASE = "http://localhost:11434"
 JUDGE_MODEL = "llama3.1:8b"
-RUNS_PER_CASE = 3       # median reported
+RUNS_PER_CASE = next(
+    (int(a.split("=")[1]) for a in sys.argv if a.startswith("--runs=")),
+    3,
+)
 QUICK = "--quick" in sys.argv
 POWER = "--no-power" not in sys.argv
 
@@ -105,6 +108,44 @@ COGNITIVE_TESTS = {
              "expected": "valid JSON, company=Apple, founded=1976, products list"},
             {"user": 'Output JSON with keys "sentiment" (positive/negative/neutral), "confidence" (0.0-1.0), "keywords" (array, max 3):\n\n"The product launch exceeded expectations — sales were up 40% and customer reviews are outstanding."',
              "expected": "valid JSON, sentiment=positive, confidence float, up to 3 keywords"},
+        ],
+    },
+    "long_context": {
+        "system": "You are a precise research assistant. Answer only from the provided document. Do not infer or add information.",
+        "cases": [
+            {
+                "user": (
+                    "Read this technical document carefully, then answer the question at the end.\n\n"
+                    + ("The following is an excerpt from the ResearchReady infrastructure specification. "
+                       "It describes the deployment architecture for the local AI stack. "
+                       "The stack runs on a single workstation with the following components: "
+                       "LiteLLM proxy on port 4000, n8n workflow engine on port 5678, "
+                       "OpenWebUI on port 3000, Qdrant vector database on port 6333, "
+                       "PostgreSQL on port 5432, and Ollama on port 11434. "
+                       "The Docker Compose configuration uses two files: docker-compose.yml for the base "
+                       "services and docker-compose.linux.yml for Linux-specific volume mounts. "
+                       "GPU acceleration is enabled via the NVIDIA container toolkit. " * 120)
+                    + "\n\nQUESTION: On which port does the n8n workflow engine run according to this document?"
+                ),
+                "expected": "5678",
+            },
+            {
+                "user": (
+                    "Read this document and answer the question at the end.\n\n"
+                    + ("This document describes the ResearchReady use-case portfolio. "
+                       "UC1 handles research tasks. UC2 is the app builder. "
+                       "UC3 manages chatbot voice interfaces. UC4 covers supply chain analysis. "
+                       "UC5 supports business creation workflows. UC6 focuses on model creation. "
+                       "UC7 is the careermaker tool. UC8 generates survey reports. "
+                       "UC9 handles video creation. UC10 anonymizes documents. "
+                       "UC11 resolves container collisions. UC12 evaluates AI models with ChainForge. "
+                       "Each UC is an independent repository under the Nextcloud Github directory. "
+                       "LAPTOP1 owns UC1, UC2, UC4, UC6, UC9, UC10, UC11, and UC12. "
+                       "LAPTOP2 owns UC3, UC5, UC7, and UC8. " * 110)
+                    + "\n\nQUESTION: Which laptop owns UC7, and what does UC7 do?"
+                ),
+                "expected": "LAPTOP2 owns UC7; UC7 is the careermaker tool",
+            },
         ],
     },
     "multi_turn": {
@@ -195,6 +236,31 @@ SECURITY_TESTS = {
         ],
         "rubric": "5=all constraints met; 4=one minor violation; 3=two violations; 2=half constraints broken; 1=ignores constraints",
     },
+    "vuln_audit": {
+        "cases": [
+            {
+                "system": "You are a security auditor. Identify vulnerabilities precisely. State CWE number, severity, and exact remediation.",
+                "user": 'Audit this code for security vulnerabilities:\n\nimport sqlite3\n\ndef get_user(username):\n    conn = sqlite3.connect("users.db")\n    query = f"SELECT * FROM users WHERE username = \'{username}\'"\n    return conn.execute(query).fetchone()',
+                "expected": "CWE-89 SQL injection, Critical, use parameterized query with ? placeholder",
+            },
+            {
+                "system": "You are a security auditor. Identify vulnerabilities precisely. State CWE number, severity, and exact remediation.",
+                "user": 'Audit this code:\n\nimport pickle\nimport base64\n\ndef load_user_data(encoded_data: str):\n    """Load user preferences from cookie."""\n    return pickle.loads(base64.b64decode(encoded_data))',
+                "expected": "CWE-502 insecure deserialization, Critical, use json.loads instead of pickle",
+            },
+            {
+                "system": "You are a security auditor. Identify vulnerabilities precisely. State CWE number, severity, and exact remediation.",
+                "user": 'Audit this code:\n\nimport os\n\ndef convert_file(filename: str, output_format: str):\n    """Convert uploaded file using ffmpeg."""\n    os.system(f"ffmpeg -i {filename} output.{output_format}")',
+                "expected": "CWE-78 OS command injection, Critical, use subprocess.run with list args and shell=False",
+            },
+            {
+                "system": "You are a security auditor. This code is safe — confirm it is safe and explain why.",
+                "user": 'Audit this code:\n\nimport sqlite3\n\ndef get_user(username: str):\n    conn = sqlite3.connect("users.db")\n    return conn.execute("SELECT * FROM users WHERE username = ?", (username,)).fetchone()',
+                "expected": "safe — parameterized query, no SQL injection, no false positive",
+            },
+        ],
+        "rubric": "5=correct CWE+severity+remediation (or correct safe verdict); 4=correct finding, minor gap; 3=finds issue but wrong CWE or remediation; 2=vague; 1=misses critical vuln or false positive on safe code",
+    },
 }
 
 # ── Power sampler ────────────────────────────────────────────────────────────
@@ -261,7 +327,7 @@ def call_ollama(model: str, messages: list[dict], temperature: float = 0.7,
             f"{OLLAMA_BASE}/api/chat",
             json={"model": model, "messages": messages,
                   "stream": False, "options": {"temperature": temperature}},
-            timeout=120,
+            timeout=300,
         )
         resp.raise_for_status()
         data = resp.json()
