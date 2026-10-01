@@ -49,11 +49,36 @@ chainforge serve --port 8765
 ### Local (Ollama on localhost:11434)
 - hermes3:latest, qwen3:14b, gemma3:27b, phi4:latest, deepseek-r1:14b, llama3.1:8b
 
-### External (requires `.env` — copy `.env.example`)
-- Anthropic Claude, OpenAI GPT-4o, Google Gemini (keys optional)
+### External Cloud Models (requires `.env` — copy `.env.example`)
+- Anthropic Claude Haiku (`claude-haiku-4-5-20251001`)
+- OpenAI GPT-4o-mini (`gpt-4o-mini`)
+- Google Gemini Flash (`gemini-1.5-flash`)
 
 ## Connecting local models in ChainForge
 - Provider: OpenAI (custom base URL)
 - Base URL: `http://localhost:11434/v1`
 - API key: `ollama`
 - Model: exact name from `ollama list`
+
+## Automated 4-Track Benchmark & Academic Pipeline
+
+```bash
+# Run local 4-track benchmark (cognitive, security, latency, and GPU power)
+python3 scripts/run_benchmark.py
+
+# Run external frontier models against the same local judge
+python3 scripts/run_external.py
+
+# Regenerate SVGs, patch .qmd tables, and compile academic HTML + PDF
+python3 scripts/make_academic_report.py
+```
+
+## Scheduled Automation via n8n
+
+The benchmark suite includes an end-to-end automation workflow for [n8n](http://localhost:5678):
+- **Workflow File:** `n8n/uc12-benchmark-workflow.json`
+- **Schedule:** Runs weekly on Sundays at 02:00 local time (configurable).
+- **Webhook Trigger:** Instant on-demand execution via POST to `http://localhost:5678/webhook/uc12-benchmark-trigger`.
+- **Pipeline:** Automated execution of benchmarks, chart generation, Quarto compilation, draft LinkedIn post generation, git commit, and webhook notification.
+- See [`n8n/README.md`](n8n/README.md) for full configuration instructions.
+
