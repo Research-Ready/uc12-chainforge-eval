@@ -38,7 +38,7 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 - [x] `C13` Long-context summarization test (10k+ token input, tests VRAM limits)
 - [x] `C14` Code vulnerability auditing track (CWE-89 SQLi, CWE-502 deserialization)
 - [x] `C15` Increase timeout in `call_ollama()` from 120s to 300s (prevents ReadTimeout on 14B CPU inference)
-- [ ] `G8`  Gemini: write Phase 3 results sections in .qmd once C12-C14 data exists
+- [~] `G8`  Gemini: write Phase 3 results sections in .qmd (running full 14-track benchmark task-672)
 - [ ] `G9`  Gemini: LinkedIn post comparing local vs cloud model results (after run_external.py run)
 
 ---
