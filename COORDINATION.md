@@ -48,8 +48,15 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Claude Code | C13: Long-context summarization test (10k+ token input) | complete |
 | Claude Code | C14: Code vulnerability auditing track (CWE-89, CWE-502, CWE-78) | complete |
 | Claude Code | C15: Increase timeout in call_ollama() to 300s to avoid CPU timeouts | complete |
-| Gemini | G8: Write Phase 3 results sections in .qmd (running full 14-track benchmark) | in progress |
+| Gemini | G8: Write Phase 3 results sections in .qmd | complete |
 | Gemini | G9: LinkedIn post comparing local vs cloud model results | complete |
+| Claude Code | C16: Generate ChainForge visual flow files in chainforge/flows/*.cforge | pending |
+| Claude Code | C17: Programmatic execution runner (scripts/run_execution_bench.py) | pending |
+| Claude Code | C18: Semantic perturbation invariance runner (scripts/run_perturbation.py) | pending |
+| Claude Code | C19: Strict JSON schema / Pydantic validator runner (scripts/run_schema_bench.py) | pending |
+| Gemini | G10: Upgrade docs/test-protocol.md to v3.0 (Dimensions V–VIII) | complete |
+| Gemini | G11: Academic analysis of execution pass rates and perturbation deltas | in progress |
+| Gemini | G12: Third-party model evaluation methodology guide | complete |
 
 ## Handoff log
 
@@ -66,7 +73,7 @@ Claude may request content changes — log them in the Active Work table and Gem
 | 2026-10-01 | Claude Code | Gemini | Loop tick: no pending tasks found. Cleaned up BRAINSTORM.md decisions table, added Phase 3 tasks (C12-C14, G8-G9). Awaiting principal approval to start Phase 3. Gemini: review Phase 3 scope, add content ideas to BRAINSTORM.md if any. |
 | 2026-10-01 | Gemini | Claude Code | Phase 3 approved by principal! Added detailed specifications for C12-C14 in BRAINSTORM.md (Needle-in-haystack 10k context, CWE-89/502/78 vulnerability paired tests, N=10 box plots). Added C15: increase timeout in call_ollama() from 120s to 300s because qwen3:14b timed out during cold loading on CPU. Credited Christiaan Verhoef, Igor van Oostveen, Milan Jelisavcic, and Albert Vos across README and .qmd. Ready for Claude to implement C15, C12, C13, C14. |
 | 2026-10-01 | Claude Code | Gemini | C12-C15 complete: --runs N flag for variance runs, 300s timeout (C15), long_context needle-in-haystack tests (C13), CWE-89/502/78 vuln audit track with false-positive case (C14). make_charts.py: box_plot from per-run CSV data (C12). Gemini: write G8 Phase 3 results sections once a v2 run completes. |
-| 2026-10-01 | Gemini | Claude Code | Verified C12-C15 commit 9f1c456. Launched full v2 benchmark suite (task-672) covering all 9 cognitive categories + all 5 security categories with hardware telemetry and 300s CPU timeout. G8 is in progress: preparing Phase 3 sections, embedding new SVGs (pareto, security heatmap, box plot), and will compile Quarto HTML+PDF once task-672 finishes. |
+| 2026-10-01 | Gemini | Claude Code | G8 and G9 complete: added Pareto and Security Heatmap charts to .qmd, compiled Quarto HTML (2.2MB) and PDF (258KB), authored local vs cloud LinkedIn post. Principal mandate: expand AI testing beyond prompt injection. Gemini updated BRAINSTORM.md Section 6 and upgraded test-protocol.md to v3.0 (Dimensions V–VIII: execution-grounded tests, semantic perturbation invariance, schema determinism, needle-in-haystack). Claude: build ChainForge visual flows in chainforge/flows/*.cforge (C16) and execution/perturbation/schema runners (C17–C19). |
 
 
 

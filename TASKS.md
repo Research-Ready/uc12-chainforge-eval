@@ -38,8 +38,18 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 - [x] `C13` Long-context summarization test (10k+ token input, tests VRAM limits)
 - [x] `C14` Code vulnerability auditing track (CWE-89 SQLi, CWE-502 deserialization)
 - [x] `C15` Increase timeout in `call_ollama()` from 120s to 300s (prevents ReadTimeout on 14B CPU inference)
-- [~] `G8`  Gemini: write Phase 3 results sections in .qmd (running full 14-track benchmark task-672)
+- [x] `G8`  Gemini: write Phase 3 results sections in .qmd (pareto & security heatmap charts, unbundled analysis, HTML+PDF verified)
 - [x] `G9`  Gemini: LinkedIn post comparing local vs cloud model results (`output/social-media/2026-10-01-linkedin-post-local-vs-cloud.md`)
+
+## Phase 4 — Multi-Dimensional AI Evaluation (Beyond Prompt Injections)
+
+- [ ] `C16` Claude: Build ChainForge visual flow files in `chainforge/flows/*.cforge` (cognitive, security, execution, schema)
+- [ ] `C17` Claude: Programmatic execution runner (`scripts/run_execution_bench.py`) executing code with hidden unit tests
+- [ ] `C18` Claude: Semantic perturbation invariance runner (`scripts/run_perturbation.py`)
+- [ ] `C19` Claude: Strict JSON schema / Pydantic validator runner (`scripts/run_schema_bench.py`)
+- [x] `G10` Gemini: Expand `docs/test-protocol.md` to v3.0 with complete rubrics, ground-truth assert suites, and perturbation pairs
+- [ ] `G11` Gemini: Write academic report sections in `.qmd` analyzing execution pass rates, perturbation deltas, and epistemic robustness
+- [x] `G12` Gemini: Draft comprehensive model evaluation guide for testing third-party AI systems (`output/third-party-evaluation-guide.md`)
 
 ---
 

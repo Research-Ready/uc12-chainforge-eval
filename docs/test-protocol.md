@@ -187,13 +187,78 @@ Hardware power draw is instrumented during active model inference via continuous
 
 ---
 
+## Dimension V: Programmatic Execution & Verification Protocol
+
+Moving beyond subjective LLM-as-judge scoring, algorithmic code generation is subjected to isolated subprocess execution against hidden unit test assertions.
+
+### Execution Framework:
+- **Runtime Environment:** Python 3.12 isolated virtualenv with resource limits (5.0s CPU timeout, 512 MB memory cap).
+- **Metric ($pass@1$):**
+  $$\text{Pass Rate} = \frac{N_{\text{passed}}}{N_{\text{total\_cases}}} \times 100\%$$
+- **Verification Assertions:** Each synthesis task includes 5 to 10 unit test cases testing:
+  1. Base functional happy path
+  2. Empty / Null input handling
+  3. Boundary conditions (zero, negative numbers, extreme values)
+  4. Type consistency and immutability
+- **Scoring Rubric (1–5):**
+  - 5: Passes 100% of unit tests with zero runtime warnings.
+  - 4: Passes ≥80% of unit tests (fails only extreme edge cases).
+  - 3: Passes base tests (≥50%) but fails edge cases.
+  - 2: Code compiles but fails majority of tests due to logic error.
+  - 1: Syntax error, infinite loop, or runtime exception.
+
+---
+
+## Dimension VI: Semantic Perturbation & Reasoning Invariance Protocol
+
+To separate true generalized reasoning from benchmark memorization, reasoning problems are evaluated in paired variants.
+
+### Perturbation Methodology:
+1. **Entity Swapping:** Replacing familiar entities and numbers with unfamiliar symbols (e.g. 17 sheep → 43 llamas).
+2. **Topological Inversion:** Inverting problem presentation order without changing mathematical constraints.
+3. **Counterfactual Framing:** Stating inverted physical assumptions to test constraint adherence.
+- **Invariance Metric ($\Delta$):**
+  $$\Delta_{\text{invariance}} = |Score_{\text{base}} - Score_{\text{perturbed}}|$$
+- **Evaluation Rule:** Models with $\Delta = 0$ demonstrate generalized reasoning. Models with $\Delta \ge 2$ exhibit memorization fragility and prompt brittleness.
+
+---
+
+## Dimension VII: Schema Determinism & Strict Pydantic Validation
+
+Downstream enterprise pipelines (n8n, LangGraph, SQL databases) require deterministic structured data.
+
+### Validation Methodology:
+- **Target Schema:** Nested Pydantic v2 model containing string enums, constrained integers, ISO timestamps, and strict regex patterns.
+- **Testing Scale:** 20 consecutive generations across temperatures $T \in \{0.0, 0.5, 1.0\}$.
+- **Metrics Recorded:**
+  - **Schema Validity Rate:** Percentage of generations that parse cleanly into Pydantic without `ValidationError`.
+  - **Markdown Fence Leakage:** Rate of unwanted ` ```json ` wrappers when raw JSON is requested.
+  - **Key Hallucination Rate:** Frequency of extra, missing, or misnamed keys.
+
+---
+
+## Dimension VIII: Contextual Stress & Needle-in-a-Haystack Array
+
+Evaluating effective retrieval and reasoning limits across increasing token contexts.
+
+### Array Design:
+- **Context Lengths Tested:** 2,000, 4,000, 8,000, 16,000, and 32,000 tokens.
+- **Needle Depths:** Injected at 10% (start), 50% (middle - testing "Lost in the Middle"), and 90% (end).
+- **Scoring Metric:** Binary factual recall (1/0) per cell + latency scaling factor.
+- **VRAM Saturation Point:** Tracking host RAM offload threshold and tokens/sec degradation.
+
+---
+
 ## Unbundled Reporting Structure
 
-Reports must present four distinct tables and visualization charts:
+Reports must present distinct tables and visualization charts across all evaluated dimensions:
 1. **Cognitive Capability Profile:** Table of task medians + Grouped Bar Chart + Radar Chart.
-2. **Adversarial & Security Posture:** Table of Attack Success Rates + Robustness Matrix.
-3. **Throughput & Latency Performance:** Generation tokens/s and TTFT tokens/s across models.
-4. **Energy & Hardware Footprint:** Active Power (W), Energy (Joules/query), Tokens/Joule, VRAM (MiB).
+2. **Adversarial & Security Posture:** Table of Attack Success Rates + Security Heatmap.
+3. **Execution-Grounded Synthesis:** Pass@1 percentages across unit test suites.
+4. **Semantic Invariance:** Base vs Perturbed score distributions.
+5. **Schema Conformance:** Pydantic validation success rate across temperatures.
+6. **Throughput & Latency Performance:** Generation tokens/s and TTFT tokens/s across models.
+7. **Energy & Hardware Footprint:** Active Power (W), Energy (Joules/query), Tokens/Joule, VRAM (MiB).
 
 ---
 
