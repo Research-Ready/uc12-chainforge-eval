@@ -82,3 +82,13 @@ The benchmark suite includes an end-to-end automation workflow for [n8n](http://
 - **Pipeline:** Automated execution of benchmarks, chart generation, Quarto compilation, draft LinkedIn post generation, git commit, and webhook notification.
 - See [`n8n/README.md`](n8n/README.md) for full configuration instructions.
 
+## Authors & Citation
+
+This benchmark suite and technical evaluation report are developed by the **ResearchReady** team:
+
+- **Christiaan Verhoef** (ResearchReady)
+- **Igor van Oostveen** (ResearchReady)
+- **Milan Jelisavcic** (ResearchReady)
+- **Albert Vos** (ResearchReady)
+
+For reproducibility artifacts, raw JSON logs, and rendered academic papers, see [`output/report/`](output/report/).

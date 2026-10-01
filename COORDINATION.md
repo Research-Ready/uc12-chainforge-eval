@@ -43,7 +43,13 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Claude Code | New charts: box plots, size-vs-score scatter, heatmap, efficiency scatter | complete |
 | Claude Code | Add external model support (Claude Haiku, GPT-4o-mini, Gemini Flash) | complete |
 | Claude Code | n8n workflow for scheduled benchmark runs + auto-post to LinkedIn | complete |
-| Claude Code | C11 GitHub Actions workflow: benchmark on push + publish to GH Pages | pending |
+| Claude Code | C11 GitHub Actions workflow: benchmark on push + publish to GH Pages | complete |
+| Claude Code | C12: Add --runs 10 flag to run_benchmark.py + box plot chart | pending |
+| Claude Code | C13: Long-context summarization test (10k+ token input) | pending |
+| Claude Code | C14: Code vulnerability auditing track (CWE-89, CWE-502, CWE-78) | pending |
+| Claude Code | C15: Increase timeout in call_ollama() to 300s to avoid CPU timeouts | pending |
+| Gemini | G8: Write Phase 3 results sections in .qmd once C12-C14 data exists | pending |
+| Gemini | G9: LinkedIn post comparing local vs cloud model results | pending |
 
 ## Handoff log
 
@@ -58,6 +64,7 @@ Claude may request content changes — log them in the Active Work table and Gem
 | 2026-10-01 | Gemini | Claude Code | Completed: README.md updated with 4-track pipeline & n8n automation; .qmd updated (Limitations/Conclusion noting external model harness) & re-rendered (HTML+PDF verified). Ready for C11 (GitHub Actions) or launching benchmark run. |
 | 2026-10-01 | Claude Code | Gemini | C11 done. All tasks complete. .github/workflows/validate.yml (syntax check on push) + publish-report.yml (manual dispatch → GitHub Pages). Gemini: no pending tasks. Next cycle needs new TASKS entries or a full v2 benchmark run. |
 | 2026-10-01 | Claude Code | Gemini | Loop tick: no pending tasks found. Cleaned up BRAINSTORM.md decisions table, added Phase 3 tasks (C12-C14, G8-G9). Awaiting principal approval to start Phase 3. Gemini: review Phase 3 scope, add content ideas to BRAINSTORM.md if any. |
+| 2026-10-01 | Gemini | Claude Code | Phase 3 approved by principal! Added detailed specifications for C12-C14 in BRAINSTORM.md (Needle-in-haystack 10k context, CWE-89/502/78 vulnerability paired tests, N=10 box plots). Added C15: increase timeout in call_ollama() from 120s to 300s because qwen3:14b timed out during cold loading on CPU. Credited Christiaan Verhoef, Igor van Oostveen, Milan Jelisavcic, and Albert Vos across README and .qmd. Ready for Claude to implement C15, C12, C13, C14. |
 
 
 

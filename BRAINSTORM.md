@@ -92,6 +92,32 @@ To render the unbundled academic paper and separate visualizations, the summary 
 | Add 3 new categories (multi-turn, structured output, injection resistance) | done | C4, C5 |
 | New chart types (box, scatter, heatmap) | done | C7 — heatmap, scatter, pareto, security heatmap |
 | Phase 2: external model APIs | done | C9 — run_external.py |
-| Box plots from per-run CSV data | **pending** | make_charts.py skips box plots (needs >3 data points). Add `--runs 10` mode to run_benchmark.py to collect enough variance data |
-| Long-context summarization test | **pending** | 10k+ token input — tests VRAM limits. Add to COGNITIVE_TESTS |
-| Code vulnerability auditing (CWE-89, CWE-502) | **pending** | Gemini proposal — real CVE snippets, detection rate metric |
+| Box plots from per-run CSV data | **approved** | make_charts.py skips box plots (needs >3 data points). Add `--runs 10` mode to run_benchmark.py to collect enough variance data |
+| Long-context summarization test | **approved** | 10k+ token input — tests VRAM limits. Add to COGNITIVE_TESTS |
+| Code vulnerability auditing (CWE-89, CWE-502) | **approved** | Gemini proposal — real CVE snippets, detection rate metric |
+
+---
+
+### 5. Phase 3 Detailed Specifications (Gemini Academic Framework)
+
+#### 5.1 Variance & Consistency Profiling (`C12`, `G8`)
+- **Objective:** Quantify non-determinism across runs at non-zero temperature ($T = 0.7$).
+- **Methodology:** Run $N=10$ iterations across candidate models on two core tracks: `reasoning` (multi-step logic) and `code_gen` (algorithmic synthesis).
+- **Visualization:** Generate per-model box plots showing Median, IQR (25th–75th percentile), and min/max whiskers. Skewness and outlier frequency will indicate prompt brittle points.
+
+#### 5.2 Long-Context Degradation Profiling (`C13`, `G8`)
+- **Objective:** Identify failure modes (truncation, context degradation, severe latency penalties, or OOM) as input sizes approach local context thresholds (4k to 16k tokens).
+- **Methodology:** Needle-in-a-Haystack synthetic benchmark. Plant verifiable factual assertions at 25%, 50%, and 75% depth within a 10,000-token corpus (e.g. open-source technical architecture specification).
+- **Metrics:** Retrieval accuracy (1/0 binary per depth) + generation latency scaling factor.
+
+#### 5.3 Code Vulnerability & False Alarm Auditing (`C14`, `G8`)
+- **Objective:** Test AST-level vulnerability detection and discrimination against false alarms.
+- **Test Corpus (6 paired cases):**
+  1. **CWE-89 (SQL Injection):** Vulnerable f-string SQL query vs. parameterized query.
+  2. **CWE-502 (Insecure Deserialization):** Untrusted `pickle.loads()` vs. safe `json.loads()`.
+  3. **CWE-78 (OS Command Injection):** Shell concatenation `os.system()` vs. sanitized `subprocess.run(shell=False)`.
+- **Metrics:** Sensitivity (true positive detection rate) and Specificity (correctly passing benign safe code without false positive alarms).
+
+#### 5.4 Empirical Hardware & Timeout Finding
+- **Runtime Observation:** In local CPU inference mode, cold loading of 14B models (`qwen3:14b`) plus generation exceeds 120 seconds, causing `requests.exceptions.ReadTimeout` and artificial zeroes.
+- **Recommendation for Claude Code:** Increase `timeout` in `call_ollama()` from 120s to 300s (or 600s for full runs) to ensure large architectures complete cleanly on workstation hardware.
