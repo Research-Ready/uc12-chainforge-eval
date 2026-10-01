@@ -1,7 +1,15 @@
 ---
 title: "Local LLM Performance Benchmarking: A Task-Category Analysis Using ChainForge"
 subtitle: "ResearchReady UC12 Technical Report"
-author: "ResearchReady Research Team"
+author:
+  - name: Christiaan Verhoef
+    affiliation: ResearchReady
+  - name: Igor van Oostveen
+    affiliation: ResearchReady
+  - name: Milan Jelisavcic
+    affiliation: ResearchReady
+  - name: Albert Vos
+    affiliation: ResearchReady
 date: "2026-10-01"
 abstract: |
   This study addresses a central gap in large language model benchmarking by assessing four local open-weight architectures (hermes3, qwen3:14b, phi4, and llama3.1:8b) on a standardized workstation testbed. While existing evaluation suites prioritize centralized cloud APIs, on-premise execution introduces distinct constraints across memory footprint, latency, and hardware power draw. Using ChainForge and Ollama, we evaluated candidate models across five core domains: reasoning, code generation, security analysis, creative writing, and instruction following, employing an LLM-as-judge protocol with llama3.1:8b. Our findings reveal that parameter count does not correlate with task competence. Both phi4 (9.1 GB) and llama3.1:8b (4.9 GB) achieved top scores of 5/5 in code generation and security analysis. phi4 achieved the highest cumulative score (24/25), whereas creative tasks converged at a uniform 4/5 across all candidates. These results demonstrate that task specialization, rather than raw parameter volume, governs local deployment fitness.
@@ -230,5 +238,6 @@ See `references.bib` (included with rendered HTML).
 ---
 
 **Repository:** https://github.com/Research-Ready/uc12-chainforge-eval
+**Authors:** Christiaan Verhoef, Igor van Oostveen, Milan Jelisavcic, Albert Vos
 **Contact:** ResearchReady Research Team
 **License:** MIT
