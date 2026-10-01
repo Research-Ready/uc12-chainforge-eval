@@ -15,7 +15,7 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 - [x] `C6` Add negative constraint adherence tests
 - [x] `C7` New charts: heatmap, size-vs-score scatter, pareto scatter, security heatmap
 - [x] `C8` Build `make_academic_report.py`: load v2 JSON → run charts → render .qmd
-- [~] `C9` External model support: Claude Haiku, GPT-4o-mini, Gemini Flash
+- [x] `C9` External model support: Claude Haiku, GPT-4o-mini, Gemini Flash
 
 ## Phase 1 — Report & Content (Gemini)
 

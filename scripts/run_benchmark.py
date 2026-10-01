@@ -317,6 +317,12 @@ def judge(task_desc: str, expected: str, response: str) -> tuple[int, str]:
             raw = raw.split("```")[1].strip()
             if raw.startswith("json"):
                 raw = raw[4:].strip()
+        # Extract first {...} block in case model prepends preamble text
+        if raw and raw[0] != "{":
+            start = raw.find("{")
+            end   = raw.rfind("}") + 1
+            if start != -1 and end > start:
+                raw = raw[start:end]
         data = json.loads(raw)
         return int(data["score"]), data.get("reason", "")
     except Exception as e:
