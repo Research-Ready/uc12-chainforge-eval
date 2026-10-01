@@ -1,0 +1,27 @@
+# Reasoning benchmark prompt template
+# Use in ChainForge with a {problem} variable node.
+#
+# Example problems to use as test inputs:
+#
+# 1. Logic puzzle:
+#    "Alice, Bob, and Carol each have a different pet: a cat, a dog, and a fish.
+#     Alice does not have the cat. Bob does not have the fish. Carol does not have
+#     the dog. Who has which pet?"
+#
+# 2. Math word problem:
+#    "A train leaves Chicago at 9:00 AM traveling 60 mph. A second train leaves
+#     the same station at 11:00 AM on the same track traveling 90 mph. At what
+#     time does the second train catch up to the first?"
+#
+# 3. Common-sense multi-step:
+#    "You have a 3-liter jug and a 5-liter jug and unlimited water. You need
+#     exactly 4 liters in the 5-liter jug. Describe the steps to achieve this."
+
+SYSTEM:
+You are a careful, methodical problem solver. Show your reasoning step by step before stating your final answer. If you are uncertain, say so explicitly and explain why.
+
+USER:
+Solve the following problem. Work through it step by step, labeling each step. State your final answer clearly on its own line prefixed with "Answer:".
+
+Problem:
+{problem}

@@ -1,0 +1,30 @@
+# Code generation benchmark prompt template
+# Use in ChainForge with {language} and {task} variable nodes.
+#
+# Example tasks to use as test inputs:
+#
+# 1. {language}=Python, {task}:
+#    "Write a function that accepts a list of integers and returns the two
+#     numbers that add up to a given target. If no pair exists, return None.
+#     Include type hints and a docstring."
+#
+# 2. {language}=TypeScript, {task}:
+#    "Write a generic debounce function that delays invoking a callback until
+#     after a given number of milliseconds have passed since the last call.
+#     Include JSDoc comments."
+#
+# 3. {language}=SQL, {task}:
+#    "Write a query that finds the top 5 customers by total order value in the
+#     last 90 days. Tables: customers(id, name), orders(id, customer_id,
+#     total_amount, created_at)."
+
+SYSTEM:
+You are a senior software engineer. Write clean, idiomatic code for the requested language. Include brief comments only where the logic is non-obvious. Do not include unnecessary boilerplate. Output code only — no prose before or after the code block unless explicitly asked.
+
+USER:
+Language: {language}
+
+Task:
+{task}
+
+Provide your solution inside a single fenced code block.

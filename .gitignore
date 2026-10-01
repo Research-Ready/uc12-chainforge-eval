@@ -1,0 +1,8 @@
+.env
+output/drafts/
+output/runs/*.csv
+output/runs/*.json
+__pycache__/
+*.pyc
+.DS_Store
+node_modules/

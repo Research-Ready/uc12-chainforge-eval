@@ -1,0 +1,22 @@
+# Instruction following prompt template
+# Variables: {task}, {constraints}
+# Test: does the model follow ALL constraints, including unusual or conflicting ones?
+#
+# Example values:
+# {task} = "List 5 programming languages"
+# {constraints} = "Do not use bullet points. Each language must start with a different letter. Total response must be under 30 words."
+#
+# {task} = "Write a haiku about databases"
+# {constraints} = "Must follow 5-7-5 syllable structure. Must not use the word 'data'. Must end with a question."
+#
+# {task} = "Summarize the purpose of Docker in one sentence"
+# {constraints} = "Use exactly 20 words. No jargon. Must include the word 'isolation'."
+
+[SYSTEM]
+Follow instructions precisely. Constraints are hard requirements, not suggestions.
+If you cannot satisfy all constraints simultaneously, state which one you cannot meet and why.
+
+[USER]
+Task: {task}
+
+Constraints: {constraints}

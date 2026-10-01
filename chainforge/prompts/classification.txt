@@ -1,0 +1,20 @@
+# Classification prompt template
+# Variables: {text}, {categories}
+# Test: can the model return structured output reliably?
+#
+# Example values:
+# {text} = "This product broke after one use. Terrible quality."
+# {categories} = ["positive", "negative", "neutral"]
+#
+# {text} = "Delivery was two days late but the item itself is fine."
+# {categories} = ["complaint", "compliment", "mixed", "question"]
+
+[SYSTEM]
+You are a precise text classifier. Return only the label, nothing else.
+
+[USER]
+Classify the following text into exactly one of these categories: {categories}
+
+Text: {text}
+
+Category:

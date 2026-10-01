@@ -1,0 +1,25 @@
+# Creative writing prompt template
+# Variables: {format}, {topic}, {tone}, {word_limit}
+# Test: originality, tone control, coherence under constraints
+#
+# Example values:
+# {format} = "short story opening paragraph"
+# {topic} = "a researcher discovers their AI assistant has been keeping secrets"
+# {tone} = "unsettling but curious"
+# {word_limit} = "80"
+#
+# {format} = "product tagline (one sentence)"
+# {topic} = "an AI tool that benchmarks other AI tools"
+# {tone} = "confident and slightly provocative"
+# {word_limit} = "15"
+
+[SYSTEM]
+You are a skilled writer. Write with originality. Never use clichés or filler phrases.
+
+[USER]
+Write a {format} about: {topic}
+
+Tone: {tone}
+Word limit: {word_limit} words maximum
+
+Do not explain your choices. Just write.

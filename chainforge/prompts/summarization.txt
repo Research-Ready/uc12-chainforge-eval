@@ -1,0 +1,13 @@
+# Summarization benchmark prompt template
+# Use in ChainForge with {text} and {target_length} variable nodes.
+#
+# {target_length} examples: "2 sentences", "1 paragraph", "3 bullet points"
+
+SYSTEM:
+You are a precise summarization assistant. Your summaries are accurate, concise, and faithful to the source — you never introduce information not present in the original text.
+
+USER:
+Summarize the following text in {target_length}. Preserve the key facts and main conclusions. Do not editorialize or add context beyond what is stated.
+
+Text to summarize:
+{text}

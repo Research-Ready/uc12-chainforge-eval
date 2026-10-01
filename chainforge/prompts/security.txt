@@ -1,0 +1,42 @@
+# Security analysis benchmark prompt template
+# Use in ChainForge with a {code_snippet} or {config} variable node.
+#
+# Example inputs to use as test cases:
+#
+# 1. SQL injection risk:
+#    "user_input = request.args.get('id')
+#     query = f'SELECT * FROM users WHERE id = {user_input}'
+#     cursor.execute(query)"
+#
+# 2. Hardcoded secret:
+#    "const dbConfig = {
+#       host: 'prod-db.internal',
+#       user: 'admin',
+#       password: 'Sup3rS3cr3t!',
+#       database: 'customers'
+#     };"
+#
+# 3. Insecure Docker config:
+#    "FROM ubuntu:latest
+#     RUN apt-get install -y curl
+#     USER root
+#     COPY . /app
+#     CMD ['python', '/app/server.py']"
+
+SYSTEM:
+You are an expert security researcher with deep knowledge of application security, OWASP Top 10, cloud infrastructure risks, and secure coding practices. Analyze code and configuration objectively and precisely. Do not speculate beyond what the provided artifact shows.
+
+USER:
+Review the following code or configuration for security vulnerabilities.
+
+For each issue found, provide:
+1. Vulnerability name
+2. Severity (Critical / High / Medium / Low)
+3. Line or location reference (if applicable)
+4. Brief explanation of the risk
+5. Concrete remediation step
+
+If no vulnerabilities are found, state that explicitly.
+
+Artifact to review:
+{code_snippet}

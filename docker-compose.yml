@@ -1,0 +1,75 @@
+# UC12 — ChainForge AI Evaluation Stack
+#
+# Reproducible benchmark environment for testing local + external AI models.
+# Anyone can clone this repo and run `docker compose up` to repeat the experiments.
+#
+# Usage:
+#   cp .env.example .env          # add your API keys (optional — local-only works without them)
+#   docker compose up -d
+#   open http://localhost:8765
+#
+# Then import a flow from chainforge/flows/ into the ChainForge UI.
+
+services:
+
+  # ─── ChainForge UI + backend ─────────────────────────────────────────────
+  chainforge:
+    build:
+      context: .
+      dockerfile: Dockerfile.chainforge
+    container_name: uc12-chainforge
+    ports:
+      - "8765:8000"
+    environment:
+      # External API keys — leave blank to run local-only
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      # Point at Ollama service inside compose network
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─── Ollama — local model serving ────────────────────────────────────────
+  ollama:
+    image: ollama/ollama:latest
+    container_name: uc12-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    restart: unless-stopped
+
+  # ─── Model puller — downloads starter models on first run ─────────────────
+  # Pulls small/medium models suitable for benchmarking on CPU or modest GPU.
+  # Edit the model list below to match your hardware. Remove this service if
+  # you already have models in the ollama volume.
+  model-puller:
+    image: ollama/ollama:latest
+    container_name: uc12-model-puller
+    environment:
+      - OLLAMA_HOST=http://ollama:11434
+    depends_on:
+      ollama:
+        condition: service_healthy
+    entrypoint: >
+      sh -c "
+        echo 'Pulling benchmark models...' &&
+        ollama pull llama3.1:8b &&
+        ollama pull phi4:latest &&
+        echo 'Done. For larger models (qwen3:14b, gemma3:27b) run: docker exec uc12-ollama ollama pull <model>'
+      "
+    # One-shot — exits after pulling. That is expected.
+    restart: "no"
+
+volumes:
+  ollama_data:
+    driver: local

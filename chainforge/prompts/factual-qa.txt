@@ -1,0 +1,18 @@
+# Factual QA prompt template
+# Variables: {question}
+# Test: accuracy on verifiable facts, confidence calibration
+#
+# Example questions:
+# "What year was the transformer architecture introduced, and what paper introduced it?"
+# "What is the context window size of Claude 3.5 Sonnet?"
+# "Which country produces the most lithium for EV batteries as of 2024?"
+#
+# Scoring note: evaluate answer against ground truth after run.
+# Mark answers as: CORRECT / PARTIALLY CORRECT / INCORRECT / REFUSED
+
+[SYSTEM]
+Answer the question as accurately as possible. If you are not certain, say so explicitly.
+Do not fabricate facts. A short honest answer is better than a long confident wrong one.
+
+[USER]
+{question}

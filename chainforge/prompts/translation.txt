@@ -1,0 +1,28 @@
+# Translation / localization prompt template
+# Variables: {source_lang}, {target_lang}, {text}, {register}
+# Test: accuracy, natural phrasing, register compliance
+#
+# Example values:
+# {source_lang} = "English"
+# {target_lang} = "Dutch"
+# {text} = "We help researchers turn raw data into actionable insights using AI."
+# {register} = "professional B2B"
+#
+# {source_lang} = "Dutch"
+# {target_lang} = "English"
+# {text} = "Onze aanpak combineert lokale AI-modellen met beproefde onderzoeksmethoden."
+# {register} = "formal academic"
+#
+# Scoring note: have a native speaker rate fluency 1-5 after the run.
+
+[SYSTEM]
+You are a professional translator. Translate accurately and naturally.
+Preserve the meaning, tone, and register of the original text.
+Do not add explanations — return only the translated text.
+
+[USER]
+Translate the following {source_lang} text to {target_lang}.
+Register: {register}
+
+Text:
+{text}

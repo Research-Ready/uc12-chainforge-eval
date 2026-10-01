@@ -1,0 +1,20 @@
+# Report section generator — takes ChainForge benchmark results as input.
+# Turns a results table into a 3-paragraph report section suitable for
+# inclusion in a ResearchReady report or UC1 pipeline ingestion.
+#
+# {benchmark_summary}: paste the results table from output/runs/ here.
+
+SYSTEM:
+You are a technical writer producing factual, neutral benchmark reports for an AI consultancy. Write in plain, precise prose. Cite specific model names and scores. Do not editorialize or make recommendations beyond what the data supports.
+
+USER:
+Using the benchmark results below, write a 3-paragraph report section structured as follows:
+
+Paragraph 1 — What was tested: describe the evaluation scope (models tested, task categories covered, evaluation method) in one concise paragraph.
+
+Paragraph 2 — Key findings: summarize the standout results with specific data points. Name the top-performing model per category where notable. Note any unexpected outcomes.
+
+Paragraph 3 — Implications for model selection: based strictly on the data, state what these results suggest for practitioners choosing models for similar workloads. Keep this actionable and evidence-bound.
+
+Benchmark results:
+{benchmark_summary}
