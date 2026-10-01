@@ -2259,7 +2259,7 @@ vertical-align: -.125em;
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
   <li><a href="#appendix" id="toc-appendix" class="nav-link" data-scroll-target="#appendix">Appendix</a>
   <ul>
-  <li><a href="#full-raw-scores-all-runs" id="toc-full-raw-scores-all-runs" class="nav-link" data-scroll-target="#full-raw-scores-all-runs">Full Raw Scores (All Runs)</a></li>
+  <li><a href="#full-raw-scores-all-cases-and-trials" id="toc-full-raw-scores-all-cases-and-trials" class="nav-link" data-scroll-target="#full-raw-scores-all-cases-and-trials">Full Raw Scores (All Cases and Trials)</a></li>
   <li><a href="#reproducibility-statement" id="toc-reproducibility-statement" class="nav-link" data-scroll-target="#reproducibility-statement">Reproducibility Statement</a></li>
   <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul></li>
@@ -2528,24 +2528,184 @@ vertical-align: -.125em;
 </section>
 <section id="appendix" class="level2">
 <h2 class="anchored" data-anchor-id="appendix">Appendix</h2>
-<section id="full-raw-scores-all-runs" class="level3">
-<h3 class="anchored" data-anchor-id="full-raw-scores-all-runs">Full Raw Scores (All Runs)</h3>
-<p>All individual run scores, prior to median aggregation:</p>
-<table class="caption-top">
+<section id="full-raw-scores-all-cases-and-trials" class="level3">
+<h3 class="anchored" data-anchor-id="full-raw-scores-all-cases-and-trials">Full Raw Scores (All Cases and Trials)</h3>
+<p>The individual task scores prior to median aggregation are recorded below across all four evaluated architectures:</p>
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Category</th>
 <th>Model</th>
-<th>Run 1</th>
-<th>Run 2</th>
-<th>Run 3</th>
+<th>Case 1</th>
+<th>Case 2</th>
+<th>Case 3</th>
 <th>Median</th>
 </tr>
 </thead>
 <tbody>
+<tr class="odd">
+<td>Reasoning</td>
+<td>hermes3</td>
+<td>4</td>
+<td>2</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Reasoning</td>
+<td>qwen3:14b</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Reasoning</td>
+<td>phi4</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Reasoning</td>
+<td>llama3.1:8b</td>
+<td>4</td>
+<td>5</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Code Gen</td>
+<td>hermes3</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Code Gen</td>
+<td>qwen3:14b</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Code Gen</td>
+<td>phi4</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Code Gen</td>
+<td>llama3.1:8b</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Security</td>
+<td>hermes3</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Security</td>
+<td>qwen3:14b</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Security</td>
+<td>phi4</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Security</td>
+<td>llama3.1:8b</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>Creative</td>
+<td>hermes3</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Creative</td>
+<td>qwen3:14b</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Creative</td>
+<td>phi4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Creative</td>
+<td>llama3.1:8b</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Instruction</td>
+<td>hermes3</td>
+<td>5</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>Instruction</td>
+<td>qwen3:14b</td>
+<td>5</td>
+<td>4</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>Instruction</td>
+<td>phi4</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Instruction</td>
+<td>llama3.1:8b</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+<td>4</td>
+</tr>
 </tbody>
 </table>
-<p>Raw scoring data (all runs, individual scores) is available in <code>output/runs/{date}-run-1.csv</code>.</p>
+<p>Complete prompt strings and judge evaluation rationales are archived in <code>output/runs/2026-10-01-run-1.csv</code>.</p>
 </section>
 <section id="reproducibility-statement" class="level3">
 <h3 class="anchored" data-anchor-id="reproducibility-statement">Reproducibility Statement</h3>

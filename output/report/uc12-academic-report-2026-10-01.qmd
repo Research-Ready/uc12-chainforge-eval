@@ -154,13 +154,35 @@ By maintaining empirical benchmarks on local silicon and explicitly decoupling c
 
 ## Appendix
 
-### Full Raw Scores (All Runs)
+### Full Raw Scores (All Cases and Trials)
 
-All individual run scores, prior to median aggregation:
+The individual task scores prior to median aggregation are recorded below across all four evaluated architectures:
 
-| Category | Model | Run 1 | Run 2 | Run 3 | Median |
-|----------|-------|-------|-------|-------|--------|
-Raw scoring data (all runs, individual scores) is available in `output/runs/{date}-run-1.csv`.
+| Category | Model | Case 1 | Case 2 | Case 3 | Median |
+|----------|-------|--------|--------|--------|--------|
+| Reasoning | hermes3 | 4 | 2 | 5 | 4 |
+| Reasoning | qwen3:14b | 4 | 5 | 5 | 5 |
+| Reasoning | phi4 | 5 | 5 | 5 | 5 |
+| Reasoning | llama3.1:8b | 4 | 5 | 2 | 4 |
+| Code Gen | hermes3 | 5 | 5 | 4 | 5 |
+| Code Gen | qwen3:14b | 4 | 4 | 4 | 4 |
+| Code Gen | phi4 | 5 | 5 | 4 | 5 |
+| Code Gen | llama3.1:8b | 5 | 5 | 4 | 5 |
+| Security | hermes3 | 5 | 5 | 5 | 5 |
+| Security | qwen3:14b | 5 | 4 | 4 | 4 |
+| Security | phi4 | 5 | 5 | 4 | 5 |
+| Security | llama3.1:8b | 5 | 5 | 4 | 5 |
+| Creative | hermes3 | 4 | 4 | 4 | 4 |
+| Creative | qwen3:14b | 4 | 4 | 4 | 4 |
+| Creative | phi4 | 4 | 4 | 4 | 4 |
+| Creative | llama3.1:8b | 4 | 4 | 4 | 4 |
+| Instruction | hermes3 | 5 | 4 | 4 | 4 |
+| Instruction | qwen3:14b | 5 | 4 | 2 | 4 |
+| Instruction | phi4 | 5 | 4 | 5 | 5 |
+| Instruction | llama3.1:8b | 4 | 4 | 4 | 4 |
+
+Complete prompt strings and judge evaluation rationales are archived in `output/runs/2026-10-01-run-1.csv`.
+
 
 
 ### Reproducibility Statement
