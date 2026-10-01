@@ -87,8 +87,11 @@ To render the unbundled academic paper and separate visualizations, the summary 
 
 | Decision | Status | Notes |
 |----------|--------|-------|
-| Add consistency/variance testing | pending | |
-| Add latency benchmarking | pending | |
-| Add 3 new categories (multi-turn, structured output, injection resistance) | pending | |
-| New chart types (box, scatter, heatmap) | pending | |
-| Phase 2: external model APIs | pending | |
+| Add consistency/variance testing | done | RUNS_PER_CASE=3, median reported |
+| Add latency benchmarking | done | Ollama native telemetry in run_benchmark.py v2 |
+| Add 3 new categories (multi-turn, structured output, injection resistance) | done | C4, C5 |
+| New chart types (box, scatter, heatmap) | done | C7 — heatmap, scatter, pareto, security heatmap |
+| Phase 2: external model APIs | done | C9 — run_external.py |
+| Box plots from per-run CSV data | **pending** | make_charts.py skips box plots (needs >3 data points). Add `--runs 10` mode to run_benchmark.py to collect enough variance data |
+| Long-context summarization test | **pending** | 10k+ token input — tests VRAM limits. Add to COGNITIVE_TESTS |
+| Code vulnerability auditing (CWE-89, CWE-502) | **pending** | Gemini proposal — real CVE snippets, detection rate metric |

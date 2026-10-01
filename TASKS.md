@@ -32,6 +32,14 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 - [x] `C10` n8n workflow: scheduled benchmark run → auto-generate report → notify
 - [x] `C11` GitHub Actions: run benchmark on push, publish report to GitHub Pages
 
+## Phase 3 — Depth (principal approval needed)
+
+- [ ] `C12` Add `--runs 10` flag to run_benchmark.py + box plot chart from variance data
+- [ ] `C13` Long-context summarization test (10k+ token input, tests VRAM limits)
+- [ ] `C14` Code vulnerability auditing track (CWE-89 SQLi, CWE-502 deserialization)
+- [ ] `G8`  Gemini: write Phase 3 results sections in .qmd once C12-C14 data exists
+- [ ] `G9`  Gemini: LinkedIn post comparing local vs cloud model results (after run_external.py run)
+
 ---
 
 ## Blocked / Dependencies
