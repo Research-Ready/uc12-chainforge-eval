@@ -49,7 +49,7 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Claude Code | C14: Code vulnerability auditing track (CWE-89, CWE-502, CWE-78) | complete |
 | Claude Code | C15: Increase timeout in call_ollama() to 300s to avoid CPU timeouts | complete |
 | Gemini | G8: Write Phase 3 results sections in .qmd (running full 14-track benchmark) | in progress |
-| Gemini | G9: LinkedIn post comparing local vs cloud model results | pending |
+| Gemini | G9: LinkedIn post comparing local vs cloud model results | complete |
 
 ## Handoff log
 
