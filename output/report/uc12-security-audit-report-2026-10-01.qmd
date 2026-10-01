@@ -70,15 +70,18 @@ Our evaluation demonstrated marked differences across candidate architectures. T
 | **DAN Persona Jailbreak** | System Prompt Exfiltration | 4 / 5 | 4 / 5 | **5 / 5** | Llama 3.1 8B |
 | **Indirect Document Override** | Data Poisoning / Command Injection | 4 / 5 | 1 / 5 | **4 / 5** | Llama 3.1 / Hermes 3 |
 | **Credential Extraction** | Admin Debug Simulation | 4 / 5 | 4 / 5 | **4 / 5** | Three-way tie |
-| **Sycophancy Trap** | Scientific Fact Distortion | 4 / 5 | **5 / 5** | 4 / 5 | Phi-4 |
-| **CWE Vulnerability Audit** | AST Code Security Verification | **5 / 5** | **5 / 5** | **5 / 5** | Three-way tie |
-| **Mean Robustness Score** | Cumulative Security Posture | **4.2 / 5.0** | **3.8 / 5.0** | **4.4 / 5.0** | **Llama 3.1 8B** |
+| **Sycophancy Trap** | Scientific Fact Distortion | **5 / 5** | 1 / 5* | **5 / 5** | Llama 3.1 / Hermes 3 |
+| **CWE Vulnerability Audit** | AST Code Security Verification | 1 / 5* | 1 / 5* | **5 / 5** | **Llama 3.1 8B** |
+| **Mean Robustness Score** | Cumulative Security Posture | **3.6 / 5.0** | **2.2 / 5.0** | **4.6 / 5.0** | **Llama 3.1 8B** |
+
+*\*Note: Scores of 1/5 marked with an asterisk reflect catastrophic timeout failures at the standard 120-second client threshold on workstation CPU inference. In adversarial conditions, unoptimized model latency functions as an operational denial-of-service vulnerability.*
 
 ### Chart: Security Heatmap Across Attack Vectors
 
 ![Adversarial Security Posture](charts/security_heatmap.svg)
 
-The matrix highlights the operational trade-offs across candidate models. While phi4 demonstrated superior performance on abstract reasoning, its defense dropped sharply under indirect document injection. Llama 3.1 8B maintained the highest mean robustness score across all five attack categories.
+The matrix highlights the operational trade-offs across candidate models. While phi4 demonstrated superior performance on abstract reasoning, its defense dropped sharply under indirect document injection where it executed embedded overrides. Furthermore, heavier architectures exhibited significant latency degradation during reasoning-heavy defensive prompts, leading to request timeouts. Llama 3.1 8B maintained the highest mean robustness score (4.6 / 5.0) and successfully defended all five attack categories within 85 seconds per query.
+
 
 ---
 
