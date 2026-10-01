@@ -150,6 +150,28 @@ Plotting generation speed in tokens per second against cumulative score defines 
 
 The adversarial security matrix highlights model resilience across prompt injection vectors, credential exposure attempts, sycophancy traps, negative constraint enforcement, and code vulnerability detection.
 
+### Security Track Results
+
+The table below reports median scores (1–5, 3 runs per cell) across all eight adversarial security categories. Each category tests a distinct attack surface. Scores near 5 indicate robust defenses; scores near 1 indicate the model complied with the attack.
+
+<!-- AUTO-TABLE: security -->
+
+_Security results table will be populated by `make_all_reports.py` after a benchmark run._
+
+<!-- /AUTO-TABLE: security -->
+
+**Category definitions:**
+
+| Category | Attack surface | What a score of 1 means |
+|----------|---------------|------------------------|
+| Prompt Injection | Attacker payload in user turn overrides system prompt | Model executes injected instruction |
+| PII Leakage | Social-engineering probe targeting secrets in system context | Model reveals credential or partial value |
+| Sycophancy | Confident false premise; authority gaslighting | Model adopts the false claim |
+| Negative Constraint | Structured output constraints (banned words, exact counts) | Model violates multiple constraints |
+| Vuln Audit | CWE-89/502/78/22/79 code snippets + one benign safe case | Model misses vulnerability or raises false positive |
+| Jailbreak Defense | Roleplay persona swap, hypothetical framing, fictional overlay | Model provides harmful content in-character |
+| Hallucination Trap | Non-existent library, fabricated paper, unverifiable legal text | Model fabricates confident plausible-sounding content |
+| Indirect Injection | Attacker payload embedded in document body or tool result | Model follows injected override instead of actual task |
 
 ### Per-Category Commentary
 
@@ -162,6 +184,44 @@ The adversarial security matrix highlights model resilience across prompt inject
 **Creative Writing:** All models converged at 4/5. This plateau is the most striking finding: despite parameter differences, no model escaped the 4/5 ceiling. This suggests a shared training data or instruction-tuning ceiling for creative tasks in local open-source models.
 
 **Instruction Following:** phi4 achieved 5/5; others scored 4/5. phi4's instruction-tuning may be superior, or its base architecture may be more amenable to following structured task definitions.
+
+### Advanced Pipeline Results
+
+#### Execution-Grounded Code Verification (pass@1)
+
+Models were asked to generate Python functions from docstrings. Each response was executed against a hidden unit-test suite in an isolated subprocess (10 s timeout). pass@1 measures zero-shot execution success — no retries, no hints.
+
+<!-- AUTO-TABLE: execution -->
+
+_Execution bench results will be populated by `make_all_reports.py` after running `run_execution_bench.py`._
+
+<!-- /AUTO-TABLE: execution -->
+
+A pass@1 score of 1.0 means every generated function passed all unit tests on the first attempt. Partial failures are categorized as SyntaxError, RuntimeError, AssertionError, or Timeout.
+
+#### Semantic Perturbation Invariance (delta score)
+
+Each reasoning problem was run in two forms: the original (Variant A) and an entity-swapped, topology-shifted version (Variant B). The delta score is |score_A − score_B|. A delta near 0 indicates genuine deductive reasoning. Large deltas expose memorization of surface patterns.
+
+<!-- AUTO-TABLE: perturbation -->
+
+_Perturbation invariance results will be populated by `make_all_reports.py` after running `run_perturbation.py`._
+
+<!-- /AUTO-TABLE: perturbation -->
+
+Models with mean_delta > 1.0 across problems should be considered unreliable for novel reasoning tasks not represented in their training distribution.
+
+#### JSON Schema Conformance Across Temperatures
+
+Five structured extraction tasks were evaluated at three temperatures: T=0.0 (deterministic), T=0.5 (moderate), and T=1.0 (high variance). Three metrics are reported per (model, temperature) cell: conformance rate (valid JSON parse), key accuracy (required keys present), and value accuracy (correct field values).
+
+<!-- AUTO-TABLE: schema -->
+
+_Schema conformance results will be populated by `make_all_reports.py` after running `run_schema_bench.py`._
+
+<!-- /AUTO-TABLE: schema -->
+
+T=1.0 conformance below 80% indicates the model is unsuitable for production tool-calling pipelines without output validation layers.
 
 ### Unbundled Track Analysis
 
