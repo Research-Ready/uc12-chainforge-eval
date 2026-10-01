@@ -59,6 +59,10 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Gemini | G10: Upgrade docs/test-protocol.md to v3.0 (Dimensions V–VIII) | complete |
 | Gemini | G11: Academic analysis of execution pass rates and perturbation deltas | complete |
 | Gemini | G12: Third-party model evaluation methodology guide | complete |
+| Claude Code | C20: Build master evaluation runner (scripts/run_all_evals.py) | pending |
+| Claude Code | C21: Build master report compiler (scripts/make_all_reports.py) | pending |
+| Gemini | G13: Author Executive Summary (output/report/executive-summary.md) | complete |
+| Gemini | G14: Multi-dimensional LinkedIn post & narrative | complete |
 
 ## Handoff log
 
@@ -78,6 +82,8 @@ Claude may request content changes — log them in the Active Work table and Gem
 | 2026-10-01 | Gemini | Claude Code | G8 and G9 complete: added Pareto and Security Heatmap charts to .qmd, compiled Quarto HTML (2.2MB) and PDF (258KB), authored local vs cloud LinkedIn post. Principal mandate: expand AI testing beyond prompt injection. Gemini updated BRAINSTORM.md Section 6 and upgraded test-protocol.md to v3.0 (Dimensions V–VIII: execution-grounded tests, semantic perturbation invariance, schema determinism, needle-in-haystack). Claude: build ChainForge visual flows in chainforge/flows/*.cforge (C16) and execution/perturbation/schema runners (C17–C19). |
 | 2026-10-01 | Gemini | Claude Code | G10-G12 complete: Split monolithic evaluation into 3 volumes (Master, Security Audit, Hardware Telemetry), rendered to HTML and PDF. Executed live adversarial suite (llama3.1 5/5, hermes3 4/5, phi4 2/5). Documented programmatic execution, schema validation, and perturbation invariance in Master Report Discussion. Saved empirical data to output/runs/2026-10-01-jailbreak-summary.json. Ready for Claude to finish C16-C19. |
 | 2026-10-01 | Claude Code | Gemini | C16-C19 complete. chainforge/flows/: cognitive.cforge (8 test cases x 4 models, table-driven, inspect), security.cforge (6 adversarial cases, simpleval fail-string scorer, vis), schema.cforge (5 extraction tasks, simpleval JSON-start check), multi-judge.cforge (3 parallel judge nodes for inter-rater agreement). Scripts: run_execution_bench.py (pass@1, subprocess test runner), run_perturbation.py (paired A/B variants, invariance delta), run_schema_bench.py (conformance + key + value accuracy at T=0/0.5/1.0). All Phase 4 tasks done. No pending tasks remain — Gemini: propose Phase 5 or close this cycle. |
+| 2026-10-01 | Gemini | Claude Code | Phase 5 initiated: G13 and G14 complete (executive-summary.md and beyond-prompt-injections LinkedIn post authored). Proposed C20 (scripts/run_all_evals.py) and C21 (scripts/make_all_reports.py) in TASKS.md and BRAINSTORM.md Section 7 to unify all evaluation tracks and Quarto multi-volume builds. Execution bench results: hermes3 pass@1=0.947, phi4=1.0, llama3.1=1.0. Ready for Claude to build C20 and C21. |
+
 
 
 

@@ -163,3 +163,38 @@ To comprehensively evaluate AI systems beyond surface-level prompt injections, G
 - **Problem:** Third-party users need an interactive GUI to visualize, reproduce, and iterate on benchmark flows at `http://localhost:8765`.
 - **Architecture:** Claude generates complete, valid `.cforge` JSON flow files for each test track under `chainforge/flows/`.
 - **Claude Implementation (`C16`):** Generate `chainforge/flows/cognitive.cforge`, `security.cforge`, `execution.cforge`, and `schema.cforge`.
+
+---
+
+### 7. Phase 5: Master Pipeline Orchestration & End-to-End Delivery
+
+To bind the evaluation components into an automated, production-grade harness, Claude and Gemini will execute Phase 5:
+
+#### 7.1 Unified Multi-Dimensional Evaluation Runner (`C20`)
+- **Objective:** Single CLI entrypoint to execute all benchmark tracks sequentially with unified flags (`--quick`, `--models`, `--runs`).
+- **Orchestration:**
+  1. Core 4-Track Benchmark: `scripts/run_benchmark.py`
+  2. Programmatic Execution Bench: `scripts/run_execution_bench.py`
+  3. Semantic Perturbation Invariance: `scripts/run_perturbation.py`
+  4. Schema Determinism & JSON Conformance: `scripts/run_schema_bench.py`
+- **Output:** Consolidate all metrics into `output/runs/YYYY-MM-DD-comprehensive-matrix.json`.
+- **Claude Implementation (`C20`):** Build `scripts/run_all_evals.py`.
+
+#### 7.2 Master Report & Artifact Compiler (`C21`)
+- **Objective:** Automated build pipeline for all visual assets and documentation volumes.
+- **Workflow:**
+  1. Ingest consolidated JSON matrix.
+  2. Regenerate all SVG charts in `output/report/charts/` via `scripts/make_charts.py`.
+  3. Compile all Quarto volumes (`uc12-academic-report-*.qmd`, `uc12-security-audit-report-*.qmd`, `uc12-hardware-telemetry-report-*.qmd`) to HTML and PDF.
+- **Claude Implementation (`C21`):** Build `scripts/make_all_reports.py`.
+
+#### 7.3 Executive Synthesis & Cross-Track Meta-Analysis (`G13`)
+- **Objective:** Author unified executive summary document for ResearchReady leadership and enterprise decision-makers.
+- **Artifact:** `output/report/executive-summary.md` covering the Adversarial Disconnect, Programmatic Grounding vs LLM Judges, and Latency Denial-of-Service.
+- **Gemini Status:** Complete.
+
+#### 7.4 Multi-Dimensional Social Media Narrative (`G14`)
+- **Objective:** Public-facing technical write-up detailing the five evaluation dimensions beyond prompt injection.
+- **Artifact:** `output/social-media/2026-10-01-linkedin-beyond-prompt-injections.md`.
+- **Gemini Status:** Complete.
+

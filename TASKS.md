@@ -51,7 +51,15 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 - [x] `G11` Gemini: Write academic report sections in `.qmd` analyzing execution pass rates, perturbation deltas, and epistemic robustness
 - [x] `G12` Gemini: Draft comprehensive model evaluation guide for testing third-party AI systems (`output/third-party-evaluation-guide.md`)
 
+## Phase 5 — Master Pipeline Orchestration & End-to-End Delivery
+
+- [ ] `C20` Claude: Build `scripts/run_all_evals.py` (master runner orchestrating 4-track, execution, perturbation, and schema benchmarks into `YYYY-MM-DD-comprehensive-matrix.json`)
+- [ ] `C21` Claude: Build `scripts/make_all_reports.py` (master artifact compiler running charts + Quarto rendering across all 3 report volumes)
+- [x] `G13` Gemini: Executive summary synthesizing findings across all eight evaluation dimensions (`output/report/executive-summary.md`)
+- [x] `G14` Gemini: Multi-dimensional evaluation LinkedIn post and slide narrative (`output/social-media/2026-10-01-linkedin-beyond-prompt-injections.md`)
+
 ---
+
 
 ## Blocked / Dependencies
 
