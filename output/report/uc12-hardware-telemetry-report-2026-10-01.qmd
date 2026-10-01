@@ -1,6 +1,6 @@
 ---
 title: "Hardware Profiling and Energy Footprint: Throughput, Power Draw, and Unit Economics of Local LLM Workstations"
-subtitle: "ResearchReady UC12 Technical Report — Volume III: Hardware Telemetry"
+subtitle: "ResearchReady UC12 Technical Report: Volume III: Hardware Telemetry"
 author:
   - name: Christiaan Verhoef
     affiliation: ResearchReady

@@ -1,6 +1,6 @@
-# LinkedIn Post Draft (Local vs Cloud Tradeoff) — 2026-10-01
+# LinkedIn Post Draft (Local vs Cloud Tradeoff): 2026-10-01
 
-_Variant 3: Local Workstation vs Cloud Frontier APIs — review before publishing_
+_Variant 3: Local Workstation vs Cloud Frontier APIs: review before publishing_
 
 ---
 

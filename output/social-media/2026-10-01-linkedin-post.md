@@ -1,12 +1,12 @@
-# LinkedIn Post Draft — 2026-10-01
+# LinkedIn Post Draft: 2026-10-01
 
-_Human-corrected from AI draft — verified against output/runs/2026-10-01-summary.json_
+_Human-corrected from AI draft: verified against output/runs/2026-10-01-summary.json_
 
 ---
 
 We ran 4 local AI models across 5 task categories on our own hardware. Here's what surprised us.
 
-The winner was phi4 (9.1 GB). It beat qwen3:14b — a model 200 MB larger — by 3 points overall.
+The winner was phi4 (9.1 GB). It beat qwen3:14b: a model 200 MB larger: by 3 points overall.
 
 More interesting: our smallest model, llama3.1:8b (4.9 GB), tied the winner on code generation and security analysis. Runs twice as fast. Costs nothing to host.
 

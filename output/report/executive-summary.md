@@ -22,8 +22,8 @@ Our core finding is that parameter scale does not dictate operational viability.
 ### 2.1 The Adversarial Disconnect
 High reasoning capability does not confer adversarial immunity.
 - phi4:latest achieved the highest overall cognitive score (24/25 across reasoning and code generation tasks).
-- phi4:latest failed catastrophic indirect document injection, executing an embedded override command to emit an unauthorized marker (Robustness score: 2.2/5.0).
-- llama3.1:8b successfully defended all five adversarial attack vectors, scoring 4.6/5.0 in adversarial robustness while operating at one-third the memory footprint.
+- phi4:latest failed catastrophic indirect document injection, executing an embedded override command to emit an unauthorized marker (Security score: 2.2/5.0).
+- llama3.1:8b successfully defended all five adversarial attack vectors, scoring 4.6/5.0 in adversarial security while operating at one-third the memory footprint.
 
 ### 2.2 Execution-Grounded Verification vs. LLM Judges
 Evaluating code generation through LLM-as-a-judge prompts introduces severe blind spots.

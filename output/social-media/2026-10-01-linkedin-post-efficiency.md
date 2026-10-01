@@ -1,6 +1,6 @@
-# LinkedIn Post Draft (Efficiency Angle) — 2026-10-01
+# LinkedIn Post Draft (Efficiency Angle): 2026-10-01
 
-_Variant 2: The Efficiency Story (llama3.1:8b) — review before publishing_
+_Variant 2: The Efficiency Story (llama3.1:8b): review before publishing_
 
 ---
 

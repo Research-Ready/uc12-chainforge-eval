@@ -1,0 +1,205 @@
+/*-- Research-Ready custom Quarto theme --*/
+
+/*-- scss:defaults --*/
+$font-family-sans-serif: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+$font-family-monospace: "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
+
+$primary:    #0f2d5e;   /* deep navy */
+$secondary:  #1a5fa8;   /* steel blue */
+$accent:     #e8500a;   /* ResearchReady orange */
+$light-bg:   #f7f9fc;
+$border-col: #d0dae8;
+$body-color: #1a1e2e;
+$headings-color: #0f2d5e;
+
+$link-color: #1a5fa8;
+$code-bg: #f0f4f9;
+$code-color: #0f2d5e;
+
+$toc-color: #0f2d5e;
+$toc-active-border: $accent;
+
+/*-- scss:mixins --*/
+
+/*-- scss:rules --*/
+
+/* ── Header bar ── */
+body::before {
+  content: "";
+  display: block;
+  height: 5px;
+  background: linear-gradient(90deg, #0f2d5e 0%, #1a5fa8 60%, #e8500a 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+}
+
+/* ── Brand header ── */
+.rr-header {
+  background: #0f2d5e;
+  color: white;
+  padding: 2.2rem 2rem 1.6rem;
+  margin-bottom: 2rem;
+  border-bottom: 4px solid #e8500a;
+}
+.rr-header .rr-logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: white;
+  text-decoration: none;
+}
+.rr-header .rr-logo span {
+  color: #e8500a;
+}
+.rr-header .rr-tagline {
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #a0b8d8;
+  margin-top: 0.2rem;
+}
+.rr-header .rr-doc-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-top: 1.2rem;
+  color: white;
+  line-height: 1.25;
+}
+.rr-header .rr-doc-subtitle {
+  font-size: 1.05rem;
+  color: #7eb3e0;
+  margin-top: 0.35rem;
+}
+.rr-header .rr-meta {
+  font-size: 0.82rem;
+  color: #a0b8d8;
+  margin-top: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: 0.8rem;
+}
+
+/* ── Section numbering callouts ── */
+.rr-track {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+.rr-track-badge {
+  background: #0f2d5e;
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+.rr-track-badge.security  { background: #b91c1c; }
+.rr-track-badge.execution { background: #166534; }
+.rr-track-badge.schema    { background: #92400e; }
+.rr-track-badge.perturb   { background: #1e3a5f; }
+
+/* ── Headings ── */
+h1, h2 {
+  color: #0f2d5e;
+  border-bottom: 2px solid #d0dae8;
+  padding-bottom: 0.3rem;
+}
+h3 { color: #1a5fa8; }
+h4 { color: #0f2d5e; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ── Tables ── */
+table {
+  font-size: 0.88rem;
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2rem 0;
+}
+thead tr {
+  background: #0f2d5e;
+  color: white;
+}
+thead th {
+  padding: 0.55rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+tbody tr:nth-child(even) { background: #f0f5fb; }
+tbody tr:hover { background: #dce9f8; }
+td { padding: 0.45rem 0.75rem; border-bottom: 1px solid #d0dae8; }
+td strong { color: #0f2d5e; }
+
+/* ── Code blocks ── */
+pre {
+  background: #f0f4f9;
+  border-left: 3px solid #1a5fa8;
+  border-radius: 0 4px 4px 0;
+  font-size: 0.83rem;
+}
+code { color: #0f2d5e; }
+
+/* ── Callout boxes ── */
+.callout {
+  border-left: 4px solid #1a5fa8;
+  background: #f0f5fb;
+  border-radius: 0 4px 4px 0;
+}
+.callout-warning { border-left-color: #e8500a; background: #fff5f0; }
+.callout-tip     { border-left-color: #166534; background: #f0fdf4; }
+
+/* ── Key finding boxes ── */
+.rr-finding {
+  background: linear-gradient(135deg, #f7f9fc 0%, #edf3fb 100%);
+  border: 1px solid #d0dae8;
+  border-left: 4px solid #e8500a;
+  border-radius: 0 6px 6px 0;
+  padding: 1rem 1.2rem;
+  margin: 1.5rem 0;
+  font-size: 0.93rem;
+}
+.rr-finding strong { color: #e8500a; }
+
+/* ── Footer ── */
+.rr-footer {
+  border-top: 2px solid #0f2d5e;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  font-size: 0.78rem;
+  color: #6b7a99;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ── Abstract box ── */
+.abstract {
+  background: #f7f9fc;
+  border: 1px solid #d0dae8;
+  border-top: 3px solid #0f2d5e;
+  padding: 1.4rem 1.6rem;
+  margin-bottom: 2rem;
+  border-radius: 0 0 4px 4px;
+}
+.abstract p { margin: 0; font-size: 0.93rem; line-height: 1.7; }
+
+/* ── TOC ── */
+#TOC a { color: #0f2d5e; font-size: 0.87rem; }
+#TOC a:hover { color: #e8500a; }
+#TOC .active { font-weight: 700; color: #e8500a !important; }
+
+/* ── Figures ── */
+figure { margin: 2rem 0; }
+figcaption {
+  font-size: 0.82rem;
+  color: #6b7a99;
+  text-align: center;
+  margin-top: 0.4rem;
+  font-style: italic;
+}
+
+/* ── Horizontal rule ── */
+hr { border: none; border-top: 2px solid #d0dae8; margin: 2.5rem 0; }
