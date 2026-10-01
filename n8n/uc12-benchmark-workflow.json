@@ -1,0 +1,172 @@
+{
+  "name": "UC12 Benchmark Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{ "field": "weeks", "weeksInterval": 1, "triggerAtDay": [0], "triggerAtHour": 2 }]
+        }
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000001",
+      "name": "Weekly Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "uc12-run",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000002",
+      "name": "Webhook Trigger (manual)",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [240, 460],
+      "webhookId": "uc12-benchmark-trigger"
+    },
+    {
+      "parameters": {
+        "command": "cd /home/chris/Nextcloud/Github/uc12-chainforge-eval && python3 scripts/run_benchmark.py 2>&1"
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000003",
+      "name": "Run Benchmark",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [480, 380]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.stdout }}",
+              "operation": "contains",
+              "value2": "JSON:"
+            }
+          ]
+        }
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000004",
+      "name": "Benchmark OK?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [720, 380]
+    },
+    {
+      "parameters": {
+        "command": "cd /home/chris/Nextcloud/Github/uc12-chainforge-eval && python3 scripts/make_academic_report.py 2>&1"
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000005",
+      "name": "Generate Report",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [960, 300]
+    },
+    {
+      "parameters": {
+        "command": "cd /home/chris/Nextcloud/Github/uc12-chainforge-eval && python3 scripts/generate_report.py 2>&1"
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000006",
+      "name": "Generate LinkedIn Post",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [960, 420]
+    },
+    {
+      "parameters": {
+        "command": "cd /home/chris/Nextcloud/Github/uc12-chainforge-eval && git add output/social-media/ output/report/ COORDINATION.md TASKS.md && git commit -m 'auto: benchmark run $(date +%Y-%m-%d)' 2>&1 || echo 'nothing to commit'"
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000007",
+      "name": "Git Commit Results",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [1200, 360]
+    },
+    {
+      "parameters": {
+        "jsCode": "const stdout = $('Run Benchmark').item.json.stdout || '';\nconst lines = stdout.split('\\n');\nconst winner = lines.find(l => l.includes('Winner:')) || 'Winner: unknown';\nconst json_line = lines.find(l => l.includes('JSON:')) || '';\n\nreturn [{ json: {\n  summary: winner.trim(),\n  json_path: json_line.replace('JSON:', '').trim(),\n  benchmark_stdout: stdout.slice(-500),\n  timestamp: new Date().toISOString()\n}}];"
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000008",
+      "name": "Extract Summary",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [1440, 360]
+    },
+    {
+      "parameters": {
+        "url": "={{ $env.WEBHOOK_NOTIFY_URL }}",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [{ "name": "Content-Type", "value": "application/json" }]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            { "name": "text", "value": "=UC12 Benchmark complete — {{ $json.summary }}. Report at output/report/." },
+            { "name": "timestamp", "value": "={{ $json.timestamp }}" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000009",
+      "name": "Notify (Webhook)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [1680, 300],
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{ json: {\n  error: 'Benchmark failed',\n  stdout: $input.item.json.stdout,\n  stderr: $input.item.json.stderr,\n  timestamp: new Date().toISOString()\n}}];"
+      },
+      "id": "a1b2c3d4-0001-0001-0001-000000000010",
+      "name": "Log Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [960, 520]
+    }
+  ],
+  "connections": {
+    "Weekly Schedule": {
+      "main": [[{ "node": "Run Benchmark", "type": "main", "index": 0 }]]
+    },
+    "Webhook Trigger (manual)": {
+      "main": [[{ "node": "Run Benchmark", "type": "main", "index": 0 }]]
+    },
+    "Run Benchmark": {
+      "main": [[{ "node": "Benchmark OK?", "type": "main", "index": 0 }]]
+    },
+    "Benchmark OK?": {
+      "main": [
+        [
+          { "node": "Generate Report",       "type": "main", "index": 0 },
+          { "node": "Generate LinkedIn Post", "type": "main", "index": 0 }
+        ],
+        [{ "node": "Log Failure", "type": "main", "index": 0 }]
+      ]
+    },
+    "Generate Report": {
+      "main": [[{ "node": "Git Commit Results", "type": "main", "index": 0 }]]
+    },
+    "Generate LinkedIn Post": {
+      "main": [[{ "node": "Git Commit Results", "type": "main", "index": 0 }]]
+    },
+    "Git Commit Results": {
+      "main": [[{ "node": "Extract Summary", "type": "main", "index": 0 }]]
+    },
+    "Extract Summary": {
+      "main": [[{ "node": "Notify (Webhook)", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "saveManualExecutions": true,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "meta": { "templateCredsSetupCompleted": true },
+  "pinData": {}
+}

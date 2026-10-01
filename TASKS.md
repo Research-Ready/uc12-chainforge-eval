@@ -29,7 +29,7 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 
 ## Phase 2 — Automation (Claude Code, after Phase 1)
 
-- [ ] `C10` n8n workflow: scheduled benchmark run → auto-generate report → notify
+- [x] `C10` n8n workflow: scheduled benchmark run → auto-generate report → notify
 - [ ] `C11` GitHub Actions: run benchmark on push, publish report to GitHub Pages
 
 ---
