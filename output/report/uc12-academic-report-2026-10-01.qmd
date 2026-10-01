@@ -91,6 +91,8 @@ The use of median scores reduces the impact of outliers caused by temperature-ba
 
 ### Performance Table
 
+<!-- AUTO-TABLE: cognitive -->
+
 | Category | hermes3 | qwen3 | phi4 | llama3.1 |
 |----------|------|------|------|------|
 | Reasoning | 4 | **5** | **5** | 4 |
@@ -99,6 +101,8 @@ The use of median scores reduces the impact of outliers caused by temperature-ba
 | Creative | **4** | **4** | **4** | **4** |
 | Instruction | 4 | 4 | **5** | 4 |
 | **Total** | 22 | 21 | **24** | 22 |
+
+<!-- /AUTO-TABLE: cognitive -->
 
 *Bold indicates category winner. Scores are medians of three runs per model per category, rated 1–5 by llama3.1:8b.*
 
@@ -113,6 +117,19 @@ The grouped bar chart visualizes performance across categories. Clear patterns e
 ![Overall Model Profile (Radar)](charts/radar_chart.svg)
 
 The radar chart shows each model's overall profile. phi4 exhibits the most balanced polygon (consistent strength across categories). Smaller models (hermes3, llama3.1) show more pronounced peaks and valleys, indicating category-specific strengths.
+
+### Chart 3: Performance Heatmap
+
+![Performance Heatmap](charts/heatmap.svg)
+
+The matrix heatmap provides immediate visual density of cross-category proficiency, highlighting the uniform 4/5 performance across models on creative tasks alongside divergent results on technical categories.
+
+### Chart 4: Parameter Size vs. Task Performance
+
+![Model Size vs. Total Cognitive Score](charts/scatter_size_score.svg)
+
+Testing H1 directly, this scatter distribution contrasts on-disk parameter volume in gigabytes against aggregate benchmark scoring. Smaller models achieve scores rivaling architectures twice their footprint.
+
 
 ### Per-Category Commentary
 
