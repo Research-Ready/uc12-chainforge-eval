@@ -99,6 +99,9 @@ To render the unbundled academic paper and separate visualizations, the summary 
 | Execution-grounded code bench (pass@1) | done | C17 — run_execution_bench.py, subprocess test runner |
 | Semantic perturbation invariance | done | C18 — run_perturbation.py, paired A/B variants, delta metric |
 | JSON schema conformance across temperatures | done | C19 — run_schema_bench.py, T=0/0.5/1.0, 3 accuracy metrics |
+| Master evaluation runner (all tracks unified) | done | C20 — run_all_benchmarks.py, --quick/--skip-external, combined JSON |
+| Master report compiler (all 3 volumes) | done | C21 — make_all_reports.py, charts + flows patch + Quarto render |
+| ChainForge flow describer / report embed | done | C23 — describe_flows.py, --patch into <!-- AUTO-SECTION: chainforge-flows --> |
 
 ---
 
