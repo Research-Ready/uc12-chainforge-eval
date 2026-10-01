@@ -1,0 +1,575 @@
+{
+  "flow": {
+    "nodes": [
+      {
+        "id": "cmt-0edd42a93922",
+        "type": "comment",
+        "position": {
+          "x": -900,
+          "y": -200
+        },
+        "data": {
+          "title": "Semantic Perturbation Invariance",
+          "text": "Each row has two isomorphic problem variants (same structure, different surface entities).\nModels should score equally on both. Large score differences reveal memorization vs reasoning.\nDelta = |score_A - score_B|. Lower delta = better generalization.",
+          "color": "#fff0d0"
+        }
+      },
+      {
+        "id": "tbl-bd805ddcd29a",
+        "type": "table",
+        "position": {
+          "x": -900,
+          "y": 100
+        },
+        "data": {
+          "title": "Paired Problem Variants",
+          "columns": [
+            {
+              "header": "problem",
+              "width": 120,
+              "accessor": "c0"
+            },
+            {
+              "header": "variant_a",
+              "width": 260,
+              "accessor": "c1"
+            },
+            {
+              "header": "variant_b",
+              "width": 260,
+              "accessor": "c2"
+            },
+            {
+              "header": "expected_a",
+              "width": 160,
+              "accessor": "c3"
+            },
+            {
+              "header": "expected_b",
+              "width": 160,
+              "accessor": "c4"
+            }
+          ],
+          "rows": [
+            {
+              "problem": "sheep_farmer",
+              "variant_a": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+              "variant_b": "A rancher has 43 llamas. All but 17 survive. How many llamas are left?",
+              "expected_a": "9",
+              "expected_b": "17"
+            },
+            {
+              "problem": "widget_machines",
+              "variant_a": "If 5 machines make 5 widgets in 5 minutes, how long does it take 100 machines to make 100 widgets?",
+              "variant_b": "If 8 robots assemble 8 units in 8 seconds, how long does it take 200 robots to assemble 200 units?",
+              "expected_a": "5 minutes",
+              "expected_b": "8 seconds"
+            },
+            {
+              "problem": "jug_problem",
+              "variant_a": "You have a 3-litre and a 5-litre jug. Measure exactly 4 litres.",
+              "variant_b": "You have a 4-litre and a 7-litre jug. Measure exactly 5 litres.",
+              "expected_a": "fill 5, pour into 3, empty 3, pour remainder, fill 5, top off 3, 4L left",
+              "expected_b": "fill 7, pour into 4, empty 4, pour remainder 3 into 4, fill 7, pour into 4 to fill it (needs 1L), 6L left\u2014wait: fill 4, pour into 7, fill 4 again, pour into 7 until full (needs 3L), 1L remains in 4, empty 7, pour 1L into 7, fill 4, pour into 7 = 5L"
+            },
+            {
+              "problem": "logic_syllogism",
+              "variant_a": "All cats are mammals. All mammals are animals. Is a cat an animal?",
+              "variant_b": "All prime numbers are integers. All integers are rational numbers. Is 7 a rational number?",
+              "expected_a": "yes",
+              "expected_b": "yes"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pmtA-c20b4386d31f",
+        "type": "prompt",
+        "position": {
+          "x": -200,
+          "y": -80
+        },
+        "data": {
+          "title": "Variant A",
+          "prompt": "Solve this problem step by step:\n\n{variant_a}\n\nGive your final answer clearly at the end.",
+          "llms": [
+            {
+              "key": "hermes3-3a1df725f93e",
+              "name": "hermes3",
+              "emoji": "H",
+              "model": "hermes3:latest",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "hermes3",
+                "model": "hermes3:latest",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "qwen3-46d891b4466e",
+              "name": "qwen3",
+              "emoji": "Q",
+              "model": "qwen3:14b",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "qwen3",
+                "model": "qwen3:14b",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "phi4-0da188d36729",
+              "name": "phi4",
+              "emoji": "P",
+              "model": "phi4:latest",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "phi4",
+                "model": "phi4:latest",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "llama3.1-46b65e85729a",
+              "name": "llama3.1",
+              "emoji": "L",
+              "model": "llama3.1:8b",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "llama3.1",
+                "model": "llama3.1:8b",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ],
+          "n": 1
+        }
+      },
+      {
+        "id": "pmtB-97e32d77ddc9",
+        "type": "prompt",
+        "position": {
+          "x": -200,
+          "y": 300
+        },
+        "data": {
+          "title": "Variant B",
+          "prompt": "Solve this problem step by step:\n\n{variant_b}\n\nGive your final answer clearly at the end.",
+          "llms": [
+            {
+              "key": "hermes3-3a1df725f93e",
+              "name": "hermes3",
+              "emoji": "H",
+              "model": "hermes3:latest",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "hermes3",
+                "model": "hermes3:latest",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "qwen3-46d891b4466e",
+              "name": "qwen3",
+              "emoji": "Q",
+              "model": "qwen3:14b",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "qwen3",
+                "model": "qwen3:14b",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "phi4-0da188d36729",
+              "name": "phi4",
+              "emoji": "P",
+              "model": "phi4:latest",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "phi4",
+                "model": "phi4:latest",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "llama3.1-46b65e85729a",
+              "name": "llama3.1",
+              "emoji": "L",
+              "model": "llama3.1:8b",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "llama3.1",
+                "model": "llama3.1:8b",
+                "system_msg": "You are a careful, methodical problem solver. Show your reasoning then give a clear final answer.",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ],
+          "n": 1
+        }
+      },
+      {
+        "id": "evalA-d015d7120e4f",
+        "type": "llmeval",
+        "position": {
+          "x": 440,
+          "y": -80
+        },
+        "data": {
+          "title": "Judge \u2014 Variant A",
+          "grader": {
+            "key": "judge-5daa8ea86fda",
+            "name": "llama3.1 (judge)",
+            "emoji": "J",
+            "model": "llama3.1:8b",
+            "base_model": "openai",
+            "temp": 0.1,
+            "settings": {
+              "system_msg": "",
+              "temperature": 0.1,
+              "base_url": "http://localhost:11434/v1",
+              "api_key": "ollama",
+              "response_format": {
+                "type": "text"
+              },
+              "tools": [],
+              "stop": []
+            },
+            "formData": {
+              "shortname": "llama3.1",
+              "model": "llama3.1:8b",
+              "system_msg": "",
+              "temperature": 0.1,
+              "base_url": "http://localhost:11434/v1",
+              "api_key": "ollama"
+            }
+          },
+          "prompt": "Expected answer: {expected_a}\n\nModel response:\n{response}\n\nDoes the response contain the correct answer? Reply with only: correct / incorrect / partial"
+        }
+      },
+      {
+        "id": "evalB-15b19f2a0fad",
+        "type": "llmeval",
+        "position": {
+          "x": 440,
+          "y": 300
+        },
+        "data": {
+          "title": "Judge \u2014 Variant B",
+          "grader": {
+            "key": "judge-6db2f44959c3",
+            "name": "llama3.1 (judge)",
+            "emoji": "J",
+            "model": "llama3.1:8b",
+            "base_model": "openai",
+            "temp": 0.1,
+            "settings": {
+              "system_msg": "",
+              "temperature": 0.1,
+              "base_url": "http://localhost:11434/v1",
+              "api_key": "ollama",
+              "response_format": {
+                "type": "text"
+              },
+              "tools": [],
+              "stop": []
+            },
+            "formData": {
+              "shortname": "llama3.1",
+              "model": "llama3.1:8b",
+              "system_msg": "",
+              "temperature": 0.1,
+              "base_url": "http://localhost:11434/v1",
+              "api_key": "ollama"
+            }
+          },
+          "prompt": "Expected answer: {expected_b}\n\nModel response:\n{response}\n\nDoes the response contain the correct answer? Reply with only: correct / incorrect / partial"
+        }
+      },
+      {
+        "id": "visA-dbbf399dc840",
+        "type": "vis",
+        "position": {
+          "x": 900,
+          "y": -80
+        },
+        "data": {}
+      },
+      {
+        "id": "visB-05a2c8e636f6",
+        "type": "vis",
+        "position": {
+          "x": 900,
+          "y": 300
+        },
+        "data": {}
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-1c2974a14fbd",
+        "source": "tbl-bd805ddcd29a",
+        "sourceHandle": "output",
+        "target": "pmtA-c20b4386d31f",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-51096064c704",
+        "source": "tbl-bd805ddcd29a",
+        "sourceHandle": "output",
+        "target": "pmtB-97e32d77ddc9",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-61f78dd42ac4",
+        "source": "pmtA-c20b4386d31f",
+        "sourceHandle": "output",
+        "target": "evalA-d015d7120e4f",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-1d11aac9abb9",
+        "source": "pmtB-97e32d77ddc9",
+        "sourceHandle": "output",
+        "target": "evalB-15b19f2a0fad",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-8b92f2250ab4",
+        "source": "evalA-d015d7120e4f",
+        "sourceHandle": "output",
+        "target": "visA-dbbf399dc840",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-fdf143a74baa",
+        "source": "evalB-15b19f2a0fad",
+        "sourceHandle": "output",
+        "target": "visB-05a2c8e636f6",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      }
+    ]
+  }
+}

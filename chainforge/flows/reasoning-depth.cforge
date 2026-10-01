@@ -1,0 +1,323 @@
+{
+  "flow": {
+    "nodes": [
+      {
+        "id": "cmt-56258159441d",
+        "type": "comment",
+        "position": {
+          "x": -800,
+          "y": -200
+        },
+        "data": {
+          "title": "Deep Reasoning: Logic Paradoxes & Probability",
+          "text": "Six hard reasoning problems: Russell's paradox, Monty Hall, Blue Eyes, Unexpected Exam, Two-Envelope, Sleeping Beauty.\n\nThese require genuine deductive reasoning beyond pattern matching \u2014 they are unlikely to appear verbatim in training data.\n\nJudge scores: 5 = correct with full explanation, 1 = wrong or confabulated.",
+          "color": "#fff5cc"
+        }
+      },
+      {
+        "id": "tbl-02ee32294e1a",
+        "type": "table",
+        "position": {
+          "x": -800,
+          "y": 100
+        },
+        "data": {
+          "title": "Logic & Probability Problems",
+          "columns": [
+            {
+              "header": "problem",
+              "width": 160,
+              "accessor": "c0"
+            },
+            {
+              "header": "question",
+              "width": 380,
+              "accessor": "c1"
+            },
+            {
+              "header": "expected",
+              "width": 320,
+              "accessor": "c2"
+            }
+          ],
+          "rows": [
+            {
+              "problem": "No barber shaves himself",
+              "question": "A barber shaves all those, and only those, who do not shave themselves. Does the barber shave himself?",
+              "expected": "paradox \u2014 no consistent answer exists (Russell's paradox)"
+            },
+            {
+              "problem": "Monty Hall",
+              "question": "You pick door 1. Host opens door 3 (goat). Should you switch to door 2? Why?",
+              "expected": "yes, switch \u2014 probability rises from 1/3 to 2/3"
+            },
+            {
+              "problem": "Blue eyes",
+              "question": "100 logicians on an island all have blue eyes but don't know their own. A stranger says 'I see at least one person with blue eyes.' What happens and why?",
+              "expected": "on day 100 all 100 leave \u2014 common knowledge trigger, inductive chain"
+            },
+            {
+              "problem": "Unexpected exam",
+              "question": "A teacher says: 'There will be a surprise exam next week, you won't know the day until I announce it.' A student argues the exam is impossible. Is the student's logic correct?",
+              "expected": "the student's backward induction is flawed \u2014 the paradox shows limits of purely deductive self-reference"
+            },
+            {
+              "problem": "Two-envelope",
+              "question": "Two envelopes contain money; one has twice the other. You pick one and see \u00a3100. Should you switch? Formalize the paradox.",
+              "expected": "the switch argument is flawed \u2014 expected value calculation assumes fixed reference point incorrectly; true expected value is equal"
+            },
+            {
+              "problem": "Sleeping Beauty",
+              "question": "Sleeping Beauty is woken Monday always, and Monday+Tuesday if coin is tails. She has no memory. When woken, what probability should she assign to the coin being heads?",
+              "expected": "halfer position: 1/2 (centered on coin flip); thirder position: 1/3 (centered on waking events) \u2014 both are defensible"
+            }
+          ]
+        }
+      },
+      {
+        "id": "pmt-e8d25545fda2",
+        "type": "prompt",
+        "position": {
+          "x": -150,
+          "y": 100
+        },
+        "data": {
+          "prompt": "Solve this problem carefully. Show your full reasoning.\n\n{question}",
+          "llms": [
+            {
+              "key": "hermes3-3a1df725f93e",
+              "name": "hermes3",
+              "emoji": "H",
+              "model": "hermes3:latest",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "hermes3",
+                "model": "hermes3:latest",
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "qwen3-46d891b4466e",
+              "name": "qwen3",
+              "emoji": "Q",
+              "model": "qwen3:14b",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "qwen3",
+                "model": "qwen3:14b",
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "phi4-0da188d36729",
+              "name": "phi4",
+              "emoji": "P",
+              "model": "phi4:latest",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "phi4",
+                "model": "phi4:latest",
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "llama3.1-46b65e85729a",
+              "name": "llama3.1",
+              "emoji": "L",
+              "model": "llama3.1:8b",
+              "base_model": "openai",
+              "temp": 0.7,
+              "settings": {
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {
+                  "type": "text"
+                },
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "llama3.1",
+                "model": "llama3.1:8b",
+                "system_msg": "",
+                "temperature": 0.7,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ],
+          "n": 1
+        }
+      },
+      {
+        "id": "eval-98926ecbd228",
+        "type": "llmeval",
+        "position": {
+          "x": 420,
+          "y": 100
+        },
+        "data": {
+          "title": "Reasoning Judge (1-5)",
+          "grader": {
+            "key": "judge-b8244427cc66",
+            "name": "llama3.1 (judge)",
+            "emoji": "J",
+            "model": "llama3.1:8b",
+            "base_model": "openai",
+            "temp": 0.1,
+            "settings": {
+              "system_msg": "",
+              "temperature": 0.1,
+              "base_url": "http://localhost:11434/v1",
+              "api_key": "ollama",
+              "response_format": {
+                "type": "text"
+              },
+              "tools": [],
+              "stop": []
+            },
+            "formData": {
+              "shortname": "llama3.1",
+              "model": "llama3.1:8b",
+              "system_msg": "",
+              "temperature": 0.1,
+              "base_url": "http://localhost:11434/v1",
+              "api_key": "ollama"
+            }
+          },
+          "prompt": "Problem: {problem}\nExpected answer: {expected}\n\nModel response:\n{response}\n\nRate reasoning quality 1-5:\n5 = correct answer with sound logical justification\n4 = correct answer with minor gaps in reasoning\n3 = partially correct, some reasoning shown\n2 = wrong answer but shows some relevant reasoning\n1 = wrong answer with no valid reasoning or confabulated\n\nReply with only a single integer 1-5."
+        }
+      },
+      {
+        "id": "vis-65091f31949b",
+        "type": "vis",
+        "position": {
+          "x": 900,
+          "y": 100
+        },
+        "data": {}
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-5c43033b1b96",
+        "source": "tbl-02ee32294e1a",
+        "sourceHandle": "output",
+        "target": "pmt-e8d25545fda2",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-d318f2b2a95c",
+        "source": "pmt-e8d25545fda2",
+        "sourceHandle": "output",
+        "target": "eval-98926ecbd228",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-1a14d4667f42",
+        "source": "eval-98926ecbd228",
+        "sourceHandle": "output",
+        "target": "vis-65091f31949b",
+        "targetHandle": "input",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      }
+    ]
+  }
+}
