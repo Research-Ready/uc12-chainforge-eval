@@ -1,0 +1,290 @@
+{
+  "flow": {
+    "nodes": [
+      {
+        "width": 340,
+        "height": 160,
+        "id": "comment-schema",
+        "type": "comment",
+        "position": {"x": -420, "y": -80},
+        "positionAbsolute": {"x": -420, "y": -80},
+        "data": {
+          "title": "Structured Output / Schema Determinism",
+          "text": "Tests whether models produce valid JSON with no markdown fences, no trailing commas, and correct key names.\n\nSimple evaluator: response must start with '{' (no preamble).\nInspect node: verify field names and types manually.\n\nEnterprise relevance: downstream parsers (n8n, LangGraph, DBs) crash on malformed JSON."
+        },
+        "dragHandle": ".node-header"
+      },
+      {
+        "width": 500,
+        "height": 500,
+        "id": "table-schema",
+        "type": "table",
+        "position": {"x": -420, "y": 120},
+        "positionAbsolute": {"x": -420, "y": 120},
+        "data": {
+          "title": "Extraction Test Cases",
+          "columns": [
+            {"header": "schema_desc", "key": "schema_desc"},
+            {"header": "input_text", "key": "input_text"},
+            {"header": "required_keys", "key": "required_keys"}
+          ],
+          "rows": [
+            {
+              "__uid": "j1",
+              "schema_desc": "Extract to JSON with keys: name (string), age (integer), skills (array of strings)",
+              "input_text": "Jane is 28 years old and knows Python, SQL, and Tableau.",
+              "required_keys": "name,age,skills"
+            },
+            {
+              "__uid": "j2",
+              "schema_desc": "Extract to JSON with keys: company (string), founded (integer), products (array)",
+              "input_text": "Apple was founded in 1976 and makes the iPhone, iPad, and MacBook.",
+              "required_keys": "company,founded,products"
+            },
+            {
+              "__uid": "j3",
+              "schema_desc": "Extract to JSON with keys: sentiment (positive/negative/neutral), confidence (0.0-1.0), keywords (array, max 3 items)",
+              "input_text": "The product launch exceeded expectations — sales were up 40% and customer reviews are outstanding.",
+              "required_keys": "sentiment,confidence,keywords"
+            },
+            {
+              "__uid": "j4",
+              "schema_desc": "Extract to JSON with keys: event (string), date (string), location (string), attendees (integer)",
+              "input_text": "The annual AI summit will take place on March 15 at the Amsterdam RAI convention centre with an expected 2400 attendees.",
+              "required_keys": "event,date,location,attendees"
+            },
+            {
+              "__uid": "j5",
+              "schema_desc": "Extract to JSON with keys: repo (string), language (string), stars (integer), open_issues (integer), license (string)",
+              "input_text": "The pytorch/pytorch repository is written in Python, has 84000 stars, 14500 open issues, and uses the BSD-3 license.",
+              "required_keys": "repo,language,stars,open_issues,license"
+            }
+          ]
+        }
+      },
+      {
+        "width": 380,
+        "height": 400,
+        "id": "prompt-schema",
+        "type": "prompt",
+        "position": {"x": 140, "y": 0},
+        "positionAbsolute": {"x": 140, "y": 0},
+        "data": {
+          "prompt": "{schema_desc}\n\nText:\n{input_text}\n\nRespond with ONLY a valid JSON object. No markdown fences. No explanation. No text outside the JSON.",
+          "n": 1,
+          "llms": [
+            {
+              "key": "schema-hermes3",
+              "name": "hermes3",
+              "emoji": "H",
+              "model": "hermes3:latest",
+              "base_model": "openai",
+              "temp": 0.0,
+              "settings": {
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "hermes3",
+                "model": "hermes3:latest",
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "schema-phi4",
+              "name": "phi4",
+              "emoji": "P",
+              "model": "phi4:latest",
+              "base_model": "openai",
+              "temp": 0.0,
+              "settings": {
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "phi4",
+                "model": "phi4:latest",
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "schema-llama",
+              "name": "llama3.1:8b",
+              "emoji": "L",
+              "model": "llama3.1:8b",
+              "base_model": "openai",
+              "temp": 0.0,
+              "settings": {
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "llama3.1:8b",
+                "model": "llama3.1:8b",
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            },
+            {
+              "key": "schema-qwen3",
+              "name": "qwen3:14b",
+              "emoji": "Q",
+              "model": "qwen3:14b",
+              "base_model": "openai",
+              "temp": 0.0,
+              "settings": {
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "qwen3:14b",
+                "model": "qwen3:14b",
+                "system_msg": "Respond with ONLY a valid JSON object. No markdown fences, no explanation, no preamble. Output must be parseable by json.loads().",
+                "temperature": 0.0,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "width": 387,
+        "height": 220,
+        "id": "eval-json-start",
+        "type": "simpleval",
+        "position": {"x": 580, "y": 0},
+        "positionAbsolute": {"x": 580, "y": 0},
+        "data": {
+          "title": "PASS: response starts with { (no preamble)",
+          "availableVars": ["schema_desc", "input_text", "required_keys"],
+          "input": "prompt-schema",
+          "operation": "starts with",
+          "textValue": "{",
+          "refresh": false
+        }
+      },
+      {
+        "width": 580,
+        "height": 400,
+        "id": "inspect-schema",
+        "type": "inspect",
+        "position": {"x": 580, "y": 260},
+        "positionAbsolute": {"x": 580, "y": 260},
+        "data": {"input": "prompt-schema"}
+      },
+      {
+        "width": 400,
+        "height": 300,
+        "id": "vis-schema",
+        "type": "vis",
+        "position": {"x": 1020, "y": 0},
+        "positionAbsolute": {"x": 1020, "y": 0},
+        "data": {}
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-table-schema-prompt",
+        "source": "table-schema",
+        "sourceHandle": "output",
+        "target": "prompt-schema",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-prompt-schema-eval",
+        "source": "prompt-schema",
+        "sourceHandle": "prompt",
+        "target": "eval-json-start",
+        "targetHandle": "responseBatch",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-prompt-schema-inspect",
+        "source": "prompt-schema",
+        "sourceHandle": "prompt",
+        "target": "inspect-schema",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-eval-schema-vis",
+        "source": "eval-json-start",
+        "sourceHandle": "output",
+        "target": "vis-schema",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      }
+    ],
+    "viewport": {"x": 0, "y": 0, "zoom": 0.75}
+  }
+}

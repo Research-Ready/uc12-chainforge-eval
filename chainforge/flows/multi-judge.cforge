@@ -1,0 +1,301 @@
+{
+  "flow": {
+    "nodes": [
+      {
+        "width": 380,
+        "height": 200,
+        "id": "comment-multijudge",
+        "type": "comment",
+        "position": {"x": -420, "y": -120},
+        "positionAbsolute": {"x": -420, "y": -120},
+        "data": {
+          "title": "Multi-Judge Agreement Flow",
+          "text": "Three local models act as judges on the same response.\nPurpose: measure inter-judge agreement — do hermes3, phi4, and llama3.1 give consistent scores?\n\nFlow: Table of (task, response) pairs → 3 parallel judge prompts → Inspect comparison.\n\nHigh disagreement = unreliable single-judge scoring. Guides which judge model to trust for automated evals.\n\nMetric to compute manually: Cohen's kappa across the three judge columns."
+        },
+        "dragHandle": ".node-header"
+      },
+      {
+        "width": 560,
+        "height": 520,
+        "id": "table-judgement",
+        "type": "table",
+        "position": {"x": -420, "y": 120},
+        "positionAbsolute": {"x": -420, "y": 120},
+        "data": {
+          "title": "Responses to Judge",
+          "columns": [
+            {"header": "task", "key": "task"},
+            {"header": "expected", "key": "expected"},
+            {"header": "response", "key": "response"}
+          ],
+          "rows": [
+            {
+              "__uid": "j1",
+              "task": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+              "expected": "9",
+              "response": "9 sheep are left. When 'all but 9 die', it means 9 survive."
+            },
+            {
+              "__uid": "j2",
+              "task": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+              "expected": "9",
+              "response": "17 - 9 = 8 sheep are left."
+            },
+            {
+              "__uid": "j3",
+              "task": "Write a Python function is_palindrome(s) that handles None and mixed case.",
+              "expected": "handles None, empty, case-insensitive",
+              "response": "def is_palindrome(s):\n    if s is None:\n        return False\n    s = s.lower()\n    return s == s[::-1]"
+            },
+            {
+              "__uid": "j4",
+              "task": "Write a Python function is_palindrome(s) that handles None and mixed case.",
+              "expected": "handles None, empty, case-insensitive",
+              "response": "def is_palindrome(s):\n    return s == s[::-1]"
+            },
+            {
+              "__uid": "j5",
+              "task": "Summarize what Docker does in exactly 20 words. The word 'isolation' must appear.",
+              "expected": "exactly 20 words, contains isolation",
+              "response": "Docker packages applications with their dependencies into containers, providing isolation, portability, and consistent environments across development, testing, and production systems."
+            },
+            {
+              "__uid": "j6",
+              "task": "Summarize what Docker does in exactly 20 words. The word 'isolation' must appear.",
+              "expected": "exactly 20 words, contains isolation",
+              "response": "Docker uses isolation to run applications in containers, ensuring consistent behavior across different computing environments without conflicts."
+            }
+          ]
+        }
+      },
+      {
+        "width": 360,
+        "height": 380,
+        "id": "prompt-judge-hermes3",
+        "type": "prompt",
+        "position": {"x": 200, "y": -80},
+        "positionAbsolute": {"x": 200, "y": -80},
+        "data": {
+          "prompt": "Task: {task}\n\nExpected: {expected}\n\nResponse:\n{response}\n\nScore 1-5. Respond with ONLY a JSON object: {\"score\": <1-5>, \"reason\": \"<one sentence>\"}",
+          "n": 1,
+          "llms": [
+            {
+              "key": "judge-hermes3",
+              "name": "Judge: hermes3",
+              "emoji": "H",
+              "model": "hermes3:latest",
+              "base_model": "openai",
+              "temp": 0.1,
+              "settings": {
+                "system_msg": "You are an objective benchmark judge. Score responses 1-5 based on correctness and quality. 5=perfect, 4=minor issues, 3=partial, 2=mostly wrong, 1=completely wrong.",
+                "temperature": 0.1,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "Judge: hermes3",
+                "model": "hermes3:latest",
+                "system_msg": "You are an objective benchmark judge. Score responses 1-5 based on correctness and quality. 5=perfect, 4=minor issues, 3=partial, 2=mostly wrong, 1=completely wrong.",
+                "temperature": 0.1,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "width": 360,
+        "height": 380,
+        "id": "prompt-judge-phi4",
+        "type": "prompt",
+        "position": {"x": 200, "y": 360},
+        "positionAbsolute": {"x": 200, "y": 360},
+        "data": {
+          "prompt": "Task: {task}\n\nExpected: {expected}\n\nResponse:\n{response}\n\nScore 1-5. Respond with ONLY a JSON object: {\"score\": <1-5>, \"reason\": \"<one sentence>\"}",
+          "n": 1,
+          "llms": [
+            {
+              "key": "judge-phi4",
+              "name": "Judge: phi4",
+              "emoji": "P",
+              "model": "phi4:latest",
+              "base_model": "openai",
+              "temp": 0.1,
+              "settings": {
+                "system_msg": "You are an objective benchmark judge. Score responses 1-5 based on correctness and quality. 5=perfect, 4=minor issues, 3=partial, 2=mostly wrong, 1=completely wrong.",
+                "temperature": 0.1,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "Judge: phi4",
+                "model": "phi4:latest",
+                "system_msg": "You are an objective benchmark judge. Score responses 1-5 based on correctness and quality. 5=perfect, 4=minor issues, 3=partial, 2=mostly wrong, 1=completely wrong.",
+                "temperature": 0.1,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "width": 360,
+        "height": 380,
+        "id": "prompt-judge-llama",
+        "type": "prompt",
+        "position": {"x": 200, "y": 800},
+        "positionAbsolute": {"x": 200, "y": 800},
+        "data": {
+          "prompt": "Task: {task}\n\nExpected: {expected}\n\nResponse:\n{response}\n\nScore 1-5. Respond with ONLY a JSON object: {\"score\": <1-5>, \"reason\": \"<one sentence>\"}",
+          "n": 1,
+          "llms": [
+            {
+              "key": "judge-llama",
+              "name": "Judge: llama3.1",
+              "emoji": "L",
+              "model": "llama3.1:8b",
+              "base_model": "openai",
+              "temp": 0.1,
+              "settings": {
+                "system_msg": "You are an objective benchmark judge. Score responses 1-5 based on correctness and quality. 5=perfect, 4=minor issues, 3=partial, 2=mostly wrong, 1=completely wrong.",
+                "temperature": 0.1,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": {"type": "text"},
+                "tools": [],
+                "stop": [],
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              },
+              "formData": {
+                "shortname": "Judge: llama3.1",
+                "model": "llama3.1:8b",
+                "system_msg": "You are an objective benchmark judge. Score responses 1-5 based on correctness and quality. 5=perfect, 4=minor issues, 3=partial, 2=mostly wrong, 1=completely wrong.",
+                "temperature": 0.1,
+                "base_url": "http://localhost:11434/v1",
+                "api_key": "ollama",
+                "response_format": "text",
+                "tools": "",
+                "stop": "",
+                "top_p": 1,
+                "presence_penalty": 0,
+                "frequency_penalty": 0
+              }
+            }
+          ]
+        }
+      },
+      {
+        "width": 580,
+        "height": 400,
+        "id": "inspect-hermes3-scores",
+        "type": "inspect",
+        "position": {"x": 620, "y": -80},
+        "positionAbsolute": {"x": 620, "y": -80},
+        "data": {"input": "prompt-judge-hermes3"}
+      },
+      {
+        "width": 580,
+        "height": 400,
+        "id": "inspect-phi4-scores",
+        "type": "inspect",
+        "position": {"x": 620, "y": 360},
+        "positionAbsolute": {"x": 620, "y": 360},
+        "data": {"input": "prompt-judge-phi4"}
+      },
+      {
+        "width": 580,
+        "height": 400,
+        "id": "inspect-llama-scores",
+        "type": "inspect",
+        "position": {"x": 620, "y": 800},
+        "positionAbsolute": {"x": 620, "y": 800},
+        "data": {"input": "prompt-judge-llama"}
+      }
+    ],
+    "edges": [
+      {
+        "id": "e-table-judge-hermes3",
+        "source": "table-judgement",
+        "sourceHandle": "output",
+        "target": "prompt-judge-hermes3",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-table-judge-phi4",
+        "source": "table-judgement",
+        "sourceHandle": "output",
+        "target": "prompt-judge-phi4",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-table-judge-llama",
+        "source": "table-judgement",
+        "sourceHandle": "output",
+        "target": "prompt-judge-llama",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-hermes3-inspect",
+        "source": "prompt-judge-hermes3",
+        "sourceHandle": "prompt",
+        "target": "inspect-hermes3-scores",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-phi4-inspect",
+        "source": "prompt-judge-phi4",
+        "sourceHandle": "prompt",
+        "target": "inspect-phi4-scores",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      },
+      {
+        "id": "e-llama-inspect",
+        "source": "prompt-judge-llama",
+        "sourceHandle": "prompt",
+        "target": "inspect-llama-scores",
+        "targetHandle": "input",
+        "interactionWidth": 100,
+        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+      }
+    ],
+    "viewport": {"x": 0, "y": 0, "zoom": 0.6}
+  }
+}
