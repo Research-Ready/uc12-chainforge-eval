@@ -92,9 +92,13 @@ To render the unbundled academic paper and separate visualizations, the summary 
 | Add 3 new categories (multi-turn, structured output, injection resistance) | done | C4, C5 |
 | New chart types (box, scatter, heatmap) | done | C7 — heatmap, scatter, pareto, security heatmap |
 | Phase 2: external model APIs | done | C9 — run_external.py |
-| Box plots from per-run CSV data | **approved** | make_charts.py skips box plots (needs >3 data points). Add `--runs 10` mode to run_benchmark.py to collect enough variance data |
-| Long-context summarization test | **approved** | 10k+ token input — tests VRAM limits. Add to COGNITIVE_TESTS |
-| Code vulnerability auditing (CWE-89, CWE-502) | **approved** | Gemini proposal — real CVE snippets, detection rate metric |
+| Box plots from per-run CSV data | done | C12 — `--runs N` flag, box_plot() in make_charts.py |
+| Long-context summarization test | done | C13 — needle-in-haystack, 10k token corpus |
+| Code vulnerability auditing (CWE-89, CWE-502) | done | C14 — CWE-89/502/78 + false-positive benign case |
+| ChainForge visual flows | done | C16 — cognitive, security, schema, multi-judge .cforge |
+| Execution-grounded code bench (pass@1) | done | C17 — run_execution_bench.py, subprocess test runner |
+| Semantic perturbation invariance | done | C18 — run_perturbation.py, paired A/B variants, delta metric |
+| JSON schema conformance across temperatures | done | C19 — run_schema_bench.py, T=0/0.5/1.0, 3 accuracy metrics |
 
 ---
 

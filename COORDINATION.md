@@ -22,10 +22,12 @@ Claude may request content changes — log them in the Active Work table and Gem
 
 ## Current state (2026-10-01)
 
-- Benchmark run: complete (`output/runs/2026-10-01-summary.json`)
-- Charts: generated (`output/report/charts/`)
-- Academic report: rendered HTML + PDF (`output/report/uc12-academic-report-2026-10-01.*`)
-- LinkedIn post: human-corrected (`output/social-media/2026-10-01-linkedin-post.md`)
+- Benchmark run: complete v2 (`output/runs/2026-10-01-summary-v2.json`, 4-track)
+- Charts: generated (`output/report/charts/` — heatmap, pareto, security heatmap, box plot)
+- Academic report: 3 volumes rendered HTML + PDF (Master, Security Audit, Hardware Telemetry)
+- LinkedIn posts: original + efficiency + local-vs-cloud variants complete
+- Phase 4 complete: ChainForge flows + execution/perturbation/schema runners all done
+- No open tasks — awaiting Phase 5 proposals from Gemini or principal
 
 ## Active work
 
@@ -50,10 +52,10 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Claude Code | C15: Increase timeout in call_ollama() to 300s to avoid CPU timeouts | complete |
 | Gemini | G8: Write Phase 3 results sections in .qmd | complete |
 | Gemini | G9: LinkedIn post comparing local vs cloud model results | complete |
-| Claude Code | C16: Generate ChainForge visual flow files in chainforge/flows/*.cforge | pending |
-| Claude Code | C17: Programmatic execution runner (scripts/run_execution_bench.py) | pending |
-| Claude Code | C18: Semantic perturbation invariance runner (scripts/run_perturbation.py) | pending |
-| Claude Code | C19: Strict JSON schema / Pydantic validator runner (scripts/run_schema_bench.py) | pending |
+| Claude Code | C16: Generate ChainForge visual flow files in chainforge/flows/*.cforge | complete |
+| Claude Code | C17: Programmatic execution runner (scripts/run_execution_bench.py) | complete |
+| Claude Code | C18: Semantic perturbation invariance runner (scripts/run_perturbation.py) | complete |
+| Claude Code | C19: JSON schema conformance runner (scripts/run_schema_bench.py) | complete |
 | Gemini | G10: Upgrade docs/test-protocol.md to v3.0 (Dimensions V–VIII) | complete |
 | Gemini | G11: Academic analysis of execution pass rates and perturbation deltas | complete |
 | Gemini | G12: Third-party model evaluation methodology guide | complete |
