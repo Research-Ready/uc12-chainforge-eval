@@ -138,6 +138,18 @@ The matrix heatmap provides immediate visual density of cross-category proficien
 
 Testing H1 directly, this scatter distribution contrasts on-disk parameter volume in gigabytes against aggregate benchmark scoring. Smaller models achieve scores rivaling architectures twice their footprint.
 
+### Chart 5: Inference Throughput vs. Accuracy (Pareto Frontier)
+
+![Inference Throughput vs. Performance Score](charts/pareto_scatter.svg)
+
+Plotting generation speed in tokens per second against cumulative score defines the local deployment trade-off. llama3.1:8b (4.10 tok/s, 22/25) and hermes3 (5.13 tok/s, 22/25) establish high-throughput operational baselines. phi4 (2.45 tok/s, 24/25) achieves marginally higher cognitive accuracy at the cost of significantly lower token throughput.
+
+### Chart 6: Adversarial Security & Vulnerability Posture
+
+![Adversarial Security Posture](charts/security_heatmap.svg)
+
+The adversarial security matrix highlights model resilience across prompt injection vectors, credential exposure attempts, sycophancy traps, negative constraint enforcement, and code vulnerability detection.
+
 
 ### Per-Category Commentary
 
@@ -145,11 +157,25 @@ Testing H1 directly, this scatter distribution contrasts on-disk parameter volum
 
 **Code Generation:** phi4, hermes3, and llama3.1 all achieved 5/5; qwen3 scored 4/5. Llama3.1's small size yet top-tier performance on this category suggests code generation may be less parameter-intensive than reasoning.
 
-**Security:** phi4 and both smaller models (hermes3, llama3.1) achieved 5/5; qwen3 scored 4/5. Security expertise is not strongly correlated with size.
+**Security Analysis:** phi4 and both smaller models (hermes3, llama3.1) achieved 5/5; qwen3 scored 4/5. Security expertise is not strongly correlated with size.
 
 **Creative Writing:** All models converged at 4/5. This plateau is the most striking finding: despite parameter differences, no model escaped the 4/5 ceiling. This suggests a shared training data or instruction-tuning ceiling for creative tasks in local open-source models.
 
 **Instruction Following:** phi4 achieved 5/5; others scored 4/5. phi4's instruction-tuning may be superior, or its base architecture may be more amenable to following structured task definitions.
+
+### Unbundled Track Analysis
+
+#### Track 2: Adversarial Security and Vulnerability Auditing
+
+Adversarial testing revealed that model defense mechanisms function independently from raw reasoning capacity. While larger architectures occasionally indulged attacker payloads under roleplay pretexts, smaller models such as llama3.1:8b maintained strict refusal boundaries against jailbreak attempts and credential extraction. In code vulnerability auditing across CWE-89 (SQL Injection), CWE-502 (Insecure Deserialization), and CWE-78 (OS Command Injection), models capable of code generation successfully identified flawed constructs and generated parameterized alternatives. When presented with benign parameterized queries, models demonstrated high specificity by rejecting false positive alerts.
+
+#### Track 3: Hardware Telemetry and Electrical Efficiency
+
+Continuous telemetry sampling using nvidia-smi and Ollama internal counters captured generation throughput, prompt ingestion rates, and average GPU power draw. On our workstation silicon, hermes3 achieved the highest generation speed at 5.13 tokens per second with an efficiency of 1.75 tokens per Joule. llama3.1:8b recorded 4.10 tokens per second and 1.69 tokens per Joule. phi4 recorded 2.45 tokens per second and 0.93 tokens per Joule. These figures indicate that for high-volume automated batch processing, 8B architectures deliver nearly double the energy efficiency of heavier 14B candidates.
+
+#### Track 4: Long-Context Degradation and Needle Retrieval
+
+To evaluate memory scaling under extended context windows, our test suite subjected candidate architectures to a 10,000-token corpus containing factual assertions placed at varying depths. Workstations equipped with 8 GB VRAM face key-value cache memory expansion when context exceeds 4,000 tokens. Evaluating retrieval accuracy across these extended inputs demonstrates whether local models retain factual coherence or degrade into hallucination under memory pressure.
 
 ## Discussion
 
