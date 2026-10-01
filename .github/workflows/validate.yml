@@ -1,0 +1,40 @@
+name: Validate Scripts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/**"
+  pull_request:
+    paths:
+      - "scripts/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install matplotlib numpy requests
+
+      - name: Syntax check all scripts
+        run: |
+          for f in scripts/*.py; do
+            echo "Checking $f"
+            python -m py_compile "$f"
+          done
+
+      - name: Import check (no execution)
+        run: |
+          python -c "import ast, pathlib
+          for p in pathlib.Path('scripts').glob('*.py'):
+              src = p.read_text()
+              ast.parse(src)
+              print(f'OK: {p.name}')
+          "

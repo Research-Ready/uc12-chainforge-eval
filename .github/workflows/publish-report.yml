@@ -1,0 +1,73 @@
+name: Publish Report to GitHub Pages
+
+on:
+  workflow_dispatch:
+    inputs:
+      report_date:
+        description: "Report date (YYYY-MM-DD) — leave blank for latest"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Find report HTML
+        id: find
+        run: |
+          DATE="${{ github.event.inputs.report_date }}"
+          if [ -z "$DATE" ]; then
+            FILE=$(ls output/report/uc12-*-report-*.html 2>/dev/null | sort -r | head -1)
+          else
+            FILE="output/report/uc12-academic-report-${DATE}.html"
+          fi
+          if [ ! -f "$FILE" ]; then
+            echo "No HTML report found. Run make_academic_report.py locally first."
+            exit 1
+          fi
+          echo "file=$FILE" >> $GITHUB_OUTPUT
+          echo "Found: $FILE"
+
+      - name: Prepare gh-pages content
+        run: |
+          mkdir -p /tmp/pages
+          cp "${{ steps.find.outputs.file }}" /tmp/pages/index.html
+          cp -r output/report/charts/ /tmp/pages/charts/ 2>/dev/null || true
+
+          # Minimal index listing if charts exist
+          cat > /tmp/pages/charts.html << 'EOF'
+          <!DOCTYPE html>
+          <html>
+          <head><title>UC12 Charts</title></head>
+          <body>
+          <h2>UC12 Benchmark Charts</h2>
+          <p><a href="index.html">← Full Report</a></p>
+          <ul id="list"></ul>
+          <script>
+          const charts = ['bar_chart','radar_chart','heatmap','scatter_size_score',
+                          'pareto_scatter','security_heatmap'];
+          charts.forEach(c => {
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="charts/${c}.svg">${c}</a>`;
+            document.getElementById('list').appendChild(li);
+          });
+          </script>
+          </body>
+          </html>
+          EOF
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: /tmp/pages
+          commit_message: "publish: UC12 benchmark report ${{ github.event.inputs.report_date || 'latest' }}"
