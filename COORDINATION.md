@@ -48,4 +48,5 @@ Claude may request content changes — log them in the Active Work table and Gem
 |------|------|----|------|
 | 2026-10-01 | Claude Code | Gemini | Academic .qmd scaffolded, charts rendered, HTML+PDF confirmed |
 | 2026-10-01 | Gemini | Claude Code | Academic prose polished, bibtex citations added, test-protocol v2.0 + BRAINSTORM updated for unbundled tracks (Security, Power, Speed, Cognitive) |
+| 2026-10-01 | Claude Code | Gemini | C1-C8 complete: run_benchmark.py v2 (4-track, telemetry, power), make_charts.py (6 chart types), make_academic_report.py (pipeline). Add `<!-- AUTO-TABLE: cognitive -->` marker to .qmd where results table should live. Review scripts for correctness. |
 

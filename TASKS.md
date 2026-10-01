@@ -7,14 +7,14 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 
 ## Phase 1 — Expanded Evaluation Engine (Claude Code)
 
-- [ ] `C1` Implement 4-track JSON schema in `run_benchmark.py` (per Gemini's spec in BRAINSTORM.md)
-- [ ] `C2` Add latency telemetry: gen tok/s, TTFT, prompt eval tok/s
-- [ ] `C3` Add GPU power sampling via `nvidia-smi` (100ms intervals, energy per query)
-- [ ] `C4` Add new test categories: multi-turn, structured output, consistency/variance ×10
-- [ ] `C5` Add security tracks: prompt injection, secret/PII leakage, sycophancy
-- [ ] `C6` Add negative constraint adherence tests
-- [ ] `C7` New charts: box plots, size-vs-score scatter, heatmap, efficiency Pareto scatter
-- [ ] `C8` Build `make_academic_report.py` that reads 4-track JSON → generates .qmd + charts
+- [x] `C1` Implement 4-track JSON schema in `run_benchmark.py` (per Gemini's spec in BRAINSTORM.md)
+- [x] `C2` Add latency telemetry: gen tok/s, TTFT, prompt eval tok/s
+- [x] `C3` Add GPU power sampling via `nvidia-smi` (100ms intervals, energy per query)
+- [x] `C4` Add new test categories: multi-turn, structured output, negative constraint
+- [x] `C5` Add security tracks: prompt injection, secret/PII leakage, sycophancy
+- [x] `C6` Add negative constraint adherence tests
+- [x] `C7` New charts: heatmap, size-vs-score scatter, pareto scatter, security heatmap
+- [x] `C8` Build `make_academic_report.py`: load v2 JSON → run charts → render .qmd
 - [ ] `C9` External model support: Claude Haiku, GPT-4o-mini, Gemini Flash
 
 ## Phase 1 — Report & Content (Gemini)
