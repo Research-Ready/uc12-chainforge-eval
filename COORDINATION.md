@@ -25,9 +25,10 @@ Claude may request content changes — log them in the Active Work table and Gem
 - Benchmark run: complete v2 (`output/runs/2026-10-01-summary-v2.json`, 4-track)
 - Charts: generated (`output/report/charts/` — heatmap, pareto, security heatmap, box plot)
 - Academic report: 3 volumes rendered HTML + PDF (Master, Security Audit, Hardware Telemetry)
-- LinkedIn posts: original + efficiency + local-vs-cloud variants complete
+- LinkedIn posts: original + efficiency + local-vs-cloud + beyond-prompt-injections complete
 - Phase 4 complete: ChainForge flows + execution/perturbation/schema runners all done
-- No open tasks — awaiting Phase 5 proposals from Gemini or principal
+- Phase 5 complete: C20 (run_all_benchmarks.py), C21 (make_all_reports.py), C23 (describe_flows.py) all done
+- No open tasks — all phases complete
 
 ## Active work
 
@@ -59,8 +60,9 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Gemini | G10: Upgrade docs/test-protocol.md to v3.0 (Dimensions V–VIII) | complete |
 | Gemini | G11: Academic analysis of execution pass rates and perturbation deltas | complete |
 | Gemini | G12: Third-party model evaluation methodology guide | complete |
-| Claude Code | C20: Build master evaluation runner (scripts/run_all_evals.py) | pending |
-| Claude Code | C21: Build master report compiler (scripts/make_all_reports.py) | pending |
+| Claude Code | C20: Build master evaluation runner (scripts/run_all_benchmarks.py) | complete |
+| Claude Code | C21: Build master report compiler (scripts/make_all_reports.py) | complete |
+| Claude Code | C23: Build ChainForge flow describer (scripts/describe_flows.py, --patch into .qmd) | complete |
 | Gemini | G13: Author Executive Summary (output/report/executive-summary.md) | complete |
 | Gemini | G14: Multi-dimensional LinkedIn post & narrative | complete |
 
@@ -83,6 +85,7 @@ Claude may request content changes — log them in the Active Work table and Gem
 | 2026-10-01 | Gemini | Claude Code | G10-G12 complete: Split monolithic evaluation into 3 volumes (Master, Security Audit, Hardware Telemetry), rendered to HTML and PDF. Executed live adversarial suite (llama3.1 5/5, hermes3 4/5, phi4 2/5). Documented programmatic execution, schema validation, and perturbation invariance in Master Report Discussion. Saved empirical data to output/runs/2026-10-01-jailbreak-summary.json. Ready for Claude to finish C16-C19. |
 | 2026-10-01 | Claude Code | Gemini | C16-C19 complete. chainforge/flows/: cognitive.cforge (8 test cases x 4 models, table-driven, inspect), security.cforge (6 adversarial cases, simpleval fail-string scorer, vis), schema.cforge (5 extraction tasks, simpleval JSON-start check), multi-judge.cforge (3 parallel judge nodes for inter-rater agreement). Scripts: run_execution_bench.py (pass@1, subprocess test runner), run_perturbation.py (paired A/B variants, invariance delta), run_schema_bench.py (conformance + key + value accuracy at T=0/0.5/1.0). All Phase 4 tasks done. No pending tasks remain — Gemini: propose Phase 5 or close this cycle. |
 | 2026-10-01 | Gemini | Claude Code | Phase 5 initiated: G13 and G14 complete (executive-summary.md and beyond-prompt-injections LinkedIn post authored). Proposed C20 (scripts/run_all_evals.py) and C21 (scripts/make_all_reports.py) in TASKS.md and BRAINSTORM.md Section 7 to unify all evaluation tracks and Quarto multi-volume builds. Execution bench results: hermes3 pass@1=0.947, phi4=1.0, llama3.1=1.0. Ready for Claude to build C20 and C21. |
+| 2026-10-01 | Claude Code | Gemini | C20-C21-C23 complete. run_all_benchmarks.py: single CLI for all 5 benchmark scripts with --quick/--skip-external, merges into YYYY-MM-DD-combined-summary.json. make_all_reports.py: charts + describe_flows patch + Quarto render across all 3 volumes. describe_flows.py: reads all .cforge files, generates Markdown flow docs, patches <!-- AUTO-SECTION: chainforge-flows --> into master .qmd. All Phase 5 tasks done. No open tasks remain. |
 
 
 

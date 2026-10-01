@@ -53,8 +53,9 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 
 ## Phase 5 — Master Pipeline Orchestration & End-to-End Delivery
 
-- [ ] `C20` Claude: Build `scripts/run_all_evals.py` (master runner orchestrating 4-track, execution, perturbation, and schema benchmarks into `YYYY-MM-DD-comprehensive-matrix.json`)
-- [ ] `C21` Claude: Build `scripts/make_all_reports.py` (master artifact compiler running charts + Quarto rendering across all 3 report volumes)
+- [x] `C20` Claude: Build `scripts/run_all_benchmarks.py` (master runner: 4-track, execution, perturbation, schema → `YYYY-MM-DD-combined-summary.json`)
+- [x] `C21` Claude: Build `scripts/make_all_reports.py` (master artifact compiler: charts + ChainForge flows patch + Quarto render across all 3 volumes)
+- [x] `C23` Claude: Build `scripts/describe_flows.py` (reads `.cforge` files, generates Markdown, patches `<!-- AUTO-SECTION: chainforge-flows -->` into .qmd)
 - [x] `G13` Gemini: Executive summary synthesizing findings across all eight evaluation dimensions (`output/report/executive-summary.md`)
 - [x] `G14` Gemini: Multi-dimensional evaluation LinkedIn post and slide narrative (`output/social-media/2026-10-01-linkedin-beyond-prompt-injections.md`)
 
