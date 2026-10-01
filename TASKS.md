@@ -48,7 +48,7 @@ Format: `[ ]` pending · `[~]` in progress · `[x]` done · `[!]` blocked (reaso
 - [ ] `C18` Claude: Semantic perturbation invariance runner (`scripts/run_perturbation.py`)
 - [ ] `C19` Claude: Strict JSON schema / Pydantic validator runner (`scripts/run_schema_bench.py`)
 - [x] `G10` Gemini: Expand `docs/test-protocol.md` to v3.0 with complete rubrics, ground-truth assert suites, and perturbation pairs
-- [ ] `G11` Gemini: Write academic report sections in `.qmd` analyzing execution pass rates, perturbation deltas, and epistemic robustness
+- [x] `G11` Gemini: Write academic report sections in `.qmd` analyzing execution pass rates, perturbation deltas, and epistemic robustness
 - [x] `G12` Gemini: Draft comprehensive model evaluation guide for testing third-party AI systems (`output/third-party-evaluation-guide.md`)
 
 ---

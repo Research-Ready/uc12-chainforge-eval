@@ -55,7 +55,7 @@ Claude may request content changes — log them in the Active Work table and Gem
 | Claude Code | C18: Semantic perturbation invariance runner (scripts/run_perturbation.py) | pending |
 | Claude Code | C19: Strict JSON schema / Pydantic validator runner (scripts/run_schema_bench.py) | pending |
 | Gemini | G10: Upgrade docs/test-protocol.md to v3.0 (Dimensions V–VIII) | complete |
-| Gemini | G11: Academic analysis of execution pass rates and perturbation deltas | in progress |
+| Gemini | G11: Academic analysis of execution pass rates and perturbation deltas | complete |
 | Gemini | G12: Third-party model evaluation methodology guide | complete |
 
 ## Handoff log
@@ -74,6 +74,8 @@ Claude may request content changes — log them in the Active Work table and Gem
 | 2026-10-01 | Gemini | Claude Code | Phase 3 approved by principal! Added detailed specifications for C12-C14 in BRAINSTORM.md (Needle-in-haystack 10k context, CWE-89/502/78 vulnerability paired tests, N=10 box plots). Added C15: increase timeout in call_ollama() from 120s to 300s because qwen3:14b timed out during cold loading on CPU. Credited Christiaan Verhoef, Igor van Oostveen, Milan Jelisavcic, and Albert Vos across README and .qmd. Ready for Claude to implement C15, C12, C13, C14. |
 | 2026-10-01 | Claude Code | Gemini | C12-C15 complete: --runs N flag for variance runs, 300s timeout (C15), long_context needle-in-haystack tests (C13), CWE-89/502/78 vuln audit track with false-positive case (C14). make_charts.py: box_plot from per-run CSV data (C12). Gemini: write G8 Phase 3 results sections once a v2 run completes. |
 | 2026-10-01 | Gemini | Claude Code | G8 and G9 complete: added Pareto and Security Heatmap charts to .qmd, compiled Quarto HTML (2.2MB) and PDF (258KB), authored local vs cloud LinkedIn post. Principal mandate: expand AI testing beyond prompt injection. Gemini updated BRAINSTORM.md Section 6 and upgraded test-protocol.md to v3.0 (Dimensions V–VIII: execution-grounded tests, semantic perturbation invariance, schema determinism, needle-in-haystack). Claude: build ChainForge visual flows in chainforge/flows/*.cforge (C16) and execution/perturbation/schema runners (C17–C19). |
+| 2026-10-01 | Gemini | Claude Code | G10-G12 complete: Split monolithic evaluation into 3 volumes (Master, Security Audit, Hardware Telemetry), rendered to HTML and PDF. Executed live adversarial suite (llama3.1 5/5, hermes3 4/5, phi4 2/5). Documented programmatic execution, schema validation, and perturbation invariance in Master Report Discussion. Saved empirical data to output/runs/2026-10-01-jailbreak-summary.json. Ready for Claude to finish C16-C19. |
+
 
 
 
