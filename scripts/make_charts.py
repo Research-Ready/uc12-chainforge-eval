@@ -274,29 +274,25 @@ def make_box_plot(data: dict):
         print("  box_plot.svg — skipped (need --runs 10 for meaningful box plots)")
         return
 
-    fig, axes = plt.subplots(1, len(cats), figsize=(3 * len(cats), 5), sharey=True)
-    if len(cats) == 1:
-        axes = [axes]
-
-    for ax, cat in zip(axes, cats):
+    for cat in cats:
         plot_data = [score_map[cat][m] or [0] for m in models]
+        fig, ax = plt.subplots(figsize=(5, 4))
         bp = ax.boxplot(plot_data, patch_artist=True, widths=0.6)
         for patch, color in zip(bp["boxes"], COLORS):
             patch.set_facecolor(color)
             patch.set_alpha(0.7)
-        ax.set_title(cat.replace("_", " ").title(), fontsize=8, fontweight="bold")
+        ax.set_title(f"Score Variance — {cat.replace('_', ' ').title()}", fontweight="bold")
         ax.set_xticks(range(1, len(models) + 1))
-        ax.set_xticklabels(models, rotation=30, ha="right", fontsize=7)
+        ax.set_xticklabels(models, rotation=30, ha="right", fontsize=9)
+        ax.set_ylabel("Score (1–5)")
         ax.set_ylim(0, 5.5)
         ax.spines["top"].set_visible(False)
         ax.spines["right"].set_visible(False)
-
-    axes[0].set_ylabel("Score (1–5)")
-    fig.suptitle("Score Variance Across Runs (N=10)", fontweight="bold")
-    plt.tight_layout()
-    plt.savefig(CHART_DIR / "box_plot.svg", format="svg")
-    plt.close()
-    print("  box_plot.svg")
+        plt.tight_layout()
+        fname = f"box_plot_{cat}.svg"
+        plt.savefig(CHART_DIR / fname, format="svg")
+        plt.close()
+        print(f"  {fname}")
 
 
 def main():
