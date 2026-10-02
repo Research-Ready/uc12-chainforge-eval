@@ -210,7 +210,8 @@ def make_security_heatmap(data: dict):
     cats   = list(sec.keys())
     matrix = np.array([[sec[c][m] for m in data["models"]] for c in cats])
 
-    fig, ax = plt.subplots(figsize=(7, 3.5))
+    height = max(3.5, 0.35 * len(cats))
+    fig, ax = plt.subplots(figsize=(7, height))
     im = ax.imshow(matrix, cmap="RdYlGn", vmin=1, vmax=5, aspect="auto")
 
     ax.set_xticks(range(len(models)))

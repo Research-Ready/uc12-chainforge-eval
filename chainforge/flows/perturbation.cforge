@@ -499,11 +499,11 @@
     ],
     "edges": [
       {
-        "id": "e-1c2974a14fbd",
+        "id": "e-1c2974a14fbd-variant_a",
         "source": "tbl-bd805ddcd29a",
-        "sourceHandle": "output",
+        "sourceHandle": "variant_a",
         "target": "pmtA-c20b4386d31f",
-        "targetHandle": "input",
+        "targetHandle": "variant_a",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -511,11 +511,11 @@
         }
       },
       {
-        "id": "e-51096064c704",
+        "id": "e-51096064c704-variant_b",
         "source": "tbl-bd805ddcd29a",
-        "sourceHandle": "output",
+        "sourceHandle": "variant_b",
         "target": "pmtB-97e32d77ddc9",
-        "targetHandle": "input",
+        "targetHandle": "variant_b",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -525,9 +525,9 @@
       {
         "id": "e-61f78dd42ac4",
         "source": "pmtA-c20b4386d31f",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "evalA-d015d7120e4f",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -537,9 +537,9 @@
       {
         "id": "e-1d11aac9abb9",
         "source": "pmtB-97e32d77ddc9",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "evalB-15b19f2a0fad",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,

@@ -6,11 +6,17 @@
         "height": 200,
         "id": "comment-multijudge",
         "type": "comment",
-        "position": {"x": -420, "y": -120},
-        "positionAbsolute": {"x": -420, "y": -120},
+        "position": {
+          "x": -420,
+          "y": -120
+        },
+        "positionAbsolute": {
+          "x": -420,
+          "y": -120
+        },
         "data": {
           "title": "Multi-Judge Agreement Flow",
-          "text": "Three local models act as judges on the same response.\nPurpose: measure inter-judge agreement — do hermes3, phi4, and llama3.1 give consistent scores?\n\nFlow: Table of (task, response) pairs → 3 parallel judge prompts → Inspect comparison.\n\nHigh disagreement = unreliable single-judge scoring. Guides which judge model to trust for automated evals.\n\nMetric to compute manually: Cohen's kappa across the three judge columns."
+          "text": "Three local models act as judges on the same response.\nPurpose: measure inter-judge agreement \u2014 do hermes3, phi4, and llama3.1 give consistent scores?\n\nFlow: Table of (task, response) pairs \u2192 3 parallel judge prompts \u2192 Inspect comparison.\n\nHigh disagreement = unreliable single-judge scoring. Guides which judge model to trust for automated evals.\n\nMetric to compute manually: Cohen's kappa across the three judge columns."
         },
         "dragHandle": ".node-header"
       },
@@ -19,14 +25,29 @@
         "height": 520,
         "id": "table-judgement",
         "type": "table",
-        "position": {"x": -420, "y": 120},
-        "positionAbsolute": {"x": -420, "y": 120},
+        "position": {
+          "x": -420,
+          "y": 120
+        },
+        "positionAbsolute": {
+          "x": -420,
+          "y": 120
+        },
         "data": {
           "title": "Responses to Judge",
           "columns": [
-            {"header": "task", "key": "task"},
-            {"header": "expected", "key": "expected"},
-            {"header": "response", "key": "response"}
+            {
+              "header": "task",
+              "key": "task"
+            },
+            {
+              "header": "expected",
+              "key": "expected"
+            },
+            {
+              "header": "response",
+              "key": "response"
+            }
           ],
           "rows": [
             {
@@ -73,8 +94,14 @@
         "height": 380,
         "id": "prompt-judge-hermes3",
         "type": "prompt",
-        "position": {"x": 200, "y": -80},
-        "positionAbsolute": {"x": 200, "y": -80},
+        "position": {
+          "x": 200,
+          "y": -80
+        },
+        "positionAbsolute": {
+          "x": 200,
+          "y": -80
+        },
         "data": {
           "prompt": "Task: {task}\n\nExpected: {expected}\n\nResponse:\n{response}\n\nScore 1-5. Respond with ONLY a JSON object: {\"score\": <1-5>, \"reason\": \"<one sentence>\"}",
           "n": 1,
@@ -91,7 +118,9 @@
                 "temperature": 0.1,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -121,8 +150,14 @@
         "height": 380,
         "id": "prompt-judge-phi4",
         "type": "prompt",
-        "position": {"x": 200, "y": 360},
-        "positionAbsolute": {"x": 200, "y": 360},
+        "position": {
+          "x": 200,
+          "y": 360
+        },
+        "positionAbsolute": {
+          "x": 200,
+          "y": 360
+        },
         "data": {
           "prompt": "Task: {task}\n\nExpected: {expected}\n\nResponse:\n{response}\n\nScore 1-5. Respond with ONLY a JSON object: {\"score\": <1-5>, \"reason\": \"<one sentence>\"}",
           "n": 1,
@@ -139,7 +174,9 @@
                 "temperature": 0.1,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -169,8 +206,14 @@
         "height": 380,
         "id": "prompt-judge-llama",
         "type": "prompt",
-        "position": {"x": 200, "y": 800},
-        "positionAbsolute": {"x": 200, "y": 800},
+        "position": {
+          "x": 200,
+          "y": 800
+        },
+        "positionAbsolute": {
+          "x": 200,
+          "y": 800
+        },
         "data": {
           "prompt": "Task: {task}\n\nExpected: {expected}\n\nResponse:\n{response}\n\nScore 1-5. Respond with ONLY a JSON object: {\"score\": <1-5>, \"reason\": \"<one sentence>\"}",
           "n": 1,
@@ -187,7 +230,9 @@
                 "temperature": 0.1,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -217,56 +262,170 @@
         "height": 400,
         "id": "inspect-hermes3-scores",
         "type": "inspect",
-        "position": {"x": 620, "y": -80},
-        "positionAbsolute": {"x": 620, "y": -80},
-        "data": {"input": "prompt-judge-hermes3"}
+        "position": {
+          "x": 620,
+          "y": -80
+        },
+        "positionAbsolute": {
+          "x": 620,
+          "y": -80
+        },
+        "data": {
+          "input": "prompt-judge-hermes3"
+        }
       },
       {
         "width": 580,
         "height": 400,
         "id": "inspect-phi4-scores",
         "type": "inspect",
-        "position": {"x": 620, "y": 360},
-        "positionAbsolute": {"x": 620, "y": 360},
-        "data": {"input": "prompt-judge-phi4"}
+        "position": {
+          "x": 620,
+          "y": 360
+        },
+        "positionAbsolute": {
+          "x": 620,
+          "y": 360
+        },
+        "data": {
+          "input": "prompt-judge-phi4"
+        }
       },
       {
         "width": 580,
         "height": 400,
         "id": "inspect-llama-scores",
         "type": "inspect",
-        "position": {"x": 620, "y": 800},
-        "positionAbsolute": {"x": 620, "y": 800},
-        "data": {"input": "prompt-judge-llama"}
+        "position": {
+          "x": 620,
+          "y": 800
+        },
+        "positionAbsolute": {
+          "x": 620,
+          "y": 800
+        },
+        "data": {
+          "input": "prompt-judge-llama"
+        }
       }
     ],
     "edges": [
       {
-        "id": "e-table-judge-hermes3",
+        "id": "e-table-judge-hermes3-task",
         "source": "table-judgement",
-        "sourceHandle": "output",
+        "sourceHandle": "task",
         "target": "prompt-judge-hermes3",
-        "targetHandle": "input",
+        "targetHandle": "task",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
-        "id": "e-table-judge-phi4",
+        "id": "e-table-judge-hermes3-expected",
         "source": "table-judgement",
-        "sourceHandle": "output",
+        "sourceHandle": "expected",
+        "target": "prompt-judge-hermes3",
+        "targetHandle": "expected",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-judge-hermes3-response",
+        "source": "table-judgement",
+        "sourceHandle": "response",
+        "target": "prompt-judge-hermes3",
+        "targetHandle": "response",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-judge-phi4-task",
+        "source": "table-judgement",
+        "sourceHandle": "task",
         "target": "prompt-judge-phi4",
-        "targetHandle": "input",
+        "targetHandle": "task",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
-        "id": "e-table-judge-llama",
+        "id": "e-table-judge-phi4-expected",
         "source": "table-judgement",
-        "sourceHandle": "output",
-        "target": "prompt-judge-llama",
-        "targetHandle": "input",
+        "sourceHandle": "expected",
+        "target": "prompt-judge-phi4",
+        "targetHandle": "expected",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-judge-phi4-response",
+        "source": "table-judgement",
+        "sourceHandle": "response",
+        "target": "prompt-judge-phi4",
+        "targetHandle": "response",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-judge-llama-task",
+        "source": "table-judgement",
+        "sourceHandle": "task",
+        "target": "prompt-judge-llama",
+        "targetHandle": "task",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-judge-llama-expected",
+        "source": "table-judgement",
+        "sourceHandle": "expected",
+        "target": "prompt-judge-llama",
+        "targetHandle": "expected",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-judge-llama-response",
+        "source": "table-judgement",
+        "sourceHandle": "response",
+        "target": "prompt-judge-llama",
+        "targetHandle": "response",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "e-hermes3-inspect",
@@ -275,7 +434,11 @@
         "target": "inspect-hermes3-scores",
         "targetHandle": "input",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "e-phi4-inspect",
@@ -284,7 +447,11 @@
         "target": "inspect-phi4-scores",
         "targetHandle": "input",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "e-llama-inspect",
@@ -293,9 +460,17 @@
         "target": "inspect-llama-scores",
         "targetHandle": "input",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       }
     ],
-    "viewport": {"x": 0, "y": 0, "zoom": 0.6}
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "zoom": 0.6
+    }
   }
 }

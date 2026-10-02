@@ -241,8 +241,10 @@
         },
         "data": {
           "title": "Fabrication Signal Detector",
-          "operation": "does not contain",
-          "textValue": "{fabrication_signal}"
+          "operation": "contains",
+          "textValue": "fabrication_signal",
+          "varSelected": true,
+          "varValueType": "meta"
         }
       },
       {
@@ -305,11 +307,11 @@
     ],
     "edges": [
       {
-        "id": "e-c404c9f15c1f",
+        "id": "e-c404c9f15c1f-query",
         "source": "tbl-659b02191c16",
-        "sourceHandle": "output",
+        "sourceHandle": "query",
         "target": "pmt-aa839a973249",
-        "targetHandle": "input",
+        "targetHandle": "query",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -319,9 +321,9 @@
       {
         "id": "e-767a9074e1bf",
         "source": "pmt-aa839a973249",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "sv-11d2dc8c0b41",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -331,9 +333,9 @@
       {
         "id": "e-e3a7c09c91bd",
         "source": "pmt-aa839a973249",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "eval-88c67b8eefa6",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,

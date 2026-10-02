@@ -260,11 +260,11 @@
     ],
     "edges": [
       {
-        "id": "e-be20511e2488",
+        "id": "e-be20511e2488-function_sig",
         "source": "tbl-d20b4a0ac785",
-        "sourceHandle": "output",
+        "sourceHandle": "function_sig",
         "target": "pmt-e54b1e4ef197",
-        "targetHandle": "input",
+        "targetHandle": "function_sig",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -274,9 +274,9 @@
       {
         "id": "e-ecc22c8fe5bf",
         "source": "pmt-e54b1e4ef197",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "eval-1635c5ee1d91",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,

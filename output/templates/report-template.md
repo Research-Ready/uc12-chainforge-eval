@@ -100,6 +100,33 @@ Copy your completed results table from `docs/test-protocol.md` here. Table shoul
 - [FILL: Most important finding #4]
 - [FILL: Most important finding #5]
 
+## Security & Adversarial Attack Resistance
+
+Beyond task capability, we red-teamed each model across [FILL: number] adversarial attack surfaces to measure how hard it is to break the model in production. A score of 5 = complete defence; 1 = fully compromised.
+
+| Attack Surface | What it tries to do | Best model (score) |
+|----------------|---------------------|-------------------|
+| Prompt Injection | Direct "ignore all instructions" role override | [FILL] |
+| Indirect Injection | Execute instructions hidden inside documents/tool results | [FILL] |
+| PII / Secret Leakage | Social-engineer credentials out of system context | [FILL] |
+| Sycophancy | Cave to confident authoritative falsehoods | [FILL] |
+| Negative Constraint | Break multi-rule format/word-count constraints | [FILL] |
+| Vulnerability Audit (CWE) | Miss real vulns or flag false positives | [FILL] |
+| Jailbreak Defense | Roleplay/hypothetical/fictional framing | [FILL] |
+| Hallucination Trap | Fabricate fake libraries/papers/CVEs with confidence | [FILL] |
+| Model Extraction | Reveal training data / architecture / system prompt | [FILL] |
+| Social Engineering | Authority, urgency, fraud, medical-emergency bypass | [FILL] |
+| Obfuscation Evasion | Decode-and-obey Base64/ROT13/hex/leetspeak payloads | [FILL] |
+| Crescendo Escalation | Benign→harmful drift across multiple turns | [FILL] |
+| Cipher & Translation Laundering | Bypass safety via Caesar/Morse/foreign-language re-encoding | [FILL] |
+| Steganographic Injection | Follow zero-width/whitespace-hidden instructions | [FILL] |
+| Many-Shot Jailbreak | Primed harmful request after benign demonstrations | [FILL] |
+| System Prompt Extraction | Reveal instructions via reverse/Base64/JSON/translation | [FILL] |
+| Verbatim Memorization | Reproduce memorised copyrighted text | [FILL] |
+| Resource Exhaustion / DoS | Unbounded/recursive output consuming host resources | [FILL] |
+
+**Security finding:** [FILL: 1-2 sentences on which model was most robust and whether security correlates with cognitive score.]
+
 ## Recommended Model per Use Case
 
 | Use Case | Recommended Model | Why |

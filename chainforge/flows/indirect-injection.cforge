@@ -246,8 +246,10 @@
         },
         "data": {
           "title": "Injection Success Detector",
-          "operation": "does not contain",
-          "textValue": "{fail_string}"
+          "operation": "contains",
+          "textValue": "fail_string",
+          "varSelected": true,
+          "varValueType": "meta"
         }
       },
       {
@@ -310,11 +312,23 @@
     ],
     "edges": [
       {
-        "id": "e-dab75c6ca526",
+        "id": "e-dab75c6ca526-task",
         "source": "tbl-ba7da5bf3a6b",
-        "sourceHandle": "output",
+        "sourceHandle": "task",
         "target": "pmt-fa2020920ad7",
-        "targetHandle": "input",
+        "targetHandle": "task",
+        "markerEnd": {
+          "type": "arrowclosed",
+          "width": 22,
+          "height": 22
+        }
+      },
+      {
+        "id": "e-dab75c6ca526-document",
+        "source": "tbl-ba7da5bf3a6b",
+        "sourceHandle": "document",
+        "target": "pmt-fa2020920ad7",
+        "targetHandle": "document",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -324,9 +338,9 @@
       {
         "id": "e-2c3a32178c85",
         "source": "pmt-fa2020920ad7",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "sv-3c3a1f30a0bf",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,
@@ -336,9 +350,9 @@
       {
         "id": "e-818dea99ca4b",
         "source": "pmt-fa2020920ad7",
-        "sourceHandle": "output",
+        "sourceHandle": "prompt",
         "target": "eval-3ea55a6d8f6c",
-        "targetHandle": "input",
+        "targetHandle": "responseBatch",
         "markerEnd": {
           "type": "arrowclosed",
           "width": 22,

@@ -6,8 +6,14 @@
         "height": 160,
         "id": "comment-schema",
         "type": "comment",
-        "position": {"x": -420, "y": -80},
-        "positionAbsolute": {"x": -420, "y": -80},
+        "position": {
+          "x": -420,
+          "y": -80
+        },
+        "positionAbsolute": {
+          "x": -420,
+          "y": -80
+        },
         "data": {
           "title": "Structured Output / Schema Determinism",
           "text": "Tests whether models produce valid JSON with no markdown fences, no trailing commas, and correct key names.\n\nSimple evaluator: response must start with '{' (no preamble).\nInspect node: verify field names and types manually.\n\nEnterprise relevance: downstream parsers (n8n, LangGraph, DBs) crash on malformed JSON."
@@ -19,14 +25,29 @@
         "height": 500,
         "id": "table-schema",
         "type": "table",
-        "position": {"x": -420, "y": 120},
-        "positionAbsolute": {"x": -420, "y": 120},
+        "position": {
+          "x": -420,
+          "y": 120
+        },
+        "positionAbsolute": {
+          "x": -420,
+          "y": 120
+        },
         "data": {
           "title": "Extraction Test Cases",
           "columns": [
-            {"header": "schema_desc", "key": "schema_desc"},
-            {"header": "input_text", "key": "input_text"},
-            {"header": "required_keys", "key": "required_keys"}
+            {
+              "header": "schema_desc",
+              "key": "schema_desc"
+            },
+            {
+              "header": "input_text",
+              "key": "input_text"
+            },
+            {
+              "header": "required_keys",
+              "key": "required_keys"
+            }
           ],
           "rows": [
             {
@@ -44,7 +65,7 @@
             {
               "__uid": "j3",
               "schema_desc": "Extract to JSON with keys: sentiment (positive/negative/neutral), confidence (0.0-1.0), keywords (array, max 3 items)",
-              "input_text": "The product launch exceeded expectations — sales were up 40% and customer reviews are outstanding.",
+              "input_text": "The product launch exceeded expectations \u2014 sales were up 40% and customer reviews are outstanding.",
               "required_keys": "sentiment,confidence,keywords"
             },
             {
@@ -67,8 +88,14 @@
         "height": 400,
         "id": "prompt-schema",
         "type": "prompt",
-        "position": {"x": 140, "y": 0},
-        "positionAbsolute": {"x": 140, "y": 0},
+        "position": {
+          "x": 140,
+          "y": 0
+        },
+        "positionAbsolute": {
+          "x": 140,
+          "y": 0
+        },
         "data": {
           "prompt": "{schema_desc}\n\nText:\n{input_text}\n\nRespond with ONLY a valid JSON object. No markdown fences. No explanation. No text outside the JSON.",
           "n": 1,
@@ -85,7 +112,9 @@
                 "temperature": 0.0,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -119,7 +148,9 @@
                 "temperature": 0.0,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -153,7 +184,9 @@
                 "temperature": 0.0,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -187,7 +220,9 @@
                 "temperature": 0.0,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -217,11 +252,21 @@
         "height": 220,
         "id": "eval-json-start",
         "type": "simpleval",
-        "position": {"x": 580, "y": 0},
-        "positionAbsolute": {"x": 580, "y": 0},
+        "position": {
+          "x": 580,
+          "y": 0
+        },
+        "positionAbsolute": {
+          "x": 580,
+          "y": 0
+        },
         "data": {
           "title": "PASS: response starts with { (no preamble)",
-          "availableVars": ["schema_desc", "input_text", "required_keys"],
+          "availableVars": [
+            "schema_desc",
+            "input_text",
+            "required_keys"
+          ],
           "input": "prompt-schema",
           "operation": "starts with",
           "textValue": "{",
@@ -233,29 +278,60 @@
         "height": 400,
         "id": "inspect-schema",
         "type": "inspect",
-        "position": {"x": 580, "y": 260},
-        "positionAbsolute": {"x": 580, "y": 260},
-        "data": {"input": "prompt-schema"}
+        "position": {
+          "x": 580,
+          "y": 260
+        },
+        "positionAbsolute": {
+          "x": 580,
+          "y": 260
+        },
+        "data": {
+          "input": "prompt-schema"
+        }
       },
       {
         "width": 400,
         "height": 300,
         "id": "vis-schema",
         "type": "vis",
-        "position": {"x": 1020, "y": 0},
-        "positionAbsolute": {"x": 1020, "y": 0},
+        "position": {
+          "x": 1020,
+          "y": 0
+        },
+        "positionAbsolute": {
+          "x": 1020,
+          "y": 0
+        },
         "data": {}
       }
     ],
     "edges": [
       {
-        "id": "e-table-schema-prompt",
+        "id": "e-table-schema-prompt-schema_desc",
         "source": "table-schema",
-        "sourceHandle": "output",
+        "sourceHandle": "schema_desc",
         "target": "prompt-schema",
-        "targetHandle": "input",
+        "targetHandle": "schema_desc",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "e-table-schema-prompt-input_text",
+        "source": "table-schema",
+        "sourceHandle": "input_text",
+        "target": "prompt-schema",
+        "targetHandle": "input_text",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "e-prompt-schema-eval",
@@ -264,7 +340,11 @@
         "target": "eval-json-start",
         "targetHandle": "responseBatch",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "e-prompt-schema-inspect",
@@ -273,7 +353,11 @@
         "target": "inspect-schema",
         "targetHandle": "input",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "e-eval-schema-vis",
@@ -282,9 +366,17 @@
         "target": "vis-schema",
         "targetHandle": "input",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       }
     ],
-    "viewport": {"x": 0, "y": 0, "zoom": 0.75}
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "zoom": 0.75
+    }
   }
 }

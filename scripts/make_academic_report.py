@@ -104,19 +104,21 @@ def build_execution_table(runs_dir: Path) -> str | None:
     short  = [m.split(":")[0] for m in models]
     header = "| Task | " + " | ".join(short) + " |"
     sep    = "|------|" + "|".join(["--------"] * len(models)) + "|"
-    # Collect all task names
-    tasks  = sorted({t for m in results.values() for t in m.keys()})
+    # cases are nested under results[model]["cases"]
+    def get_cases(m): return results[m].get("cases", results[m]) if isinstance(results[m], dict) else {}
+    tasks  = sorted({t for m in results for t in get_cases(m).keys()
+                     if t not in ("total_passed", "total_tests", "pass_at_1")})
     rows   = []
     for task in tasks:
         cells = []
         for m in models:
-            r = results[m].get(task, {})
-            p = r.get("passed", 0)
-            t = r.get("total", 1)
+            r = get_cases(m).get(task, {})
+            p = r.get("passed", 0) if isinstance(r, dict) else 0
+            t = r.get("total",  1) if isinstance(r, dict) else 1
             cells.append(f"{p}/{t}")
         rows.append(f"| `{task}` | " + " | ".join(cells) + " |")
-    # pass@1 summary row
-    pass1 = {m: data.get("pass_at_1", {}).get(m, data.get("summary", {}).get(m, {}).get("pass_at_1", "—")) for m in models}
+    # pass@1 summary row — stored per-model in results[m]["pass_at_1"]
+    pass1 = {m: results[m].get("pass_at_1", "—") if isinstance(results[m], dict) else "—" for m in models}
     rows.append("| **pass@1** | " + " | ".join(str(pass1[m]) for m in models) + " |")
     return "\n".join([header, sep] + rows)
 

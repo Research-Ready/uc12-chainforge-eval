@@ -6,8 +6,14 @@
         "height": 160,
         "id": "comment-setup",
         "type": "comment",
-        "position": {"x": -400, "y": -80},
-        "positionAbsolute": {"x": -400, "y": -80},
+        "position": {
+          "x": -400,
+          "y": -80
+        },
+        "positionAbsolute": {
+          "x": -400,
+          "y": -80
+        },
         "data": {
           "title": "Setup: Ollama models",
           "text": "Requires Ollama running on localhost:11434.\n\nIn ChainForge Settings > Model Providers, add each model as:\n  Provider: OpenAI (custom)\n  Base URL: http://localhost:11434/v1\n  API key: ollama\n  Model name: hermes3:latest (or phi4:latest, llama3.1:8b, qwen3:14b)\n\nThen press Run on the Prompt node."
@@ -19,24 +25,79 @@
         "height": 480,
         "id": "table-cognitive",
         "type": "table",
-        "position": {"x": -400, "y": 120},
-        "positionAbsolute": {"x": -400, "y": 120},
+        "position": {
+          "x": -400,
+          "y": 120
+        },
+        "positionAbsolute": {
+          "x": -400,
+          "y": 120
+        },
         "data": {
           "title": "Reasoning & Code Test Cases",
           "columns": [
-            {"header": "category", "key": "category"},
-            {"header": "problem", "key": "problem"},
-            {"header": "expected", "key": "expected"}
+            {
+              "header": "category",
+              "key": "category"
+            },
+            {
+              "header": "problem",
+              "key": "problem"
+            },
+            {
+              "header": "expected",
+              "key": "expected"
+            }
           ],
           "rows": [
-            {"__uid": "r1", "category": "reasoning", "problem": "A farmer has 17 sheep. All but 9 die. How many sheep are left?", "expected": "9"},
-            {"__uid": "r2", "category": "reasoning", "problem": "If it takes 5 machines 5 minutes to make 5 widgets, how long does it take 100 machines to make 100 widgets?", "expected": "5 minutes"},
-            {"__uid": "r3", "category": "reasoning", "problem": "You have a 3-litre jug and a 5-litre jug. How do you measure exactly 4 litres?", "expected": "fill 5L pour into 3L empty 3L pour 2L fill 5L top off 4L remains"},
-            {"__uid": "c1", "category": "code_gen", "problem": "Write a Python function is_palindrome(s) that returns True if s is a palindrome. Handle None, empty string, and mixed case.", "expected": "handles None empty case-insensitive"},
-            {"__uid": "c2", "category": "code_gen", "problem": "Write a Python function flatten(lst) that flattens a nested list of arbitrary depth into a flat list.", "expected": "recursive or iterative handles arbitrary nesting"},
-            {"__uid": "c3", "category": "code_gen", "problem": "Write a Python function retry(func, retries=3, delay=1) that retries func on exception with delay between attempts.", "expected": "uses try/except sleep raises on final failure"},
-            {"__uid": "i1", "category": "instruction", "problem": "List exactly 5 programming languages. No bullet points. Each language must start with a different letter. Total response under 30 words.", "expected": "5 languages no bullets different first letters under 30 words"},
-            {"__uid": "i2", "category": "instruction", "problem": "Summarize what Docker does in exactly 20 words. The word isolation must appear. No technical jargon.", "expected": "exactly 20 words contains isolation plain language"}
+            {
+              "__uid": "r1",
+              "category": "reasoning",
+              "problem": "A farmer has 17 sheep. All but 9 die. How many sheep are left?",
+              "expected": "9"
+            },
+            {
+              "__uid": "r2",
+              "category": "reasoning",
+              "problem": "If it takes 5 machines 5 minutes to make 5 widgets, how long does it take 100 machines to make 100 widgets?",
+              "expected": "5 minutes"
+            },
+            {
+              "__uid": "r3",
+              "category": "reasoning",
+              "problem": "You have a 3-litre jug and a 5-litre jug. How do you measure exactly 4 litres?",
+              "expected": "fill 5L pour into 3L empty 3L pour 2L fill 5L top off 4L remains"
+            },
+            {
+              "__uid": "c1",
+              "category": "code_gen",
+              "problem": "Write a Python function is_palindrome(s) that returns True if s is a palindrome. Handle None, empty string, and mixed case.",
+              "expected": "handles None empty case-insensitive"
+            },
+            {
+              "__uid": "c2",
+              "category": "code_gen",
+              "problem": "Write a Python function flatten(lst) that flattens a nested list of arbitrary depth into a flat list.",
+              "expected": "recursive or iterative handles arbitrary nesting"
+            },
+            {
+              "__uid": "c3",
+              "category": "code_gen",
+              "problem": "Write a Python function retry(func, retries=3, delay=1) that retries func on exception with delay between attempts.",
+              "expected": "uses try/except sleep raises on final failure"
+            },
+            {
+              "__uid": "i1",
+              "category": "instruction",
+              "problem": "List exactly 5 programming languages. No bullet points. Each language must start with a different letter. Total response under 30 words.",
+              "expected": "5 languages no bullets different first letters under 30 words"
+            },
+            {
+              "__uid": "i2",
+              "category": "instruction",
+              "problem": "Summarize what Docker does in exactly 20 words. The word isolation must appear. No technical jargon.",
+              "expected": "exactly 20 words contains isolation plain language"
+            }
           ]
         }
       },
@@ -45,8 +106,14 @@
         "height": 420,
         "id": "prompt-cognitive",
         "type": "prompt",
-        "position": {"x": 160, "y": 0},
-        "positionAbsolute": {"x": 160, "y": 0},
+        "position": {
+          "x": 160,
+          "y": 0
+        },
+        "positionAbsolute": {
+          "x": 160,
+          "y": 0
+        },
         "data": {
           "prompt": "Category: {category}\n\nTask: {problem}",
           "n": 1,
@@ -63,7 +130,9 @@
                 "temperature": 0.7,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -97,7 +166,9 @@
                 "temperature": 0.7,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -131,7 +202,9 @@
                 "temperature": 0.7,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -165,7 +238,9 @@
                 "temperature": 0.7,
                 "base_url": "http://localhost:11434/v1",
                 "api_key": "ollama",
-                "response_format": {"type": "text"},
+                "response_format": {
+                  "type": "text"
+                },
                 "tools": [],
                 "stop": [],
                 "top_p": 1,
@@ -195,20 +270,45 @@
         "height": 400,
         "id": "inspect-cognitive",
         "type": "inspect",
-        "position": {"x": 600, "y": 0},
-        "positionAbsolute": {"x": 600, "y": 0},
-        "data": {"input": "prompt-cognitive"}
+        "position": {
+          "x": 600,
+          "y": 0
+        },
+        "positionAbsolute": {
+          "x": 600,
+          "y": 0
+        },
+        "data": {
+          "input": "prompt-cognitive"
+        }
       }
     ],
     "edges": [
       {
-        "id": "reactflow__edge-table-cognitive-output-prompt-cognitive-input",
+        "id": "reactflow__edge-table-cognitive-output-prompt-cognitive-input-category",
         "source": "table-cognitive",
-        "sourceHandle": "output",
+        "sourceHandle": "category",
         "target": "prompt-cognitive",
-        "targetHandle": "input",
+        "targetHandle": "category",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
+      },
+      {
+        "id": "reactflow__edge-table-cognitive-output-prompt-cognitive-input-problem",
+        "source": "table-cognitive",
+        "sourceHandle": "problem",
+        "target": "prompt-cognitive",
+        "targetHandle": "problem",
+        "interactionWidth": 100,
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       },
       {
         "id": "reactflow__edge-prompt-cognitive-prompt-inspect-cognitive-input",
@@ -217,9 +317,17 @@
         "target": "inspect-cognitive",
         "targetHandle": "input",
         "interactionWidth": 100,
-        "markerEnd": {"height": "22px", "type": "arrow", "width": "22px"}
+        "markerEnd": {
+          "height": "22px",
+          "type": "arrow",
+          "width": "22px"
+        }
       }
     ],
-    "viewport": {"x": 0, "y": 0, "zoom": 0.8}
+    "viewport": {
+      "x": 0,
+      "y": 0,
+      "zoom": 0.8
+    }
   }
 }
