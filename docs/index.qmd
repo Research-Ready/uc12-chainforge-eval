@@ -98,28 +98,37 @@ flowchart LR
 
 Every workflow is committed to git in `chainforge/flows/` and loadable at `http://localhost:8765`:
 
-| Workflow File | Evaluation Focus | Input Cases | Scoring Mechanism | Node Topology |
-|:---|:---|:---:|:---|:---|
-| [`cognitive.cforge`](flows.qmd#cognitive.cforge) | Multi-Domain Tasks | 8 rows | LLM Judge (1 to 5) | Table -> Prompt -> Inspect |
-| [`execution.cforge`](flows.qmd#execution.cforge) | Programmatic Pass@1 | 6 rows | Subprocess Python Unit Tests | Table -> Prompt -> Evaluator -> Vis |
-| [`reasoning-depth.cforge`](flows.qmd#reasoning-depth.cforge) | Logic & Probability Paradoxes | 6 rows | Reasoning Judge (1 to 5) | Table -> Prompt -> LLMEval -> Vis |
-| [`schema.cforge`](flows.qmd#schema.cforge) | Structured JSON Conformance | 5 rows | SimpleVal `{` check + Schema parse | Table -> Prompt -> SimpleVal -> Inspect |
-| [`perturbation.cforge`](flows.qmd#perturbation.cforge) | Semantic Invariance Delta | 4 rows | Paired A/B Judges ($\Delta_{\text{pert}}$) | Table -> Prompt -> LLMEval (x2) -> Vis |
-| [`multi-judge.cforge`](flows.qmd#multi-judge.cforge) | Inter-Rater Reliability | 6 rows | 3 Parallel Model Judges | Table -> Prompt (x3 Judges) -> Inspect |
-| [`security.cforge`](flows.qmd#security.cforge) | Baseline Security & Vuln Audits | 6 rows | Fail-String Match + Vuln Judge | Table -> Prompt -> SimpleVal -> Vis |
-| [`jailbreak.cforge`](flows.qmd#jailbreak.cforge) | Roleplay & Persona Overrides (DAN) | 6 rows | Fail-String Detector + Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`indirect-injection.cforge`](flows.qmd#indirect-injection.cforge) | Hidden Document Overrides | 5 rows | Injection Success Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`crescendo.cforge`](flows.qmd#crescendo.cforge) | Multi-Turn Escalating Dialogue | 3 rows | Marker Leakage Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`obfuscation.cforge`](flows.qmd#obfuscation.cforge) | Base64 / Hex / ROT13 Evasion | 5 rows | Attack Marker Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`cipher-laundering.cforge`](flows.qmd#cipher-laundering.cforge) | Cross-Language Cipher Wraps | 5 rows | Laundering Resistance Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`steganography.cforge`](flows.qmd#steganography.cforge) | Zero-Width Unicode Injections | 4 rows | Hidden Control Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`many-shot.cforge`](flows.qmd#many-shot.cforge) | In-Context Repetitive Priming | 3 rows | Many-Shot Resistance Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`prompt-extraction.cforge`](flows.qmd#prompt-extraction.cforge) | System Prompt Exfiltration | 5 rows | Extraction Resistance Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`memorization.cforge`](flows.qmd#memorization.cforge) | Training Data Leakage Probing | 5 rows | Verbatim Match Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`dos.cforge`](flows.qmd#dos.cforge) | Algorithmic Resource Exhaustion | 4 rows | Resource Guard Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
-| [`hallucination.cforge`](flows.qmd#hallucination.cforge) | Fabricated APIs & Fake Papers | 6 rows | Epistemic Honesty Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+::: {.callout-tip}
+## Launching Workflows on Localhost
+When running ChainForge locally on port 8765:
+```bash
+chainforge serve --port 8765 --dir $(pwd)/chainforge/flows
+```
+Clicking any **Open on Localhost** link below immediately takes you to your local ChainForge session at `http://localhost:8765`.
+:::
 
-For the full architectural breakdown, node configurations, and prompt templates, see the [ChainForge Visual Workflow Catalog](flows.qmd).
+| Workflow File | Evaluation Focus | Input Cases | Scoring Mechanism | Localhost Direct Link |
+|:---|:---|:---:|:---|:---:|
+| [`cognitive.cforge`](flows.qmd#cognitive.cforge) | Multi-Domain Tasks | 8 rows | LLM Judge (1 to 5) | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`execution.cforge`](flows.qmd#execution.cforge) | Programmatic Pass@1 | 6 rows | Subprocess Python Unit Tests | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`reasoning-depth.cforge`](flows.qmd#reasoning-depth.cforge) | Logic & Probability Paradoxes | 6 rows | Reasoning Judge (1 to 5) | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`schema.cforge`](flows.qmd#schema.cforge) | Structured JSON Conformance | 5 rows | SimpleVal `{` check + Schema parse | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`perturbation.cforge`](flows.qmd#perturbation.cforge) | Semantic Invariance Delta | 4 rows | Paired A/B Judges ($\Delta_{\text{pert}}$) | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`multi-judge.cforge`](flows.qmd#multi-judge.cforge) | Inter-Rater Reliability | 6 rows | 3 Parallel Model Judges | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`security.cforge`](flows.qmd#security.cforge) | Baseline Security & Vuln Audits | 6 rows | Fail-String Match + Vuln Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`jailbreak.cforge`](flows.qmd#jailbreak.cforge) | Roleplay & Persona Overrides (DAN) | 6 rows | Fail-String Detector + Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`indirect-injection.cforge`](flows.qmd#indirect-injection.cforge) | Hidden Document Overrides | 5 rows | Injection Success Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`crescendo.cforge`](flows.qmd#crescendo.cforge) | Multi-Turn Escalating Dialogue | 3 rows | Marker Leakage Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`obfuscation.cforge`](flows.qmd#obfuscation.cforge) | Base64 / Hex / ROT13 Evasion | 5 rows | Attack Marker Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`cipher-laundering.cforge`](flows.qmd#cipher-laundering.cforge) | Cross-Language Cipher Wraps | 5 rows | Laundering Resistance Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`steganography.cforge`](flows.qmd#steganography.cforge) | Zero-Width Unicode Injections | 4 rows | Hidden Control Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`many-shot.cforge`](flows.qmd#many-shot.cforge) | In-Context Repetitive Priming | 3 rows | Many-Shot Resistance Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`prompt-extraction.cforge`](flows.qmd#prompt-extraction.cforge) | System Prompt Exfiltration | 5 rows | Extraction Resistance Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`memorization.cforge`](flows.qmd#memorization.cforge) | Training Data Leakage Probing | 5 rows | Verbatim Match Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`dos.cforge`](flows.qmd#dos.cforge) | Algorithmic Resource Exhaustion | 4 rows | Resource Guard Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| [`hallucination.cforge`](flows.qmd#hallucination.cforge) | Fabricated APIs & Fake Papers | 6 rows | Epistemic Honesty Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+
+For the full architectural breakdown, node configurations, direct API endpoints, and prompt templates, see the [ChainForge Visual Workflow Catalog](flows.qmd).
 
 ---
 

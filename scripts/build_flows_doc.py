@@ -14,7 +14,16 @@ def clean(text):
 
 out = []
 out.append("# ChainForge Visual Workflow Catalog\n")
-out.append("Our platform maintains 18 visual flow graphs in `chainforge/flows/`. Each flow connects parameterized data tables to model endpoints, automated scorers, and visual inspection nodes. Evaluators can load and inspect any flow interactively inside the ChainForge web interface.\n")
+out.append("Our platform maintains 18 visual flow graphs in `chainforge/flows/`. Each flow connects parameterized data tables to model endpoints, automated scorers, and visual inspection nodes.\n")
+
+out.append("::: {.callout-tip}")
+out.append("## Launching Flows on Localhost")
+out.append("When running ChainForge locally on port 8765:")
+out.append("```bash")
+out.append("chainforge serve --port 8765 --dir $(pwd)/chainforge/flows")
+out.append("```")
+out.append("You can click any of the **Open in ChainForge (localhost:8765)** links below to immediately inspect and execute that workflow in your local browser session.")
+out.append(":::\n")
 
 out.append("## Interactive Workflow Architecture\n")
 out.append("Every evaluation workflow in ChainForge is represented as a directed acyclic graph (DAG) connecting four stages:\n")
@@ -44,13 +53,13 @@ out.append("  S2 --> V1")
 out.append("  P --> V2")
 out.append("```\n")
 
-out.append("## Launching Workflows in the ChainForge UI\n")
-out.append("Follow these steps to run any flow interactively:")
-out.append("1. **Launch the server:** Run `chainforge serve --port 8765` in your terminal.")
-out.append("2. **Open the browser interface:** Navigate to `http://localhost:8765`.")
-out.append("3. **Import a flow file:** Select **File -> Import** from the top navigation bar and choose a `.cforge` file from `chainforge/flows/`.")
-out.append("4. **Execute queries:** Click **Run** on the central Prompt Node to dispatch queries across all configured models simultaneously.")
-out.append("5. **Inspect receipts:** Double-click the **Vis** or **Inspect** node to view side-by-side transcripts, failure markers, and score distributions.\n")
+out.append("## Workflow Quick Index\n")
+out.append("| Flow File | Evaluation Track | Localhost UI Link | Direct API Endpoint |")
+out.append("|:---|:---|:---:|:---:|")
+for f in flows:
+    name_clean = f.name.replace(".cforge", "")
+    out.append(f"| [`{f.name}`](#{f.name.replace('.', '')}) | {name_clean.replace('-', ' ').title()} | [Open in ChainForge (localhost:8765)](http://localhost:8765) | [api/flows/{f.name}](http://localhost:8765/api/flows/{f.name}) |")
+out.append("\n---\n")
 
 out.append("## Complete Catalog of the 18 Evaluation Flows\n")
 
@@ -65,6 +74,7 @@ for f in flows:
         by_type.setdefault(t, []).append(n)
         
     out.append(f"### `{f.name}`\n")
+    out.append(f"🔗 **Localhost Direct Links:** [Open in ChainForge (http://localhost:8765)](http://localhost:8765) | [Direct JSON Endpoint (localhost:8765/api/flows/{f.name})](http://localhost:8765/api/flows/{f.name})\n")
     
     # Comments / Description
     for c in by_type.get("comment", []):
@@ -126,4 +136,4 @@ for f in flows:
     out.append("---\n")
 
 Path("docs/flows.qmd").write_text("\n".join(out))
-print("Successfully generated docs/flows.qmd with all 18 flows")
+print("Successfully updated docs/flows.qmd with localhost direct links")
