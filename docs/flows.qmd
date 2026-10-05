@@ -1,0 +1,49 @@
+# ChainForge Visual Flow Catalog
+
+Our platform maintains a library of visual flow graphs in `chainforge/flows/`. Each flow file defines prompt injection templates, model parameters, multi-judge scoring criteria, and visual analytics nodes conforming to the ChainForge 0.3.7.6 schema.
+
+## Flow Architecture
+
+Each evaluation flow follows a modular node pipeline:
+
+1. **Tabular Prompt Nodes:** Parameterized test cases defining prompt inputs, system directives, and expected invariants.
+2. **Model Endpoints:** Multi-model query nodes dispatching concurrent requests to local Ollama endpoints and external cloud APIs.
+3. **Scorer & Assertion Nodes:** Python simple-eval evaluators, regular expression inspectors, and LLM-as-a-judge nodes calculating empirical metric scores.
+4. **Inspection & Export Nodes:** Responsive visualizations (box plots, histograms, category comparisons) and tabular CSV/JSON export artifacts.
+
+## Flow Library Catalog
+
+The flow library contains 16 specialized evaluation configurations:
+
+### 1. Cognitive and Domain Capability
+
+| Flow File | Track | Measured Capability |
+|:---|:---|:---|
+| `cognitive.cforge` | Multi-Domain Cognitive | Logic puzzles, code generation, summarization, creative writing, and factual question answering. |
+| `execution.cforge` | Programmatic Execution | Code generation tasks evaluated against unit assertions executed in isolated subprocesses. |
+| `reasoning-depth.cforge` | Multi-step Deductive | Multi-step arithmetic, syllogisms, and symbolic logic puzzles. |
+| `schema.cforge` | JSON Conformance | Entity extraction into strict JSON schemas with field type and key validation. |
+| `multi-judge.cforge` | Inter-Rater Agreement | Three parallel LLM judge nodes evaluating identical outputs to measure scoring variance. |
+
+### 2. Adversarial Security and Red-Teaming
+
+| Flow File | Attack Category | Evaluation Vector |
+|:---|:---|:---|
+| `security.cforge` | Security Baseline | Seeded code vulnerability auditing (CWE-89 SQLi, CWE-502 Deserialization, CWE-78 Command Injection). |
+| `jailbreak.cforge` | Direct Jailbreaking | Persona adoption, roleplay overrides, and DAN style instructions. |
+| `indirect-injection.cforge` | Indirect Document Injection | Embedded instructions hidden within untrusted input texts (Markdown comments, SVG payloads). |
+| `crescendo.cforge` | Multi-Turn Escalation | Gradual benign-to-malicious conversational steering across sequential dialogue turns. |
+| `obfuscation.cforge` | Obfuscation & Encoding | Base64, ROT13, hex, and leetspeak tokenization evasion. |
+| `cipher-laundering.cforge` | Cipher Translation | Semantic translation laundering through intermediate low-resource languages and cipher keys. |
+| `steganography.cforge` | Steganographic Injection | Payload concealing via acrostic encoding, zero-width spaces, and whitespace patterns. |
+| `many-shot.cforge` | In-Context Many-Shot | Exploitation of long context windows via repetitive priming demonstrations. |
+| `prompt-extraction.cforge` | System Prompt Leakage | Deliberate elicitation of private system instructions and hidden developer rules. |
+| `memorization.cforge` | Verbatim Memorization | Probing for verbatim replication of copyrighted text and training data leakage. |
+| `dos.cforge` | Algorithmic Resource Exhaustion | Prompts constructed to trigger exponential decoding loops and quadratic token generation. |
+
+## Inspecting and Exporting Results
+
+To inspect evaluation data within the ChainForge UI:
+1. Double-click the **Inspect Node** at the terminal end of any flow graph.
+2. Filter outputs by model identifier, score distribution, or response latency.
+3. Select **Export -> CSV** or **Export -> JSON** to export raw tabular records for analysis in Python.

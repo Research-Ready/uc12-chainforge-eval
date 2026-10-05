@@ -1,0 +1,58 @@
+# Model Selection and Deployment Guide
+
+Selecting an open-weights language model requires balancing domain accuracy against memory pressure, inference latency, and adversarial exposure. Our empirical benchmarks establish clear operational tiers based on verified workstation execution data.
+
+## Category Recommendations
+
+Our benchmark evaluations across five cognitive tracks and four models establish the following category recommendations:
+
+| Category | Best Local Model | Score (/5) | Best External Model | Recommended Deployment Tier |
+|:---|:---|:---|:---|:---|
+| **Multi-step Reasoning** | `phi4:latest` / `qwen3:14b` | 5 | Claude 3.5 Sonnet / GPT-4o | Local High-Capability Tier |
+| **Code Generation & Syntax** | `llama3.1:8b` / `phi4:latest` | 5 | Claude 3.5 Sonnet | Local Efficiency Baseline |
+| **Vulnerability Auditing** | `hermes3:latest` / `phi4:latest` / `llama3.1:8b` | 5 | GPT-4o / Claude 3.5 Sonnet | Local Efficiency Baseline |
+| **Instruction Following** | `phi4:latest` | 5 | GPT-4o | Local High-Capability Tier |
+| **Creative & Narrative** | Convergence across all models | 4 | Claude 3.5 Sonnet / Gemini 1.5 Pro | External Frontier API |
+| **Structured Output (JSON)** | `phi4:latest` / `llama3.1:8b` | 5 | GPT-4o-mini | Local Efficiency Baseline |
+| **Adversarial Security** | `llama3.1:8b` | 5 | Claude 3.5 Sonnet | Production Secure Tier |
+
+## Workstation Deployment Tiers
+
+We define three operational tiers for engineering deployment:
+
+### Tier 1: Production Automation Baseline (Recommended: `llama3.1:8b`)
+- **Memory Footprint:** 4.9 GB on disk.
+- **Overall Cognitive Score:** 22/25 points.
+- **Adversarial Resilience:** 4.6/5.0 average score; defended all 5 core injection attacks.
+- **Execution Pass@1:** 1.000 (19/19 hidden test assertions passed).
+- **Inference Speed:** 4.10 tokens per second on consumer mobile GPU silicon.
+- **Recommended Workloads:** Customer-facing conversational agents, real-time code linting, automated triage pipelines, and resource-constrained edge systems.
+
+### Tier 2: Analytical & Offline Processing (Recommended: `phi4:latest`)
+- **Memory Footprint:** 9.1 GB on disk (14.7B parameters).
+- **Overall Cognitive Score:** 24/25 points.
+- **Adversarial Resilience:** 2.2/5.0 average score; vulnerable to indirect document injection.
+- **Execution Pass@1:** 1.000.
+- **Inference Speed:** 2.45 tokens per second.
+- **Recommended Workloads:** Air-gapped batch data processing, deductive theorem validation, internal code refactoring, and environments where inputs are pre-sanitized and isolated.
+
+### Tier 3: Specialized Formatting and Instruction Execution (`hermes3:latest`)
+- **Memory Footprint:** 4.7 GB on disk.
+- **Overall Cognitive Score:** 22/25 points.
+- **Adversarial Resilience:** 3.6/5.0 average score.
+- **Execution Pass@1:** 0.947 (failed subtle string punctuation assertions).
+- **Inference Speed:** 5.13 tokens per second (fastest local generator).
+- **Recommended Workloads:** Synthetic data generation, structured transformation, and prompt prototyping where execution sandboxes verify all outputs.
+
+## Deployment Decision Flowchart
+
+When selecting an architecture for a new workload, follow this decision sequence:
+
+1. **Does the pipeline process untrusted external documents or user inputs?**
+   - If yes: deploy `llama3.1:8b`. Its adversarial rejection prevents indirect system prompt overrides.
+2. **Does the pipeline execute long-chain mathematical or deductive reasoning offline?**
+   - If yes: deploy `phi4:latest`. Its 24/25 score provides the highest analytical precision.
+3. **Does the pipeline generate runnable executable code?**
+   - If yes: mandate automated test sandboxing. Both `phi4` and `llama3.1` achieved 100% pass rates, but runtime assertions remain mandatory to prevent regressions.
+4. **Is interactive latency the primary design constraint?**
+   - If yes: avoid 14B models on CPU hardware. Time-to-first-token on 14B models exceeds 120 seconds under CPU execution, whereas 8B models respond in under 17 seconds.

@@ -1,0 +1,104 @@
+# Platform Setup and Architecture
+
+This guide details how to install, configure, and operate the UC12 ChainForge evaluation platform.
+
+## Prerequisites
+
+The platform requires Python 3.10 or higher. Local evaluations require an active Ollama instance running locally or on an accessible local network machine.
+
+```bash
+# Verify Python version
+python3 --version
+
+# Verify Ollama installation
+ollama --version
+```
+
+## Installation
+
+Install the ChainForge visual prompt evaluation library:
+
+```bash
+pip install chainforge
+```
+
+## Running the Visual Server
+
+We run ChainForge on port 8765 to prevent port collisions with other development services on the host machine:
+
+```bash
+chainforge serve --port 8765
+```
+
+Navigate to `http://localhost:8765` in your browser.
+
+## Connecting Local Ollama Models
+
+ChainForge connects to Ollama via the OpenAI-compatible REST API:
+
+- **Provider Type:** OpenAI
+- **Base URL:** `http://localhost:11434/v1`
+- **API Key:** `ollama` (Ollama ignores key validation but requires a non-empty string)
+- **Target Models:**
+  - `hermes3:latest`
+  - `qwen3:14b`
+  - `gemma3:27b`
+  - `phi4:latest`
+  - `deepseek-r1:14b`
+  - `llama3.1:8b`
+
+Verify that all target models are downloaded before initiating evaluation:
+
+```bash
+ollama list
+```
+
+## Connecting External Frontier Models
+
+Frontier cloud providers are supported through standard environment variables:
+
+```bash
+cp .env.example .env
+```
+
+Configure your API keys in `.env`:
+
+```bash
+ANTHROPIC_API_KEY=your_key_here
+OPENAI_API_KEY=your_key_here
+GOOGLE_API_KEY=your_key_here
+```
+
+Within the ChainForge user interface, select the corresponding provider and enter the appropriate model identifiers:
+- Anthropic: `claude-haiku-4-5-20251001`
+- OpenAI: `gpt-4o-mini`
+- Google: `gemini-1.5-flash`
+
+## Connecting a Remote Ollama Instance (GPU Rig)
+
+When running inference on dedicated GPU hardware across a local network:
+
+- **Base URL:** `http://<GPU_RIG_IP>:11434/v1`
+- Substitute `<GPU_RIG_IP>` with the local LAN address (for example: `192.168.1.42`)
+- Ensure the remote host accepts incoming TCP traffic on port 11434
+
+## Importing Flow Files
+
+The evaluation flows are pre-configured in `chainforge/flows/`:
+
+1. Open ChainForge at `http://localhost:8765`
+2. Select **File -> Import** from the top menu
+3. Select any `.cforge` file from the repository
+4. The visual flow loads with input variables, prompts, and evaluation nodes pre-connected
+
+## Port Allocation Reference
+
+To maintain operational isolation across multiple services running simultaneously, observe this port map:
+
+| Port | Service | Responsibility |
+|:---|:---|:---|
+| 3000 | OpenWebUI | Interactive conversational interface |
+| 5678 | n8n | Workflow scheduling and automation |
+| 8000 | LangGraph | Agentic workflow graph execution |
+| **8765** | **ChainForge (UC12)** | **Visual evaluation platform and prompt testing** |
+| 11434 | Ollama | Local model inference server |

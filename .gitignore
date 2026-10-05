@@ -6,3 +6,14 @@ __pycache__/
 *.pyc
 .DS_Store
 node_modules/
+
+# Agent & local metadata
+.claude/
+.claude-flow/
+scratch/
+
+# Quarto build outputs
+docs/_book/
+docs/_site/
+_book/
+_site/

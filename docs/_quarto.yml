@@ -1,0 +1,62 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "UC12 — ChainForge AI Model Evaluation"
+  subtitle: "Comprehensive Documentation, Benchmark Methodology & Empirical Research"
+  author:
+    - name: Christiaan Verhoef
+      affiliation: ResearchReady
+    - name: Igor van Oostveen
+      affiliation: ResearchReady
+    - name: Milan Jelisavcic
+      affiliation: ResearchReady
+    - name: Albert Vos
+      affiliation: ResearchReady
+  date: "2026-10-01"
+  search: true
+  repo-url: https://github.com/Research-Ready/uc12-chainforge-eval
+  repo-actions: [issue]
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/Research-Ready/uc12-chainforge-eval
+  sidebar:
+    style: "docked"
+    search: true
+    collapse-level: 1
+  chapters:
+    - index.qmd
+    - part: "Getting Started & Architecture"
+      chapters:
+        - setup.qmd
+        - flows.qmd
+    - part: "Testing Methodology & Protocols"
+      chapters:
+        - test-protocol.qmd
+        - evaluation-guide.qmd
+    - part: "Empirical Research Volumes"
+      chapters:
+        - master-report.qmd
+        - security-audit.qmd
+        - hardware-telemetry.qmd
+    - part: "Deployment & Dissemination"
+      chapters:
+        - model-selection.qmd
+        - automation.qmd
+        - social-media.qmd
+    - references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      light: cosmo
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-copy: true

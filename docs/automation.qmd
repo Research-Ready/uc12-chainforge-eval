@@ -1,0 +1,72 @@
+# Automation and CI/CD Pipelines
+
+Our platform includes end-to-end automation pipelines connecting scheduled orchestration, continuous integration testing, and documentation publication.
+
+## Scheduled Workflows with n8n
+
+We automate recurring model evaluations using [n8n](http://localhost:5678):
+
+```
+Schedule (Sundays 02:00) / Webhook Trigger
+                    ↓
+       python3 scripts/run_all_benchmarks.py
+                    ↓
+       python3 scripts/make_all_reports.py
+                    ↓
+       git commit artifacts & push
+                    ↓
+       Post-Run Webhook Notification
+```
+
+### Workflow Specification
+- **Configuration File:** `n8n/uc12-benchmark-workflow.json`
+- **Default Schedule:** Weekly execution on Sundays at 02:00 local time.
+- **On-Demand Webhook:** `POST http://localhost:5678/webhook/uc12-benchmark-trigger`
+
+To trigger an immediate evaluation run without waiting for the scheduled cron:
+
+```bash
+curl -X POST http://localhost:5678/webhook/uc12-benchmark-trigger
+```
+
+### Environment Settings in n8n
+Configure operational settings within n8n under Settings -> Variables:
+
+| Variable | Value Description | Purpose |
+|:---|:---|:---|
+| `WEBHOOK_NOTIFY_URL` | Outbound webhook URL | Dispatches completion summaries to Slack, Teams, or email |
+| `LINKEDIN_ACCESS_TOKEN` | OAuth bearer token | Enables direct automated posting of generated research briefs |
+
+---
+
+## Continuous Integration via GitHub Actions
+
+Our repository maintains automated workflows in `.github/workflows/`:
+
+### 1. Script Validation (`validate.yml`)
+Runs on every push to `main` and on pull requests affecting `scripts/**`:
+- Installs Python 3.11 and dependencies (`matplotlib`, `numpy`, `requests`).
+- Executes `python -m py_compile` across all evaluation scripts.
+- Parses abstract syntax trees (AST) to verify import integrity without triggering compute overhead.
+
+### 2. Quarto Book Publishing (`deploy-book.yml`)
+Deploys this interactive documentation book to GitHub Pages:
+- Installs the Quarto publishing CLI via `quarto-dev/quarto-actions/setup@v2`.
+- Renders the complete book into static HTML, JavaScript, and SVG assets.
+- Pushes the rendered bundle to the `gh-pages` branch via `peaceiris/actions-gh-pages@v4`.
+
+---
+
+## Docker Containerization
+
+To run reproducible evaluations in isolated container environments, the platform provides Docker definitions:
+
+```bash
+# Launch CPU-bound evaluation stack
+docker compose up -d
+
+# Launch GPU-accelerated evaluation stack with NVIDIA container runtime
+docker compose -f docker-compose.gpu.yml up -d
+```
+
+The container stack mounts local model weights and output directories while exposing ChainForge on port 8765.

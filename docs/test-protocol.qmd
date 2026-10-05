@@ -1,0 +1,100 @@
+# Forensic Test Protocol v3.0
+
+This protocol defines the exact procedures required to reproduce our benchmark results. Every evaluation run records complete hardware state, exact model weights hashes, and deterministic prompt seeds.
+
+## Pre-Run Verification Checklist
+
+Before initiating benchmark execution, verify and log the environment parameters:
+
+- ChainForge version: `chainforge --version`
+- CPU architecture and RAM capacity
+- GPU model, driver version, and available VRAM
+- Host operating system and kernel version
+- Model weight manifests from `ollama list`
+- Commit hash of the test suite repository
+- Temperature setting: 0.7 for standard evaluation; 0.0 for deterministic schema testing
+- Evaluation repetitions: 3 runs per prompt per model; reported values represent median scores
+
+## Primary Cognitive Categories and Scoring Rubrics
+
+Each cognitive task is evaluated on a standardized 1 to 5 scale:
+
+### 1. Reasoning
+- **5:** Correct answer with complete, logically sound derivation.
+- **4:** Correct answer with minor gaps in explanatory steps.
+- **3:** Partially correct answer, or correct conclusion derived from flawed logic.
+- **2:** Incorrect answer with recognizable reasoning attempt.
+- **1:** Completely incorrect answer with no logical coherence.
+
+### 2. Code Generation
+- **5:** Code executes without error, demonstrates idiomatic style, and handles edge cases.
+- **4:** Code executes correctly with minor stylistic non-conformities.
+- **3:** Code requires minor manual adjustments to run.
+- **2:** Code exhibits syntax or logic defects while preserving high-level structure.
+- **1:** Non-functional or absent output.
+
+### 3. Code Vulnerability Auditing
+- **5:** Identifies all seeded vulnerabilities, specifies correct CWE classifications, and offers actionable remediations.
+- **4:** Identifies primary vulnerabilities but overlooks secondary issues.
+- **3:** Flags general concerns without pinpointing exact root causes.
+- **2:** Surface-level commentary without vulnerability discovery.
+- **1:** Fails to detect obvious critical flaws.
+
+### 4. Summarization
+- **5:** Retains all key factual assertions, introduces no hallucinations, conforms to specified length limits.
+- **4:** Retains key facts with minor length deviation.
+- **3:** Retains primary points but contains an omitted detail or minor hallucination.
+- **2:** Omits multiple key facts or introduces major unsupported assertions.
+- **1:** Fails to summarize or produces complete fabrication.
+
+### 5. Classification
+- **5:** Produces the correct label adhering strictly to requested output formats.
+- **4:** Produces the correct label with extraneous conversational prose.
+- **3:** Produces an incorrect label supported by plausible reasoning.
+- **2:** Produces an incorrect label with no logical basis.
+- **1:** Refuses the query or generates unparseable text.
+
+### 6. Creative Writing
+- **5:** Satisfies all creative constraints, demonstrates stylistic originality, avoids clichés.
+- **4:** Meets constraints with competent but formulaic narrative structures.
+- **3:** Violates a single constraint or relies heavily on repetitive tropes.
+- **2:** Violates multiple structural constraints.
+- **1:** Completely ignores prompt specifications.
+
+### 7. Factual Question Answering
+- **5:** Provides accurate factual answers accompanied by properly calibrated uncertainty.
+- **4:** Provides accurate answers with slight overconfidence or underconfidence.
+- **3:** Partially accurate response.
+- **2:** Factually incorrect response while acknowledging uncertainty.
+- **1:** Confidently asserted factual falsehood.
+
+### 8. Instruction Following
+- **5:** Complies with all structural, stylistic, and formatting constraints.
+- **4:** Satisfies high-level intent while missing minor formatting instructions.
+- **3:** Breaks two negative constraints.
+- **2:** Fails the majority of prompt requirements.
+- **1:** Complete deviation from prompt guidelines.
+
+---
+
+## Expanded Evaluation Dimensions (V to VIII)
+
+Beyond qualitative scoring, our methodology evaluates four programmatic dimensions:
+
+### Dimension V: Programmatic Execution Correctness (Pass@1)
+Evaluating code generation solely through LLM judges introduces evaluation bias. In our framework, candidate code runs inside isolated Python subprocesses with a 5.0-second execution timeout. Candidate functions are evaluated against hidden test suites testing base cases and edge conditions:
+
+$$\text{Pass@1} = \frac{\sum_{i=1}^N \mathbb{I}(\text{all hidden tests passed})}{N}$$
+
+### Dimension VI: Semantic Perturbation Invariance ($\Delta_{\text{pert}}$)
+Language models must demonstrate semantic stability under surface-level prompt alterations. We test paired prompts $(P_A, P_B)$ expressing identical semantic intent using distinct lexical forms. The perturbation delta measures stability:
+
+$$\Delta_{\text{pert}} = |S(P_A) - S(P_B)|$$
+
+An invariant model maintains $\Delta_{\text{pert}} = 0$.
+
+### Dimension VII: JSON Schema Determinism
+Enterprise integrations require strict adherence to machine-readable formats. We evaluate structured extraction tasks across temperatures $T \in \{0.0, 0.5, 1.0\}$. Output strings are parsed via `json.loads()` and verified against JSON Schema definitions. Scores penalize syntax errors, missing keys, and unexpected field types.
+
+### Dimension VIII: Long-Context Information Retrieval
+We test long-context retention using synthetic retrieval tasks embedded within distractor documents spanning 10,000 or more tokens. A model must successfully locate and retrieve target information regardless of whether the target token appears in the initial 10%, median 50%, or final 10% of the input context.

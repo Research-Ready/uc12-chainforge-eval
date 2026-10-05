@@ -1,0 +1,49 @@
+# Research Dissemination and Analysis Briefs
+
+To communicate empirical findings to enterprise practitioners and academic researchers, our team produces data-backed analytical briefs derived directly from evaluation runs.
+
+## Core Thematic Articles
+
+### 1. Beyond Prompt Injections: Multi-Dimensional Evaluation
+Most AI security evaluations stop at surface-level prompt injection. Evaluators present models with basic instruction overrides, count refusals, and declare systems secure.
+
+In our empirical evaluations, prompt injection resistance represents less than 20% of operational failure modes. In real-world enterprise deployments, models fail through broken JSON structures, silent logic regressions in generated functions, and semantic fragility under superficial prompt phrasing.
+
+Our expanded harness evaluates five concrete operational dimensions:
+1. **Execution-Grounded Verification:** Testing generated code against hidden unit tests in isolated subprocesses. `hermes3:latest` scored 0.947 pass@1, failing a subtle string parsing edge case that qualitative LLM judges scored 5/5. Both `phi4:latest` and `llama3.1:8b` achieved 1.000 pass@1.
+2. **Semantic Perturbation Invariance:** Evaluating stability across isomorphic prompt pairs where surface entities are swapped while mathematical topologies remain identical.
+3. **Schema Determinism:** Measuring syntax integrity and key fidelity across temperature variations ($T = 0.0$ to $1.0$).
+4. **Epistemic Authority Resistance:** Testing whether candidate models refute fabricated premises asserted under simulated authority titles.
+5. **Hardware Power Telemetry:** Continuous 100 millisecond power polling measuring Joules per query and tokens per Joule.
+
+---
+
+### 2. The Efficiency Frontier: Parameter Scale vs. Operational Fitness
+A prevalent industry assumption asserts that parameter count directly predicts operational competence. Our data contradicts this assumption:
+
+- `llama3.1:8b` (4.9 GB on disk) matched the cognitive output of 14B architectures across three of five categories, scoring 22/25 points.
+- In adversarial evaluations, `llama3.1:8b` scored 4.6/5.0, rejecting all five core injection vectors while operating at half the memory consumption of larger models.
+- On mobile GPU silicon, `llama3.1:8b` generated 4.10 tokens per second while consuming 145.66 Joules per query (1.69 tokens per Joule).
+- Larger 14B models incurred significant latency penalties under CPU memory paging, taking over 120 seconds per query on complex logic prompts.
+
+---
+
+### 3. Self-Hosted Workstations vs. Frontier Cloud APIs
+When deciding between local deployments and commercial cloud endpoints, engineering teams must evaluate three structural trade-offs:
+
+1. **Data Sovereignty:** Local Ollama execution guarantees that proprietary source code, patient data, and internal schemas never leave the local network.
+2. **Predictable Unit Economics:** At 100,000 monthly queries, cloud API expenditures reach approximately $336.00 annually per developer seat. A local workstation drawing 45 Watts consumes roughly €9.60 per month in electrical power, achieving financial breakeven within months.
+3. **Latency and Batch Execution:** Cloud endpoints provide high throughput for burst traffic, whereas local execution excels at private background linting, offline analysis, and air-gapped automation.
+
+---
+
+### 4. Advanced Adversarial Red-Teaming Matrix
+Our security test suite extends beyond basic jailbreaks to evaluate eight sophisticated attack surfaces:
+- Multi-turn crescendo conversational escalation
+- Base64 and rot13 encoding evasion
+- Steganographic injection using zero-width unicode characters
+- Cipher translation laundering through low-resource languages
+- Algorithmic resource-exhaustion denial-of-service loops
+- System prompt extraction via roleplay deception
+- Verbatim memorization and training data exfiltration
+- Many-shot in-context priming attacks
