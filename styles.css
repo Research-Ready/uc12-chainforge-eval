@@ -1,0 +1,39 @@
+/* Custom styling for UC12 Quarto Book */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+.sidebar nav[role="doc-toc"] ul li a {
+  font-size: 0.9rem;
+}
+
+.table-responsive {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgba(0, 0, 0, 0.04);
+  font-weight: 600;
+}
+
+.callout {
+  border-radius: 6px;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+img.chart-svg {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  margin: 1.5rem 0;
+}
