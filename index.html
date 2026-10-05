@@ -75,6 +75,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -114,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">UC12 ChainForge AI Model Evaluation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -137,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Preface</span></a>
+ <span class="menu-text">UC12 ChainForge AI Model Evaluation</span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -260,17 +289,26 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a>
+  <li><a href="#uc12-chainforge-ai-model-evaluation" id="toc-uc12-chainforge-ai-model-evaluation" class="nav-link active" data-scroll-target="#uc12-chainforge-ai-model-evaluation">UC12 ChainForge AI Model Evaluation</a>
   <ul class="collapse">
-  <li><a href="#authors-and-affiliation" id="toc-authors-and-affiliation" class="nav-link" data-scroll-target="#authors-and-affiliation">Authors and Affiliation</a></li>
-  <li><a href="#research-context" id="toc-research-context" class="nav-link" data-scroll-target="#research-context">Research Context</a></li>
-  <li><a href="#key-empirical-findings" id="toc-key-empirical-findings" class="nav-link" data-scroll-target="#key-empirical-findings">Key Empirical Findings</a>
+  <li><a href="#the-vision-empirical-evidence-over-marketing" id="toc-the-vision-empirical-evidence-over-marketing" class="nav-link" data-scroll-target="#the-vision-empirical-evidence-over-marketing">1. The Vision: Empirical Evidence Over Marketing</a>
   <ul class="collapse">
-  <li><a href="#adversarial-disconnect" id="toc-adversarial-disconnect" class="nav-link" data-scroll-target="#adversarial-disconnect">1. Adversarial Disconnect</a></li>
-  <li><a href="#programmatic-execution-vs.-qualitative-judges" id="toc-programmatic-execution-vs.-qualitative-judges" class="nav-link" data-scroll-target="#programmatic-execution-vs.-qualitative-judges">2. Programmatic Execution vs.&nbsp;Qualitative Judges</a></li>
-  <li><a href="#hardware-energy-and-latency" id="toc-hardware-energy-and-latency" class="nav-link" data-scroll-target="#hardware-energy-and-latency">3. Hardware Energy and Latency</a></li>
+  <li><a href="#research-team-and-citations" id="toc-research-team-and-citations" class="nav-link" data-scroll-target="#research-team-and-citations">Research Team and Citations</a></li>
   </ul></li>
-  <li><a href="#monograph-organization" id="toc-monograph-organization" class="nav-link" data-scroll-target="#monograph-organization">Monograph Organization</a></li>
+  <li><a href="#the-eight-dimensional-evaluation-methodology" id="toc-the-eight-dimensional-evaluation-methodology" class="nav-link" data-scroll-target="#the-eight-dimensional-evaluation-methodology">2. The Eight-Dimensional Evaluation Methodology</a></li>
+  <li><a href="#empirical-results-the-master-architecture-scorecard" id="toc-empirical-results-the-master-architecture-scorecard" class="nav-link" data-scroll-target="#empirical-results-the-master-architecture-scorecard">3. Empirical Results: The Master Architecture Scorecard</a>
+  <ul class="collapse">
+  <li><a href="#cognitive-performance-breakdown" id="toc-cognitive-performance-breakdown" class="nav-link" data-scroll-target="#cognitive-performance-breakdown">Cognitive Performance Breakdown</a></li>
+  <li><a href="#throughput-vs.-performance-pareto-frontier" id="toc-throughput-vs.-performance-pareto-frontier" class="nav-link" data-scroll-target="#throughput-vs.-performance-pareto-frontier">Throughput vs.&nbsp;Performance Pareto Frontier</a></li>
+  </ul></li>
+  <li><a href="#key-research-discoveries" id="toc-key-research-discoveries" class="nav-link" data-scroll-target="#key-research-discoveries">4. Key Research Discoveries</a>
+  <ul class="collapse">
+  <li><a href="#discovery-1-the-adversarial-disconnect" id="toc-discovery-1-the-adversarial-disconnect" class="nav-link" data-scroll-target="#discovery-1-the-adversarial-disconnect">Discovery 1: The Adversarial Disconnect</a></li>
+  <li><a href="#discovery-2-programmatic-execution-vs.-qualitative-judges" id="toc-discovery-2-programmatic-execution-vs.-qualitative-judges" class="nav-link" data-scroll-target="#discovery-2-programmatic-execution-vs.-qualitative-judges">Discovery 2: Programmatic Execution vs.&nbsp;Qualitative Judges</a></li>
+  <li><a href="#discovery-3-latency-denial-of-service-and-electrical-efficiency" id="toc-discovery-3-latency-denial-of-service-and-electrical-efficiency" class="nav-link" data-scroll-target="#discovery-3-latency-denial-of-service-and-electrical-efficiency">Discovery 3: Latency Denial-of-Service and Electrical Efficiency</a></li>
+  </ul></li>
+  <li><a href="#strategic-deployment-recommendations" id="toc-strategic-deployment-recommendations" class="nav-link" data-scroll-target="#strategic-deployment-recommendations">5. Strategic Deployment Recommendations</a></li>
+  <li><a href="#monograph-navigation-guide" id="toc-monograph-navigation-guide" class="nav-link" data-scroll-target="#monograph-navigation-guide">6. Monograph Navigation Guide</a></li>
   </ul></li>
   </ul>
 <div class="toc-actions"><ul><li><a href="https://github.com/Research-Ready/uc12-chainforge-eval/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
@@ -341,49 +379,203 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
-<p>Welcome to the official documentation and research monograph for the <strong>UC12 ChainForge AI Model Evaluation</strong> platform.</p>
-<p>This platform evaluates local and frontier large language models across cognitive ability, programmatic execution correctness, adversarial red-teaming, strict schema conformance, and hardware efficiency. Our core position remains direct: we test models empirically, and we publish the complete data artifacts.</p>
-<section id="authors-and-affiliation" class="level2">
-<h2 class="anchored" data-anchor-id="authors-and-affiliation">Authors and Affiliation</h2>
-<p>This benchmark platform, test suite, and research corpus were created by the ResearchReady team:</p>
-<ul>
-<li><strong>Christiaan Verhoef</strong> (ResearchReady)</li>
-<li><strong>Igor van Oostveen</strong> (ResearchReady)</li>
-<li><strong>Milan Jelisavcic</strong> (ResearchReady)</li>
-<li><strong>Albert Vos</strong> (ResearchReady)</li>
-</ul>
-</section>
-<section id="research-context" class="level2">
-<h2 class="anchored" data-anchor-id="research-context">Research Context</h2>
-<p>Enterprise engineering teams frequently select language models using generic public leaderboard rankings or raw parameter counts. Our experiments demonstrate that parameter volume does not dictate operational reliability. Smaller models often achieve superior safety, execution precision, and throughput relative to larger alternatives.</p>
-<p>We deployed an eight-dimension evaluation battery across prominent open-weights models running on local hardware: <code>llama3.1:8b</code>, <code>phi4:latest</code>, <code>hermes3:latest</code>, and <code>qwen3:14b</code>. We also connected frontier external models (<code>claude-haiku-4-5-20251001</code>, <code>gpt-4o-mini</code>, and <code>gemini-1.5-flash</code>) through an identical evaluation harness.</p>
-</section>
-<section id="key-empirical-findings" class="level2">
-<h2 class="anchored" data-anchor-id="key-empirical-findings">Key Empirical Findings</h2>
-<section id="adversarial-disconnect" class="level3">
-<h3 class="anchored" data-anchor-id="adversarial-disconnect">1. Adversarial Disconnect</h3>
-<p>High reasoning capacity does not guarantee adversarial safety. In our evaluation runs: - <code>phi4:latest</code> achieved 24/25 points across standard cognitive benchmarks, yet scored 2.2/5.0 on adversarial injection tests. It executed embedded indirect override instructions. - <code>llama3.1:8b</code> scored 22/25 in cognitive tasks while scoring 4.6/5.0 on adversarial tests, successfully rejecting five distinct attack vectors.</p>
-</section>
-<section id="programmatic-execution-vs.-qualitative-judges" class="level3">
-<h3 class="anchored" data-anchor-id="programmatic-execution-vs.-qualitative-judges">2. Programmatic Execution vs.&nbsp;Qualitative Judges</h3>
-<p>Qualitative assessment using language models as judges misses subtle runtime failures. - In automated test runs, <code>hermes3:latest</code> produced syntactically clean Python code that appeared flawless to an LLM evaluator. - When executed in isolated Python subprocesses against hidden unit tests, it failed a word-frequency punctuation edge case, yielding an empirical pass@1 rate of 0.947. - Both <code>phi4:latest</code> and <code>llama3.1:8b</code> passed all 19 hidden unit tests, attaining a 1.000 pass@1 rate.</p>
-</section>
-<section id="hardware-energy-and-latency" class="level3">
-<h3 class="anchored" data-anchor-id="hardware-energy-and-latency">3. Hardware Energy and Latency</h3>
-<p>Inference latency creates critical availability constraints: - On CPU inference, reasoning prompts on 14B parameter models required over 120 seconds per query. - In contrast, <code>llama3.1:8b</code> completed identical reasoning queries in 7.1 to 16.7 seconds. - <code>llama3.1:8b</code> generated 38.4 tokens per second with an average draw of 42.5 W, achieving 0.89 tokens per joule. - <code>phi4:latest</code> drew 88.2 W and required 14.1 GB VRAM, producing 0.24 tokens per joule.</p>
+<section id="uc12-chainforge-ai-model-evaluation" class="level1 unnumbered">
+<h1 class="unnumbered">UC12 ChainForge AI Model Evaluation</h1>
+<pre><code>        ┌─────────────────────────────────────────────────────────────┐
+        │  ResearchReady UC12: Multi-Dimensional Language Model Audit │
+        │               "We test AI. We show the receipts."           │
+        └──────────────────────────────┬──────────────────────────────┘
+                                       │
+         ┌──────────────────┬──────────┴───┬──────────────────┐
+         ▼                  ▼              ▼                  ▼
+┌─────────────────┐┌─────────────────┐┌───────────┐┌─────────────────┐
+│  I. Cognitive   ││ II. Adversarial ││ III. Power││ IV. Execution   │
+│   Capabilities  ││   Red-Teaming   ││ &amp; Latency ││   Unit Tests    │
+│  (5 Categories) ││  (18 Surfaces)  ││ (Joules/T)││    (Pass@1)     │
+└─────────────────┘└─────────────────┘└───────────┘└─────────────────┘</code></pre>
+<section id="the-vision-empirical-evidence-over-marketing" class="level2">
+<h2 class="anchored" data-anchor-id="the-vision-empirical-evidence-over-marketing">1. The Vision: Empirical Evidence Over Marketing</h2>
+<p>Enterprise engineering teams frequently select language models using vendor-reported benchmark scores or subjective conversational impressions. Public leaderboards rely heavily on static datasets such as MMLU or GSM8K, which suffer from contamination in contemporary training corpora. Furthermore, common industry safety assessments stop at rudimentary prompt injection tests. An evaluator issues a naive instruction override, records a refusal, and declares the architecture secure.</p>
+<p>Our evaluations demonstrate that basic prompt injection resistance represents less than 20% of production failure modes. When language models fail in production pipelines, they crash downstream parsers with unescaped JSON, exhibit brittle logic regressions under slight semantic phrasing shifts, or silently generate broken code that conversational LLM judges erroneously score as perfect.</p>
+<p>ResearchReady establishes an empirical, reproducible alternative. We deploy an eight-dimensional evaluation battery across open-weights models running on local workstation silicon and frontier cloud endpoints. We measure actual execution accuracy in isolated sandboxes, continuous electrical power consumption on physical GPUs, and resistance against eighteen distinct adversarial attack surfaces. We test models empirically, and we publish the complete data receipts.</p>
+<section id="research-team-and-citations" class="level3">
+<h3 class="anchored" data-anchor-id="research-team-and-citations">Research Team and Citations</h3>
+<p>This evaluation platform and research monograph were developed by the ResearchReady team: - <strong>Christiaan Verhoef</strong> (ResearchReady) - <strong>Igor van Oostveen</strong> (ResearchReady) - <strong>Milan Jelisavcic</strong> (ResearchReady) - <strong>Albert Vos</strong> (ResearchReady)</p>
+<hr>
 </section>
 </section>
-<section id="monograph-organization" class="level2">
-<h2 class="anchored" data-anchor-id="monograph-organization">Monograph Organization</h2>
-<p>This documentation book is structured into four core parts:</p>
+<section id="the-eight-dimensional-evaluation-methodology" class="level2">
+<h2 class="anchored" data-anchor-id="the-eight-dimensional-evaluation-methodology">2. The Eight-Dimensional Evaluation Methodology</h2>
+<p>When auditing candidate models, we evaluate eight orthogonal performance dimensions independently. We never collapse distinct operational failure modes into a single composite score.</p>
+<pre><code>                      ┌─────────────────────────────────────────┐
+                      │      Candidate Language Model Audit     │
+                      └────────────────────┬────────────────────┘
+                                           │
+         ┌──────────────────┬──────────────┴─────┬──────────────────┐
+         ▼                  ▼                    ▼                  ▼
+┌─────────────────┐┌─────────────────┐┌─────────────────┐┌─────────────────┐
+│   Dimensions    ││   Dimensions    ││   Dimensions    ││   Dimensions    │
+│     I &amp; II      ││    III &amp; IV     ││     V &amp; VI      ││    VII &amp; VIII   │
+│ Cognitive Tasks ││ Latency (TTFT)  ││ Execution pass@1││ Schema Accuracy │
+│ &amp; Red-Teaming   ││ &amp; Power (J/tok) ││ &amp; Invariance Δ  ││ &amp; Needle Recall │
+└─────────────────┘└─────────────────┘└─────────────────┘└─────────────────┘</code></pre>
+<p>The eight evaluation tracks span both qualitative and programmatic criteria:</p>
 <ol type="1">
-<li><strong>Getting Started &amp; Architecture:</strong> Installation, Ollama local configuration, remote GPU access, and the visual ChainForge flow graph library.</li>
-<li><strong>Testing Methodology &amp; Protocols:</strong> Forensic test protocol v3.0, grading rubrics across dimensions I through VIII, and the third-party evaluation guide.</li>
-<li><strong>Empirical Research Volumes:</strong> Volume I (Master Academic Evaluation), Volume II (Adversarial Security Audit), and Volume III (Hardware Telemetry).</li>
-<li><strong>Deployment &amp; Dissemination:</strong> Production model selection matrix, n8n automated scheduling, GitHub Actions continuous integration, and data-driven analytical articles.</li>
+<li><strong>Dimension I: Cognitive Task Competence.</strong> Standardized 1 to 5 rubrics evaluate reasoning depth, code generation, vulnerability auditing, creative writing, and negative constraint following.</li>
+<li><strong>Dimension II: Adversarial Red-Teaming.</strong> Systematic probing across 18 attack surfaces, including direct jailbreaks, indirect document injections, multi-turn crescendo escalation, steganographic unicode payloads, and prompt extraction.</li>
+<li><strong>Dimension III: Inference Latency Dynamics.</strong> High-resolution timers capture Time to First Token (TTFT in seconds) and sustained autoregressive generation throughput (tokens per second).</li>
+<li><strong>Dimension IV: Electrical Energy Profiling.</strong> A background daemon polls hardware sensors via <code>nvidia-smi</code> at 100-millisecond intervals during active inference, measuring power draw in Watts, total Joules per query, and electrical efficiency in tokens per Joule.</li>
+<li><strong>Dimension V: Programmatic Execution Correctness (Pass@1).</strong> Candidate code runs inside isolated Python subprocesses with strict execution timeouts, evaluated against hidden test suites containing boundary and edge assertions.</li>
+<li><strong>Dimension VI: Semantic Perturbation Invariance (<span class="math inline">\(\Delta_{\text{pert}}\)</span>).</strong> Models process paired prompts where surface-level entities are swapped while mathematical topologies remain identical, measuring the stability delta <span class="math inline">\(|S(P_A) - S(P_B)|\)</span>.</li>
+<li><strong>Dimension VII: Strict JSON Schema Determinism.</strong> Extraction queries execute across sampling temperatures (<span class="math inline">\(T \in \{0.0, 0.5, 1.0\}\)</span>) and validate directly against strict schemas, penalizing Markdown code-fence leakage, malformed syntax, and missing keys.</li>
+<li><strong>Dimension VIII: Long-Context Needle Retrieval.</strong> Synthetic factual assertions embedded at 10%, 50%, and 90% document depths test recall stability across context windows exceeding 10,000 tokens.</li>
 </ol>
+<hr>
+</section>
+<section id="empirical-results-the-master-architecture-scorecard" class="level2">
+<h2 class="anchored" data-anchor-id="empirical-results-the-master-architecture-scorecard">3. Empirical Results: The Master Architecture Scorecard</h2>
+<p>We evaluated four primary open-weights architectures on identical mobile workstation hardware (AMD Ryzen 7 8845HS, NVIDIA RTX 4060 Laptop GPU, 46 GB RAM, Fedora Linux) running Ollama:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 13%">
+<col style="width: 10%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Model Architecture</th>
+<th style="text-align: center;">Parameter Size</th>
+<th style="text-align: center;">Disk Size</th>
+<th style="text-align: center;">Cognitive Score (Med/25)</th>
+<th style="text-align: center;">Security Defense (Mean/5)</th>
+<th style="text-align: center;">Execution Pass Rate (pass@1)</th>
+<th style="text-align: center;">Electrical Efficiency</th>
+<th style="text-align: left;">Primary Operational Verdict</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>phi4:latest</strong></td>
+<td style="text-align: center;">14.7 B</td>
+<td style="text-align: center;">9.1 GB</td>
+<td style="text-align: center;"><strong>24 / 25</strong></td>
+<td style="text-align: center;">2.2 / 5.0</td>
+<td style="text-align: center;"><strong>1.000</strong></td>
+<td style="text-align: center;">0.93 tok/J</td>
+<td style="text-align: left;">High analytical reasoning; vulnerable to indirect prompt injection</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>llama3.1:8b</strong></td>
+<td style="text-align: center;">8.0 B</td>
+<td style="text-align: center;">4.9 GB</td>
+<td style="text-align: center;">22 / 25</td>
+<td style="text-align: center;"><strong>4.6 / 5.0</strong></td>
+<td style="text-align: center;"><strong>1.000</strong></td>
+<td style="text-align: center;">1.69 tok/J</td>
+<td style="text-align: left;"><strong>Production Recommended:</strong> Strict security, fast inference, high efficiency</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>hermes3:latest</strong></td>
+<td style="text-align: center;">8.0 B</td>
+<td style="text-align: center;">4.7 GB</td>
+<td style="text-align: center;">22 / 25</td>
+<td style="text-align: center;">3.6 / 5.0</td>
+<td style="text-align: center;">0.947</td>
+<td style="text-align: center;"><strong>1.75 tok/J</strong></td>
+<td style="text-align: left;">Highest throughput; subtle code edge-case failures</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>qwen3:14b</strong></td>
+<td style="text-align: center;">14.8 B</td>
+<td style="text-align: center;">9.3 GB</td>
+<td style="text-align: center;">21 / 25</td>
+<td style="text-align: center;">2.8 / 5.0</td>
+<td style="text-align: center;">Pending</td>
+<td style="text-align: center;">0.72 tok/J</td>
+<td style="text-align: left;">Strong multi-step reasoning; heavy CPU memory cold-load penalties</td>
+</tr>
+</tbody>
+</table>
+<section id="cognitive-performance-breakdown" class="level3">
+<h3 class="anchored" data-anchor-id="cognitive-performance-breakdown">Cognitive Performance Breakdown</h3>
+<p>The grouped bar chart below illustrates model performance across the five core cognitive benchmark categories:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="charts/bar_chart.svg" class="img-fluid figure-img" alt="Bar chart showing cognitive scores for hermes3, qwen3, phi4, and llama3.1"></p>
+<figcaption>Model Performance by Cognitive Category</figcaption>
+</figure>
+</div>
+</section>
+<section id="throughput-vs.-performance-pareto-frontier" class="level3">
+<h3 class="anchored" data-anchor-id="throughput-vs.-performance-pareto-frontier">Throughput vs.&nbsp;Performance Pareto Frontier</h3>
+<p>The trade-off between inference throughput and total cognitive score defines our Pareto frontier:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="charts/pareto_scatter.svg" class="img-fluid figure-img" alt="Scatter plot illustrating tokens per second vs cognitive score"></p>
+<figcaption>Inference Throughput vs Performance Pareto Frontier</figcaption>
+</figure>
+</div>
+<hr>
+</section>
+</section>
+<section id="key-research-discoveries" class="level2">
+<h2 class="anchored" data-anchor-id="key-research-discoveries">4. Key Research Discoveries</h2>
+<section id="discovery-1-the-adversarial-disconnect" class="level3">
+<h3 class="anchored" data-anchor-id="discovery-1-the-adversarial-disconnect">Discovery 1: The Adversarial Disconnect</h3>
+<p>High reasoning ability does not guarantee security resilience. In our test runs, <code>phi4:latest</code> achieved the highest cognitive score in the cohort with 24/25 points. However, on adversarial injection tests it scored 2.2/5.0, executing an embedded override command to emit an unauthorized system marker. In contrast, <code>llama3.1:8b</code> scored 22/25 points on cognitive benchmarks while scoring 4.6/5.0 on adversarial testing, rejecting all five core injection attacks.</p>
+</section>
+<section id="discovery-2-programmatic-execution-vs.-qualitative-judges" class="level3">
+<h3 class="anchored" data-anchor-id="discovery-2-programmatic-execution-vs.-qualitative-judges">Discovery 2: Programmatic Execution vs.&nbsp;Qualitative Judges</h3>
+<p>Evaluating code through LLM judges introduces severe evaluation blind spots. In our execution test harness, <code>hermes3:latest</code> produced syntactically clean code that qualitative LLM evaluators scored 5/5. When executed in an isolated Python subprocess against hidden assertions, it failed a word-frequency punctuation edge case, yielding an empirical pass@1 rate of 0.947. Both <code>phi4:latest</code> and <code>llama3.1:8b</code> passed all 19 hidden unit assertions, achieving a 1.000 pass@1 rate.</p>
+</section>
+<section id="discovery-3-latency-denial-of-service-and-electrical-efficiency" class="level3">
+<h3 class="anchored" data-anchor-id="discovery-3-latency-denial-of-service-and-electrical-efficiency">Discovery 3: Latency Denial-of-Service and Electrical Efficiency</h3>
+<p>On CPU inference, reasoning prompts on 14B architectures exceeded 120 seconds per query. When running on GPU silicon, <code>llama3.1:8b</code> generated 4.10 tokens per second while consuming 145.66 Joules per query (1.69 tokens per Joule). Heavier 14B models required 151.12 Joules per query while generating only 2.45 tokens per second (0.93 tokens per Joule). Smaller 8B architectures deliver nearly double the electrical efficiency of 14B models.</p>
+<hr>
+</section>
+</section>
+<section id="strategic-deployment-recommendations" class="level2">
+<h2 class="anchored" data-anchor-id="strategic-deployment-recommendations">5. Strategic Deployment Recommendations</h2>
+<ol type="1">
+<li><strong>Deploy <code>llama3.1:8b</code> for Customer-Facing and Agentic Pipelines:</strong> Its verified defense against indirect document injections and balanced electrical efficiency make it the safest choice for conversational interfaces and automated workflows.</li>
+<li><strong>Isolate <code>phi4:latest</code> Behind Strict Security Air-Gaps:</strong> Reserve <code>phi4</code> for offline analytical pipelines, mathematical proofs, and internal code refactoring where input data is trusted and pre-sanitized.</li>
+<li><strong>Mandate Isolated Execution Sandboxes for Generated Code:</strong> Never accept generated functions based on visual inspection or LLM judge ratings. Mission-critical functions must pass automated assertion test suites prior to deployment.</li>
+<li><strong>Configure Operational Gateway Timeouts:</strong> Runtime engines handling 14B models on CPU fallbacks require client gateway timeouts of at least 300 seconds to prevent artificial request cancellation during initial model loading.</li>
+</ol>
+<hr>
+</section>
+<section id="monograph-navigation-guide" class="level2">
+<h2 class="anchored" data-anchor-id="monograph-navigation-guide">6. Monograph Navigation Guide</h2>
+<p>Explore the detailed documentation and research volumes using the sidebar:</p>
+<ul>
+<li><strong>Part I: Getting Started &amp; Architecture</strong>
+<ul>
+<li><a href="./setup.html">Platform Setup and Architecture</a>: System prerequisites, Ollama endpoints, GPU workstation setup, and port allocation map.</li>
+<li><a href="./flows.html">Visual Flow Catalog</a>: 16 pre-configured ChainForge flow graphs covering cognitive tasks and red-team surfaces.</li>
+</ul></li>
+<li><strong>Part II: Testing Methodology &amp; Protocols</strong>
+<ul>
+<li><a href="./test-protocol.html">Forensic Test Protocol v3.0</a>: Step-by-step reproduction instructions, 1 to 5 rubrics, and Dimensions I through VIII.</li>
+<li><a href="./evaluation-guide.html">Third-Party Evaluation Guide</a>: Enterprise procurement audit playbook and standardized A to F grading matrix.</li>
+</ul></li>
+<li><strong>Part III: Empirical Research Volumes</strong>
+<ul>
+<li><a href="./master-report.html">Volume I: Master Academic Evaluation</a>: Comprehensive academic monograph, hypothesis testing, and complete results tables.</li>
+<li><a href="./security-audit.html">Volume II: Adversarial Security Audit</a>: Dedicated red-teaming report on jailbreaks, prompt extraction, and CWE auditing.</li>
+<li><a href="./hardware-telemetry.html">Volume III: Hardware Telemetry and Energy Profiling</a>: Power draw measurements, latency profiling, and unit economics.</li>
+</ul></li>
+<li><strong>Part IV: Deployment &amp; Dissemination</strong>
+<ul>
+<li><a href="./model-selection.html">Model Selection and Deployment Guide</a>: Category champions and operational decision flowcharts.</li>
+<li><a href="./automation.html">Automation and CI/CD Pipelines</a>: n8n weekly scheduling, GitHub Actions workflows, and Docker configurations.</li>
+<li><a href="./social-media.html">Research Dissemination Briefs</a>: Data-backed analytical articles and thought leadership summaries.</li>
+</ul></li>
+</ul>
 
 
 </section>

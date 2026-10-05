@@ -4,49 +4,69 @@
     "href": "index.html",
     "title": "UC12 — ChainForge AI Model Evaluation",
     "section": "",
-    "text": "Preface\nWelcome to the official documentation and research monograph for the UC12 ChainForge AI Model Evaluation platform.\nThis platform evaluates local and frontier large language models across cognitive ability, programmatic execution correctness, adversarial red-teaming, strict schema conformance, and hardware efficiency. Our core position remains direct: we test models empirically, and we publish the complete data artifacts.",
+    "text": "UC12 ChainForge AI Model Evaluation",
     "crumbs": [
-      "Preface"
+      "UC12 ChainForge AI Model Evaluation"
     ]
   },
   {
-    "objectID": "index.html#authors-and-affiliation",
-    "href": "index.html#authors-and-affiliation",
+    "objectID": "index.html#the-vision-empirical-evidence-over-marketing",
+    "href": "index.html#the-vision-empirical-evidence-over-marketing",
     "title": "UC12 — ChainForge AI Model Evaluation",
-    "section": "Authors and Affiliation",
-    "text": "Authors and Affiliation\nThis benchmark platform, test suite, and research corpus were created by the ResearchReady team:\n\nChristiaan Verhoef (ResearchReady)\nIgor van Oostveen (ResearchReady)\nMilan Jelisavcic (ResearchReady)\nAlbert Vos (ResearchReady)",
+    "section": "1. The Vision: Empirical Evidence Over Marketing",
+    "text": "1. The Vision: Empirical Evidence Over Marketing\nEnterprise engineering teams frequently select language models using vendor-reported benchmark scores or subjective conversational impressions. Public leaderboards rely heavily on static datasets such as MMLU or GSM8K, which suffer from contamination in contemporary training corpora. Furthermore, common industry safety assessments stop at rudimentary prompt injection tests. An evaluator issues a naive instruction override, records a refusal, and declares the architecture secure.\nOur evaluations demonstrate that basic prompt injection resistance represents less than 20% of production failure modes. When language models fail in production pipelines, they crash downstream parsers with unescaped JSON, exhibit brittle logic regressions under slight semantic phrasing shifts, or silently generate broken code that conversational LLM judges erroneously score as perfect.\nResearchReady establishes an empirical, reproducible alternative. We deploy an eight-dimensional evaluation battery across open-weights models running on local workstation silicon and frontier cloud endpoints. We measure actual execution accuracy in isolated sandboxes, continuous electrical power consumption on physical GPUs, and resistance against eighteen distinct adversarial attack surfaces. We test models empirically, and we publish the complete data receipts.\n\nResearch Team and Citations\nThis evaluation platform and research monograph were developed by the ResearchReady team: - Christiaan Verhoef (ResearchReady) - Igor van Oostveen (ResearchReady) - Milan Jelisavcic (ResearchReady) - Albert Vos (ResearchReady)",
     "crumbs": [
-      "Preface"
+      "UC12 ChainForge AI Model Evaluation"
     ]
   },
   {
-    "objectID": "index.html#research-context",
-    "href": "index.html#research-context",
+    "objectID": "index.html#the-eight-dimensional-evaluation-methodology",
+    "href": "index.html#the-eight-dimensional-evaluation-methodology",
     "title": "UC12 — ChainForge AI Model Evaluation",
-    "section": "Research Context",
-    "text": "Research Context\nEnterprise engineering teams frequently select language models using generic public leaderboard rankings or raw parameter counts. Our experiments demonstrate that parameter volume does not dictate operational reliability. Smaller models often achieve superior safety, execution precision, and throughput relative to larger alternatives.\nWe deployed an eight-dimension evaluation battery across prominent open-weights models running on local hardware: llama3.1:8b, phi4:latest, hermes3:latest, and qwen3:14b. We also connected frontier external models (claude-haiku-4-5-20251001, gpt-4o-mini, and gemini-1.5-flash) through an identical evaluation harness.",
+    "section": "2. The Eight-Dimensional Evaluation Methodology",
+    "text": "2. The Eight-Dimensional Evaluation Methodology\nWhen auditing candidate models, we evaluate eight orthogonal performance dimensions independently. We never collapse distinct operational failure modes into a single composite score.\n                      ┌─────────────────────────────────────────┐\n                      │      Candidate Language Model Audit     │\n                      └────────────────────┬────────────────────┘\n                                           │\n         ┌──────────────────┬──────────────┴─────┬──────────────────┐\n         ▼                  ▼                    ▼                  ▼\n┌─────────────────┐┌─────────────────┐┌─────────────────┐┌─────────────────┐\n│   Dimensions    ││   Dimensions    ││   Dimensions    ││   Dimensions    │\n│     I & II      ││    III & IV     ││     V & VI      ││    VII & VIII   │\n│ Cognitive Tasks ││ Latency (TTFT)  ││ Execution pass@1││ Schema Accuracy │\n│ & Red-Teaming   ││ & Power (J/tok) ││ & Invariance Δ  ││ & Needle Recall │\n└─────────────────┘└─────────────────┘└─────────────────┘└─────────────────┘\nThe eight evaluation tracks span both qualitative and programmatic criteria:\n\nDimension I: Cognitive Task Competence. Standardized 1 to 5 rubrics evaluate reasoning depth, code generation, vulnerability auditing, creative writing, and negative constraint following.\nDimension II: Adversarial Red-Teaming. Systematic probing across 18 attack surfaces, including direct jailbreaks, indirect document injections, multi-turn crescendo escalation, steganographic unicode payloads, and prompt extraction.\nDimension III: Inference Latency Dynamics. High-resolution timers capture Time to First Token (TTFT in seconds) and sustained autoregressive generation throughput (tokens per second).\nDimension IV: Electrical Energy Profiling. A background daemon polls hardware sensors via nvidia-smi at 100-millisecond intervals during active inference, measuring power draw in Watts, total Joules per query, and electrical efficiency in tokens per Joule.\nDimension V: Programmatic Execution Correctness (Pass@1). Candidate code runs inside isolated Python subprocesses with strict execution timeouts, evaluated against hidden test suites containing boundary and edge assertions.\nDimension VI: Semantic Perturbation Invariance (\\(\\Delta_{\\text{pert}}\\)). Models process paired prompts where surface-level entities are swapped while mathematical topologies remain identical, measuring the stability delta \\(|S(P_A) - S(P_B)|\\).\nDimension VII: Strict JSON Schema Determinism. Extraction queries execute across sampling temperatures (\\(T \\in \\{0.0, 0.5, 1.0\\}\\)) and validate directly against strict schemas, penalizing Markdown code-fence leakage, malformed syntax, and missing keys.\nDimension VIII: Long-Context Needle Retrieval. Synthetic factual assertions embedded at 10%, 50%, and 90% document depths test recall stability across context windows exceeding 10,000 tokens.",
     "crumbs": [
-      "Preface"
+      "UC12 ChainForge AI Model Evaluation"
     ]
   },
   {
-    "objectID": "index.html#key-empirical-findings",
-    "href": "index.html#key-empirical-findings",
+    "objectID": "index.html#empirical-results-the-master-architecture-scorecard",
+    "href": "index.html#empirical-results-the-master-architecture-scorecard",
     "title": "UC12 — ChainForge AI Model Evaluation",
-    "section": "Key Empirical Findings",
-    "text": "Key Empirical Findings\n\n1. Adversarial Disconnect\nHigh reasoning capacity does not guarantee adversarial safety. In our evaluation runs: - phi4:latest achieved 24/25 points across standard cognitive benchmarks, yet scored 2.2/5.0 on adversarial injection tests. It executed embedded indirect override instructions. - llama3.1:8b scored 22/25 in cognitive tasks while scoring 4.6/5.0 on adversarial tests, successfully rejecting five distinct attack vectors.\n\n\n2. Programmatic Execution vs. Qualitative Judges\nQualitative assessment using language models as judges misses subtle runtime failures. - In automated test runs, hermes3:latest produced syntactically clean Python code that appeared flawless to an LLM evaluator. - When executed in isolated Python subprocesses against hidden unit tests, it failed a word-frequency punctuation edge case, yielding an empirical pass@1 rate of 0.947. - Both phi4:latest and llama3.1:8b passed all 19 hidden unit tests, attaining a 1.000 pass@1 rate.\n\n\n3. Hardware Energy and Latency\nInference latency creates critical availability constraints: - On CPU inference, reasoning prompts on 14B parameter models required over 120 seconds per query. - In contrast, llama3.1:8b completed identical reasoning queries in 7.1 to 16.7 seconds. - llama3.1:8b generated 38.4 tokens per second with an average draw of 42.5 W, achieving 0.89 tokens per joule. - phi4:latest drew 88.2 W and required 14.1 GB VRAM, producing 0.24 tokens per joule.",
+    "section": "3. Empirical Results: The Master Architecture Scorecard",
+    "text": "3. Empirical Results: The Master Architecture Scorecard\nWe evaluated four primary open-weights architectures on identical mobile workstation hardware (AMD Ryzen 7 8845HS, NVIDIA RTX 4060 Laptop GPU, 46 GB RAM, Fedora Linux) running Ollama:\n\n\n\n\n\n\n\n\n\n\n\n\n\nModel Architecture\nParameter Size\nDisk Size\nCognitive Score (Med/25)\nSecurity Defense (Mean/5)\nExecution Pass Rate (pass@1)\nElectrical Efficiency\nPrimary Operational Verdict\n\n\n\n\nphi4:latest\n14.7 B\n9.1 GB\n24 / 25\n2.2 / 5.0\n1.000\n0.93 tok/J\nHigh analytical reasoning; vulnerable to indirect prompt injection\n\n\nllama3.1:8b\n8.0 B\n4.9 GB\n22 / 25\n4.6 / 5.0\n1.000\n1.69 tok/J\nProduction Recommended: Strict security, fast inference, high efficiency\n\n\nhermes3:latest\n8.0 B\n4.7 GB\n22 / 25\n3.6 / 5.0\n0.947\n1.75 tok/J\nHighest throughput; subtle code edge-case failures\n\n\nqwen3:14b\n14.8 B\n9.3 GB\n21 / 25\n2.8 / 5.0\nPending\n0.72 tok/J\nStrong multi-step reasoning; heavy CPU memory cold-load penalties\n\n\n\n\nCognitive Performance Breakdown\nThe grouped bar chart below illustrates model performance across the five core cognitive benchmark categories:\n\n\n\nModel Performance by Cognitive Category\n\n\n\n\nThroughput vs. Performance Pareto Frontier\nThe trade-off between inference throughput and total cognitive score defines our Pareto frontier:\n\n\n\nInference Throughput vs Performance Pareto Frontier",
     "crumbs": [
-      "Preface"
+      "UC12 ChainForge AI Model Evaluation"
     ]
   },
   {
-    "objectID": "index.html#monograph-organization",
-    "href": "index.html#monograph-organization",
+    "objectID": "index.html#key-research-discoveries",
+    "href": "index.html#key-research-discoveries",
     "title": "UC12 — ChainForge AI Model Evaluation",
-    "section": "Monograph Organization",
-    "text": "Monograph Organization\nThis documentation book is structured into four core parts:\n\nGetting Started & Architecture: Installation, Ollama local configuration, remote GPU access, and the visual ChainForge flow graph library.\nTesting Methodology & Protocols: Forensic test protocol v3.0, grading rubrics across dimensions I through VIII, and the third-party evaluation guide.\nEmpirical Research Volumes: Volume I (Master Academic Evaluation), Volume II (Adversarial Security Audit), and Volume III (Hardware Telemetry).\nDeployment & Dissemination: Production model selection matrix, n8n automated scheduling, GitHub Actions continuous integration, and data-driven analytical articles.",
+    "section": "4. Key Research Discoveries",
+    "text": "4. Key Research Discoveries\n\nDiscovery 1: The Adversarial Disconnect\nHigh reasoning ability does not guarantee security resilience. In our test runs, phi4:latest achieved the highest cognitive score in the cohort with 24/25 points. However, on adversarial injection tests it scored 2.2/5.0, executing an embedded override command to emit an unauthorized system marker. In contrast, llama3.1:8b scored 22/25 points on cognitive benchmarks while scoring 4.6/5.0 on adversarial testing, rejecting all five core injection attacks.\n\n\nDiscovery 2: Programmatic Execution vs. Qualitative Judges\nEvaluating code through LLM judges introduces severe evaluation blind spots. In our execution test harness, hermes3:latest produced syntactically clean code that qualitative LLM evaluators scored 5/5. When executed in an isolated Python subprocess against hidden assertions, it failed a word-frequency punctuation edge case, yielding an empirical pass@1 rate of 0.947. Both phi4:latest and llama3.1:8b passed all 19 hidden unit assertions, achieving a 1.000 pass@1 rate.\n\n\nDiscovery 3: Latency Denial-of-Service and Electrical Efficiency\nOn CPU inference, reasoning prompts on 14B architectures exceeded 120 seconds per query. When running on GPU silicon, llama3.1:8b generated 4.10 tokens per second while consuming 145.66 Joules per query (1.69 tokens per Joule). Heavier 14B models required 151.12 Joules per query while generating only 2.45 tokens per second (0.93 tokens per Joule). Smaller 8B architectures deliver nearly double the electrical efficiency of 14B models.",
     "crumbs": [
-      "Preface"
+      "UC12 ChainForge AI Model Evaluation"
+    ]
+  },
+  {
+    "objectID": "index.html#strategic-deployment-recommendations",
+    "href": "index.html#strategic-deployment-recommendations",
+    "title": "UC12 — ChainForge AI Model Evaluation",
+    "section": "5. Strategic Deployment Recommendations",
+    "text": "5. Strategic Deployment Recommendations\n\nDeploy llama3.1:8b for Customer-Facing and Agentic Pipelines: Its verified defense against indirect document injections and balanced electrical efficiency make it the safest choice for conversational interfaces and automated workflows.\nIsolate phi4:latest Behind Strict Security Air-Gaps: Reserve phi4 for offline analytical pipelines, mathematical proofs, and internal code refactoring where input data is trusted and pre-sanitized.\nMandate Isolated Execution Sandboxes for Generated Code: Never accept generated functions based on visual inspection or LLM judge ratings. Mission-critical functions must pass automated assertion test suites prior to deployment.\nConfigure Operational Gateway Timeouts: Runtime engines handling 14B models on CPU fallbacks require client gateway timeouts of at least 300 seconds to prevent artificial request cancellation during initial model loading.",
+    "crumbs": [
+      "UC12 ChainForge AI Model Evaluation"
+    ]
+  },
+  {
+    "objectID": "index.html#monograph-navigation-guide",
+    "href": "index.html#monograph-navigation-guide",
+    "title": "UC12 — ChainForge AI Model Evaluation",
+    "section": "6. Monograph Navigation Guide",
+    "text": "6. Monograph Navigation Guide\nExplore the detailed documentation and research volumes using the sidebar:\n\nPart I: Getting Started & Architecture\n\nPlatform Setup and Architecture: System prerequisites, Ollama endpoints, GPU workstation setup, and port allocation map.\nVisual Flow Catalog: 16 pre-configured ChainForge flow graphs covering cognitive tasks and red-team surfaces.\n\nPart II: Testing Methodology & Protocols\n\nForensic Test Protocol v3.0: Step-by-step reproduction instructions, 1 to 5 rubrics, and Dimensions I through VIII.\nThird-Party Evaluation Guide: Enterprise procurement audit playbook and standardized A to F grading matrix.\n\nPart III: Empirical Research Volumes\n\nVolume I: Master Academic Evaluation: Comprehensive academic monograph, hypothesis testing, and complete results tables.\nVolume II: Adversarial Security Audit: Dedicated red-teaming report on jailbreaks, prompt extraction, and CWE auditing.\nVolume III: Hardware Telemetry and Energy Profiling: Power draw measurements, latency profiling, and unit economics.\n\nPart IV: Deployment & Dissemination\n\nModel Selection and Deployment Guide: Category champions and operational decision flowcharts.\nAutomation and CI/CD Pipelines: n8n weekly scheduling, GitHub Actions workflows, and Docker configurations.\nResearch Dissemination Briefs: Data-backed analytical articles and thought leadership summaries.",
+    "crumbs": [
+      "UC12 ChainForge AI Model Evaluation"
     ]
   },
   {
