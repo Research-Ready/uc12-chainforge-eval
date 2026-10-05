@@ -25,6 +25,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -465,6 +499,21 @@ window.Quarto = {
 <section id="the-18-pre-configured-flow-workflows" class="level3">
 <h3 class="anchored" data-anchor-id="the-18-pre-configured-flow-workflows">The 18 Pre-Configured Flow Workflows</h3>
 <p>Every workflow is committed to git in <code>chainforge/flows/</code> and loadable at <code>http://localhost:8765</code>:</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Launching Workflows on Localhost
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When running ChainForge locally on port 8765:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">chainforge</span> serve <span class="at">--port</span> 8765 <span class="at">--dir</span> <span class="va">$(</span><span class="bu">pwd</span><span class="va">)</span>/chainforge/flows</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Clicking any <strong>Open on Localhost</strong> link below immediately takes you to your local ChainForge session at <code>http://localhost:8765</code>.</p>
+</div>
+</div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -472,7 +521,7 @@ window.Quarto = {
 <th style="text-align: left;">Evaluation Focus</th>
 <th style="text-align: center;">Input Cases</th>
 <th style="text-align: left;">Scoring Mechanism</th>
-<th style="text-align: left;">Node Topology</th>
+<th style="text-align: center;">Localhost Direct Link</th>
 </tr>
 </thead>
 <tbody>
@@ -481,130 +530,130 @@ window.Quarto = {
 <td style="text-align: left;">Multi-Domain Tasks</td>
 <td style="text-align: center;">8 rows</td>
 <td style="text-align: left;">LLM Judge (1 to 5)</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; Inspect</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#execution.cforge"><code>execution.cforge</code></a></td>
 <td style="text-align: left;">Programmatic Pass@1</td>
 <td style="text-align: center;">6 rows</td>
 <td style="text-align: left;">Subprocess Python Unit Tests</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; Evaluator -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#reasoning-depth.cforge"><code>reasoning-depth.cforge</code></a></td>
 <td style="text-align: left;">Logic &amp; Probability Paradoxes</td>
 <td style="text-align: center;">6 rows</td>
 <td style="text-align: left;">Reasoning Judge (1 to 5)</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#schema.cforge"><code>schema.cforge</code></a></td>
 <td style="text-align: left;">Structured JSON Conformance</td>
 <td style="text-align: center;">5 rows</td>
 <td style="text-align: left;">SimpleVal <code>{</code> check + Schema parse</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; Inspect</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#perturbation.cforge"><code>perturbation.cforge</code></a></td>
 <td style="text-align: left;">Semantic Invariance Delta</td>
 <td style="text-align: center;">4 rows</td>
 <td style="text-align: left;">Paired A/B Judges (<span class="math inline">\(\Delta_{\text{pert}}\)</span>)</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; LLMEval (x2) -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#multi-judge.cforge"><code>multi-judge.cforge</code></a></td>
 <td style="text-align: left;">Inter-Rater Reliability</td>
 <td style="text-align: center;">6 rows</td>
 <td style="text-align: left;">3 Parallel Model Judges</td>
-<td style="text-align: left;">Table -&gt; Prompt (x3 Judges) -&gt; Inspect</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#security.cforge"><code>security.cforge</code></a></td>
 <td style="text-align: left;">Baseline Security &amp; Vuln Audits</td>
 <td style="text-align: center;">6 rows</td>
 <td style="text-align: left;">Fail-String Match + Vuln Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#jailbreak.cforge"><code>jailbreak.cforge</code></a></td>
 <td style="text-align: left;">Roleplay &amp; Persona Overrides (DAN)</td>
 <td style="text-align: center;">6 rows</td>
 <td style="text-align: left;">Fail-String Detector + Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#indirect-injection.cforge"><code>indirect-injection.cforge</code></a></td>
 <td style="text-align: left;">Hidden Document Overrides</td>
 <td style="text-align: center;">5 rows</td>
 <td style="text-align: left;">Injection Success Detector</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#crescendo.cforge"><code>crescendo.cforge</code></a></td>
 <td style="text-align: left;">Multi-Turn Escalating Dialogue</td>
 <td style="text-align: center;">3 rows</td>
 <td style="text-align: left;">Marker Leakage Detector</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#obfuscation.cforge"><code>obfuscation.cforge</code></a></td>
 <td style="text-align: left;">Base64 / Hex / ROT13 Evasion</td>
 <td style="text-align: center;">5 rows</td>
 <td style="text-align: left;">Attack Marker Detector</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#cipher-laundering.cforge"><code>cipher-laundering.cforge</code></a></td>
 <td style="text-align: left;">Cross-Language Cipher Wraps</td>
 <td style="text-align: center;">5 rows</td>
 <td style="text-align: left;">Laundering Resistance Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#steganography.cforge"><code>steganography.cforge</code></a></td>
 <td style="text-align: left;">Zero-Width Unicode Injections</td>
 <td style="text-align: center;">4 rows</td>
 <td style="text-align: left;">Hidden Control Detector</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#many-shot.cforge"><code>many-shot.cforge</code></a></td>
 <td style="text-align: left;">In-Context Repetitive Priming</td>
 <td style="text-align: center;">3 rows</td>
 <td style="text-align: left;">Many-Shot Resistance Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#prompt-extraction.cforge"><code>prompt-extraction.cforge</code></a></td>
 <td style="text-align: left;">System Prompt Exfiltration</td>
 <td style="text-align: center;">5 rows</td>
 <td style="text-align: left;">Extraction Resistance Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#memorization.cforge"><code>memorization.cforge</code></a></td>
 <td style="text-align: left;">Training Data Leakage Probing</td>
 <td style="text-align: center;">5 rows</td>
 <td style="text-align: left;">Verbatim Match Detector</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><a href="./flows.html#dos.cforge"><code>dos.cforge</code></a></td>
 <td style="text-align: left;">Algorithmic Resource Exhaustion</td>
 <td style="text-align: center;">4 rows</td>
 <td style="text-align: left;">Resource Guard Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><a href="./flows.html#hallucination.cforge"><code>hallucination.cforge</code></a></td>
 <td style="text-align: left;">Fabricated APIs &amp; Fake Papers</td>
 <td style="text-align: center;">6 rows</td>
 <td style="text-align: left;">Epistemic Honesty Judge</td>
-<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+<td style="text-align: center;"><a href="http://localhost:8765">Open in ChainForge (localhost:8765)</a></td>
 </tr>
 </tbody>
 </table>
-<p>For the full architectural breakdown, node configurations, and prompt templates, see the <a href="./flows.html">ChainForge Visual Workflow Catalog</a>.</p>
+<p>For the full architectural breakdown, node configurations, direct API endpoints, and prompt templates, see the <a href="./flows.html">ChainForge Visual Workflow Catalog</a>.</p>
 <hr>
 </section>
 </section>
