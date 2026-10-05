@@ -64,7 +64,66 @@ The eight evaluation tracks span both qualitative and programmatic criteria:
 
 ---
 
-## 3. Empirical Results: The Master Architecture Scorecard
+## 3. The ChainForge Visual Evaluation Workflows
+
+Our evaluation methodology is implemented as 18 visual flow graphs in `chainforge/flows/`. In ChainForge, each test suite is an interactive visual workflow connecting tabular inputs directly to model endpoints, automated assertion scorers, and inspection nodes.
+
+```mermaid
+flowchart LR
+  subgraph Inputs [1. Inputs & Test Cases]
+    T1["Table Node<br/>(Adversarial Payloads, Specs)"]
+    T2["TextFields Node<br/>(System Directives)"]
+  end
+  subgraph Models [2. Model Endpoints]
+    P["Prompt Node<br/>(Ollama Local & Cloud APIs)"]
+  end
+  subgraph Evaluation [3. Automated Scorers]
+    S1["SimpleVal Node<br/>(String/Regex Match)"]
+    S2["LLMEval Node<br/>(1-5 Rubric Judge)"]
+  end
+  subgraph Outputs [4. Receipts & Inspection]
+    V1["Vis Node<br/>(Box Plots, Score Dist)"]
+    V2["Inspect Node<br/>(CSV / JSON Export)"]
+  end
+  T1 --> P
+  T2 --> P
+  P --> S1
+  P --> S2
+  S1 --> V1
+  S2 --> V1
+  P --> V2
+```
+
+### The 18 Pre-Configured Flow Workflows
+
+Every workflow is committed to git in `chainforge/flows/` and loadable at `http://localhost:8765`:
+
+| Workflow File | Evaluation Focus | Input Cases | Scoring Mechanism | Node Topology |
+|:---|:---|:---:|:---|:---|
+| [`cognitive.cforge`](flows.qmd#cognitive.cforge) | Multi-Domain Tasks | 8 rows | LLM Judge (1 to 5) | Table -> Prompt -> Inspect |
+| [`execution.cforge`](flows.qmd#execution.cforge) | Programmatic Pass@1 | 6 rows | Subprocess Python Unit Tests | Table -> Prompt -> Evaluator -> Vis |
+| [`reasoning-depth.cforge`](flows.qmd#reasoning-depth.cforge) | Logic & Probability Paradoxes | 6 rows | Reasoning Judge (1 to 5) | Table -> Prompt -> LLMEval -> Vis |
+| [`schema.cforge`](flows.qmd#schema.cforge) | Structured JSON Conformance | 5 rows | SimpleVal `{` check + Schema parse | Table -> Prompt -> SimpleVal -> Inspect |
+| [`perturbation.cforge`](flows.qmd#perturbation.cforge) | Semantic Invariance Delta | 4 rows | Paired A/B Judges ($\Delta_{\text{pert}}$) | Table -> Prompt -> LLMEval (x2) -> Vis |
+| [`multi-judge.cforge`](flows.qmd#multi-judge.cforge) | Inter-Rater Reliability | 6 rows | 3 Parallel Model Judges | Table -> Prompt (x3 Judges) -> Inspect |
+| [`security.cforge`](flows.qmd#security.cforge) | Baseline Security & Vuln Audits | 6 rows | Fail-String Match + Vuln Judge | Table -> Prompt -> SimpleVal -> Vis |
+| [`jailbreak.cforge`](flows.qmd#jailbreak.cforge) | Roleplay & Persona Overrides (DAN) | 6 rows | Fail-String Detector + Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`indirect-injection.cforge`](flows.qmd#indirect-injection.cforge) | Hidden Document Overrides | 5 rows | Injection Success Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`crescendo.cforge`](flows.qmd#crescendo.cforge) | Multi-Turn Escalating Dialogue | 3 rows | Marker Leakage Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`obfuscation.cforge`](flows.qmd#obfuscation.cforge) | Base64 / Hex / ROT13 Evasion | 5 rows | Attack Marker Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`cipher-laundering.cforge`](flows.qmd#cipher-laundering.cforge) | Cross-Language Cipher Wraps | 5 rows | Laundering Resistance Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`steganography.cforge`](flows.qmd#steganography.cforge) | Zero-Width Unicode Injections | 4 rows | Hidden Control Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`many-shot.cforge`](flows.qmd#many-shot.cforge) | In-Context Repetitive Priming | 3 rows | Many-Shot Resistance Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`prompt-extraction.cforge`](flows.qmd#prompt-extraction.cforge) | System Prompt Exfiltration | 5 rows | Extraction Resistance Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`memorization.cforge`](flows.qmd#memorization.cforge) | Training Data Leakage Probing | 5 rows | Verbatim Match Detector | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`dos.cforge`](flows.qmd#dos.cforge) | Algorithmic Resource Exhaustion | 4 rows | Resource Guard Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+| [`hallucination.cforge`](flows.qmd#hallucination.cforge) | Fabricated APIs & Fake Papers | 6 rows | Epistemic Honesty Judge | Table -> Prompt -> SimpleVal -> LLMEval -> Vis |
+
+For the full architectural breakdown, node configurations, and prompt templates, see the [ChainForge Visual Workflow Catalog](flows.qmd).
+
+---
+
+## 4. Empirical Results: The Master Architecture Scorecard
 
 We evaluated four primary open-weights architectures on identical mobile workstation hardware (AMD Ryzen 7 8845HS, NVIDIA RTX 4060 Laptop GPU, 46 GB RAM, Fedora Linux) running Ollama:
 
