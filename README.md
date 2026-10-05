@@ -9,7 +9,12 @@ Multi-model prompt evaluation platform. Tests local (Ollama) and external AI mod
 ChainForge tests → benchmark results → LinkedIn post / report
 ```
 
-ResearchReady's position: we actually test AI — and we show the receipts.
+ResearchReady's position: we actually test AI: and we show the receipts.
+
+## Live Documentation & Research Book
+
+The full interactive Quarto book, benchmark documentation, and research reports are hosted on GitHub Pages:
+**[https://research-ready.github.io/uc12-chainforge-eval/](https://research-ready.github.io/uc12-chainforge-eval/)**
 
 ## Quick start
 
