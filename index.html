@@ -187,7 +187,7 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./flows.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ChainForge Visual Flow Catalog</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">ChainForge Visual Workflow Catalog</span></span></a>
   </div>
 </li>
       </ul>
@@ -296,7 +296,11 @@ window.Quarto = {
   <li><a href="#research-team-and-citations" id="toc-research-team-and-citations" class="nav-link" data-scroll-target="#research-team-and-citations">Research Team and Citations</a></li>
   </ul></li>
   <li><a href="#the-eight-dimensional-evaluation-methodology" id="toc-the-eight-dimensional-evaluation-methodology" class="nav-link" data-scroll-target="#the-eight-dimensional-evaluation-methodology">2. The Eight-Dimensional Evaluation Methodology</a></li>
-  <li><a href="#empirical-results-the-master-architecture-scorecard" id="toc-empirical-results-the-master-architecture-scorecard" class="nav-link" data-scroll-target="#empirical-results-the-master-architecture-scorecard">3. Empirical Results: The Master Architecture Scorecard</a>
+  <li><a href="#the-chainforge-visual-evaluation-workflows" id="toc-the-chainforge-visual-evaluation-workflows" class="nav-link" data-scroll-target="#the-chainforge-visual-evaluation-workflows">3. The ChainForge Visual Evaluation Workflows</a>
+  <ul class="collapse">
+  <li><a href="#the-18-pre-configured-flow-workflows" id="toc-the-18-pre-configured-flow-workflows" class="nav-link" data-scroll-target="#the-18-pre-configured-flow-workflows">The 18 Pre-Configured Flow Workflows</a></li>
+  </ul></li>
+  <li><a href="#empirical-results-the-master-architecture-scorecard" id="toc-empirical-results-the-master-architecture-scorecard" class="nav-link" data-scroll-target="#empirical-results-the-master-architecture-scorecard">4. Empirical Results: The Master Architecture Scorecard</a>
   <ul class="collapse">
   <li><a href="#cognitive-performance-breakdown" id="toc-cognitive-performance-breakdown" class="nav-link" data-scroll-target="#cognitive-performance-breakdown">Cognitive Performance Breakdown</a></li>
   <li><a href="#throughput-vs.-performance-pareto-frontier" id="toc-throughput-vs.-performance-pareto-frontier" class="nav-link" data-scroll-target="#throughput-vs.-performance-pareto-frontier">Throughput vs.&nbsp;Performance Pareto Frontier</a></li>
@@ -432,8 +436,180 @@ window.Quarto = {
 </ol>
 <hr>
 </section>
+<section id="the-chainforge-visual-evaluation-workflows" class="level2">
+<h2 class="anchored" data-anchor-id="the-chainforge-visual-evaluation-workflows">3. The ChainForge Visual Evaluation Workflows</h2>
+<p>Our evaluation methodology is implemented as 18 visual flow graphs in <code>chainforge/flows/</code>. In ChainForge, each test suite is an interactive visual workflow connecting tabular inputs directly to model endpoints, automated assertion scorers, and inspection nodes.</p>
+<pre class="mermaid"><code>flowchart LR
+  subgraph Inputs [1. Inputs &amp; Test Cases]
+    T1["Table Node&lt;br/&gt;(Adversarial Payloads, Specs)"]
+    T2["TextFields Node&lt;br/&gt;(System Directives)"]
+  end
+  subgraph Models [2. Model Endpoints]
+    P["Prompt Node&lt;br/&gt;(Ollama Local &amp; Cloud APIs)"]
+  end
+  subgraph Evaluation [3. Automated Scorers]
+    S1["SimpleVal Node&lt;br/&gt;(String/Regex Match)"]
+    S2["LLMEval Node&lt;br/&gt;(1-5 Rubric Judge)"]
+  end
+  subgraph Outputs [4. Receipts &amp; Inspection]
+    V1["Vis Node&lt;br/&gt;(Box Plots, Score Dist)"]
+    V2["Inspect Node&lt;br/&gt;(CSV / JSON Export)"]
+  end
+  T1 --&gt; P
+  T2 --&gt; P
+  P --&gt; S1
+  P --&gt; S2
+  S1 --&gt; V1
+  S2 --&gt; V1
+  P --&gt; V2</code></pre>
+<section id="the-18-pre-configured-flow-workflows" class="level3">
+<h3 class="anchored" data-anchor-id="the-18-pre-configured-flow-workflows">The 18 Pre-Configured Flow Workflows</h3>
+<p>Every workflow is committed to git in <code>chainforge/flows/</code> and loadable at <code>http://localhost:8765</code>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Workflow File</th>
+<th style="text-align: left;">Evaluation Focus</th>
+<th style="text-align: center;">Input Cases</th>
+<th style="text-align: left;">Scoring Mechanism</th>
+<th style="text-align: left;">Node Topology</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#cognitive.cforge"><code>cognitive.cforge</code></a></td>
+<td style="text-align: left;">Multi-Domain Tasks</td>
+<td style="text-align: center;">8 rows</td>
+<td style="text-align: left;">LLM Judge (1 to 5)</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; Inspect</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#execution.cforge"><code>execution.cforge</code></a></td>
+<td style="text-align: left;">Programmatic Pass@1</td>
+<td style="text-align: center;">6 rows</td>
+<td style="text-align: left;">Subprocess Python Unit Tests</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; Evaluator -&gt; Vis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#reasoning-depth.cforge"><code>reasoning-depth.cforge</code></a></td>
+<td style="text-align: left;">Logic &amp; Probability Paradoxes</td>
+<td style="text-align: center;">6 rows</td>
+<td style="text-align: left;">Reasoning Judge (1 to 5)</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#schema.cforge"><code>schema.cforge</code></a></td>
+<td style="text-align: left;">Structured JSON Conformance</td>
+<td style="text-align: center;">5 rows</td>
+<td style="text-align: left;">SimpleVal <code>{</code> check + Schema parse</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; Inspect</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#perturbation.cforge"><code>perturbation.cforge</code></a></td>
+<td style="text-align: left;">Semantic Invariance Delta</td>
+<td style="text-align: center;">4 rows</td>
+<td style="text-align: left;">Paired A/B Judges (<span class="math inline">\(\Delta_{\text{pert}}\)</span>)</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; LLMEval (x2) -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#multi-judge.cforge"><code>multi-judge.cforge</code></a></td>
+<td style="text-align: left;">Inter-Rater Reliability</td>
+<td style="text-align: center;">6 rows</td>
+<td style="text-align: left;">3 Parallel Model Judges</td>
+<td style="text-align: left;">Table -&gt; Prompt (x3 Judges) -&gt; Inspect</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#security.cforge"><code>security.cforge</code></a></td>
+<td style="text-align: left;">Baseline Security &amp; Vuln Audits</td>
+<td style="text-align: center;">6 rows</td>
+<td style="text-align: left;">Fail-String Match + Vuln Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#jailbreak.cforge"><code>jailbreak.cforge</code></a></td>
+<td style="text-align: left;">Roleplay &amp; Persona Overrides (DAN)</td>
+<td style="text-align: center;">6 rows</td>
+<td style="text-align: left;">Fail-String Detector + Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#indirect-injection.cforge"><code>indirect-injection.cforge</code></a></td>
+<td style="text-align: left;">Hidden Document Overrides</td>
+<td style="text-align: center;">5 rows</td>
+<td style="text-align: left;">Injection Success Detector</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#crescendo.cforge"><code>crescendo.cforge</code></a></td>
+<td style="text-align: left;">Multi-Turn Escalating Dialogue</td>
+<td style="text-align: center;">3 rows</td>
+<td style="text-align: left;">Marker Leakage Detector</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#obfuscation.cforge"><code>obfuscation.cforge</code></a></td>
+<td style="text-align: left;">Base64 / Hex / ROT13 Evasion</td>
+<td style="text-align: center;">5 rows</td>
+<td style="text-align: left;">Attack Marker Detector</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#cipher-laundering.cforge"><code>cipher-laundering.cforge</code></a></td>
+<td style="text-align: left;">Cross-Language Cipher Wraps</td>
+<td style="text-align: center;">5 rows</td>
+<td style="text-align: left;">Laundering Resistance Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#steganography.cforge"><code>steganography.cforge</code></a></td>
+<td style="text-align: left;">Zero-Width Unicode Injections</td>
+<td style="text-align: center;">4 rows</td>
+<td style="text-align: left;">Hidden Control Detector</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#many-shot.cforge"><code>many-shot.cforge</code></a></td>
+<td style="text-align: left;">In-Context Repetitive Priming</td>
+<td style="text-align: center;">3 rows</td>
+<td style="text-align: left;">Many-Shot Resistance Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#prompt-extraction.cforge"><code>prompt-extraction.cforge</code></a></td>
+<td style="text-align: left;">System Prompt Exfiltration</td>
+<td style="text-align: center;">5 rows</td>
+<td style="text-align: left;">Extraction Resistance Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#memorization.cforge"><code>memorization.cforge</code></a></td>
+<td style="text-align: left;">Training Data Leakage Probing</td>
+<td style="text-align: center;">5 rows</td>
+<td style="text-align: left;">Verbatim Match Detector</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><a href="./flows.html#dos.cforge"><code>dos.cforge</code></a></td>
+<td style="text-align: left;">Algorithmic Resource Exhaustion</td>
+<td style="text-align: center;">4 rows</td>
+<td style="text-align: left;">Resource Guard Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><a href="./flows.html#hallucination.cforge"><code>hallucination.cforge</code></a></td>
+<td style="text-align: left;">Fabricated APIs &amp; Fake Papers</td>
+<td style="text-align: center;">6 rows</td>
+<td style="text-align: left;">Epistemic Honesty Judge</td>
+<td style="text-align: left;">Table -&gt; Prompt -&gt; SimpleVal -&gt; LLMEval -&gt; Vis</td>
+</tr>
+</tbody>
+</table>
+<p>For the full architectural breakdown, node configurations, and prompt templates, see the <a href="./flows.html">ChainForge Visual Workflow Catalog</a>.</p>
+<hr>
+</section>
+</section>
 <section id="empirical-results-the-master-architecture-scorecard" class="level2">
-<h2 class="anchored" data-anchor-id="empirical-results-the-master-architecture-scorecard">3. Empirical Results: The Master Architecture Scorecard</h2>
+<h2 class="anchored" data-anchor-id="empirical-results-the-master-architecture-scorecard">4. Empirical Results: The Master Architecture Scorecard</h2>
 <p>We evaluated four primary open-weights architectures on identical mobile workstation hardware (AMD Ryzen 7 8845HS, NVIDIA RTX 4060 Laptop GPU, 46 GB RAM, Fedora Linux) running Ollama:</p>
 <table class="caption-top table">
 <colgroup>
