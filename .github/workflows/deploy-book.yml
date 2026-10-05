@@ -31,13 +31,10 @@ jobs:
         with:
           version: "1.5.57"
 
-      - name: Prepare dummy env for Quarto
-        run: |
-          cp .env.example .env || true
-
       - name: Render Quarto Book
         run: |
-          quarto render docs --output-dir _site
+          cd docs
+          quarto render --output-dir _site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
