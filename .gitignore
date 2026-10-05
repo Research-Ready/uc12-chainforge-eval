@@ -17,3 +17,6 @@ docs/_book/
 docs/_site/
 _book/
 _site/
+
+# ChainForge runtime autosaves
+chainforge/flows/__autosave.cforge*

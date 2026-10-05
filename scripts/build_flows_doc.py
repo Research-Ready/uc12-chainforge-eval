@@ -55,12 +55,12 @@ out.append("  P --> V2")
 out.append("```\n")
 
 out.append("## Workflow Quick Index\n")
-out.append("| Flow File | Evaluation Track | GitHub Source | Download Raw | Localhost UI |")
-out.append("|:---|:---|:---:|:---:|:---:|")
+out.append("| Flow File | Evaluation Track | Localhost UI | Direct API | GitHub Source | Download Raw |")
+out.append("|:---|:---|:---:|:---:|:---:|:---:|")
 for f in flows:
     name_clean = f.name.replace(".cforge", "")
     anchor = f"flow-{name_clean}"
-    out.append(f"| [`{f.name}`](#{anchor}) | {name_clean.replace('-', ' ').title()} | [View on GitHub]({GITHUB_BASE}/{f.name}) | [Download .cforge]({RAW_BASE}/{f.name}) | [Open Local (8765)](http://localhost:8765) |")
+    out.append(f"| [`{f.name}`](#{anchor}) | {name_clean.replace('-', ' ').title()} | [Open in UI (8765)](http://localhost:8765/?f={f.name}) | [Raw JSON API](http://localhost:8765/api/flows/{f.name}) | [View on GitHub]({GITHUB_BASE}/{f.name}) | [Download .cforge]({RAW_BASE}/{f.name}) |")
 out.append("\n---\n")
 
 out.append("## Complete Catalog of the 18 Evaluation Flows\n")
@@ -78,7 +78,7 @@ for f in flows:
         by_type.setdefault(t, []).append(n)
         
     out.append(f"### `{f.name}` {{#{anchor}}}\n")
-    out.append(f"**Direct Links:** [View Source on GitHub]({GITHUB_BASE}/{f.name}) · [Download Raw .cforge]({RAW_BASE}/{f.name}) · [Open in ChainForge Local (http://localhost:8765)](http://localhost:8765) · [Open in ChainForge Web Playground](https://chainforge.ai/play/)\n")
+    out.append(f"**Direct Links:** [Open in Local UI (http://localhost:8765/?f={f.name})](http://localhost:8765/?f={f.name}) · [Direct Localhost API (http://localhost:8765/api/flows/{f.name})](http://localhost:8765/api/flows/{f.name}) · [View on GitHub]({GITHUB_BASE}/{f.name}) · [Download Raw .cforge]({RAW_BASE}/{f.name}) · [Open in ChainForge Web Playground](https://chainforge.ai/play/)\n")
     
     # Comments / Description
     for c in by_type.get("comment", []):
