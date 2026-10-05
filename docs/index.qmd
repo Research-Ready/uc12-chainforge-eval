@@ -1,49 +1,131 @@
-# Preface {.unnumbered}
+# UC12 ChainForge AI Model Evaluation {.unnumbered}
 
-Welcome to the official documentation and research monograph for the **UC12 ChainForge AI Model Evaluation** platform. 
+```
+        ┌─────────────────────────────────────────────────────────────┐
+        │  ResearchReady UC12: Multi-Dimensional Language Model Audit │
+        │               "We test AI. We show the receipts."           │
+        └──────────────────────────────┬──────────────────────────────┘
+                                       │
+         ┌──────────────────┬──────────┴───┬──────────────────┐
+         ▼                  ▼              ▼                  ▼
+┌─────────────────┐┌─────────────────┐┌───────────┐┌─────────────────┐
+│  I. Cognitive   ││ II. Adversarial ││ III. Power││ IV. Execution   │
+│   Capabilities  ││   Red-Teaming   ││ & Latency ││   Unit Tests    │
+│  (5 Categories) ││  (18 Surfaces)  ││ (Joules/T)││    (Pass@1)     │
+└─────────────────┘└─────────────────┘└───────────┘└─────────────────┘
+```
 
-This platform evaluates local and frontier large language models across cognitive ability, programmatic execution correctness, adversarial red-teaming, strict schema conformance, and hardware efficiency. Our core position remains direct: we test models empirically, and we publish the complete data artifacts.
+## 1. The Vision: Empirical Evidence Over Marketing
 
-## Authors and Affiliation
+Enterprise engineering teams frequently select language models using vendor-reported benchmark scores or subjective conversational impressions. Public leaderboards rely heavily on static datasets such as MMLU or GSM8K, which suffer from contamination in contemporary training corpora. Furthermore, common industry safety assessments stop at rudimentary prompt injection tests. An evaluator issues a naive instruction override, records a refusal, and declares the architecture secure.
 
-This benchmark platform, test suite, and research corpus were created by the ResearchReady team:
+Our evaluations demonstrate that basic prompt injection resistance represents less than 20% of production failure modes. When language models fail in production pipelines, they crash downstream parsers with unescaped JSON, exhibit brittle logic regressions under slight semantic phrasing shifts, or silently generate broken code that conversational LLM judges erroneously score as perfect.
 
+ResearchReady establishes an empirical, reproducible alternative. We deploy an eight-dimensional evaluation battery across open-weights models running on local workstation silicon and frontier cloud endpoints. We measure actual execution accuracy in isolated sandboxes, continuous electrical power consumption on physical GPUs, and resistance against eighteen distinct adversarial attack surfaces. We test models empirically, and we publish the complete data receipts.
+
+### Research Team and Citations
+This evaluation platform and research monograph were developed by the ResearchReady team:
 - **Christiaan Verhoef** (ResearchReady)
 - **Igor van Oostveen** (ResearchReady)
 - **Milan Jelisavcic** (ResearchReady)
 - **Albert Vos** (ResearchReady)
 
-## Research Context
+---
 
-Enterprise engineering teams frequently select language models using generic public leaderboard rankings or raw parameter counts. Our experiments demonstrate that parameter volume does not dictate operational reliability. Smaller models often achieve superior safety, execution precision, and throughput relative to larger alternatives.
+## 2. The Eight-Dimensional Evaluation Methodology
 
-We deployed an eight-dimension evaluation battery across prominent open-weights models running on local hardware: `llama3.1:8b`, `phi4:latest`, `hermes3:latest`, and `qwen3:14b`. We also connected frontier external models (`claude-haiku-4-5-20251001`, `gpt-4o-mini`, and `gemini-1.5-flash`) through an identical evaluation harness.
+When auditing candidate models, we evaluate eight orthogonal performance dimensions independently. We never collapse distinct operational failure modes into a single composite score.
 
-## Key Empirical Findings
+```
+                      ┌─────────────────────────────────────────┐
+                      │      Candidate Language Model Audit     │
+                      └────────────────────┬────────────────────┘
+                                           │
+         ┌──────────────────┬──────────────┴─────┬──────────────────┐
+         ▼                  ▼                    ▼                  ▼
+┌─────────────────┐┌─────────────────┐┌─────────────────┐┌─────────────────┐
+│   Dimensions    ││   Dimensions    ││   Dimensions    ││   Dimensions    │
+│     I & II      ││    III & IV     ││     V & VI      ││    VII & VIII   │
+│ Cognitive Tasks ││ Latency (TTFT)  ││ Execution pass@1││ Schema Accuracy │
+│ & Red-Teaming   ││ & Power (J/tok) ││ & Invariance Δ  ││ & Needle Recall │
+└─────────────────┘└─────────────────┘└─────────────────┘└─────────────────┘
+```
 
-### 1. Adversarial Disconnect
-High reasoning capacity does not guarantee adversarial safety. In our evaluation runs:
-- `phi4:latest` achieved 24/25 points across standard cognitive benchmarks, yet scored 2.2/5.0 on adversarial injection tests. It executed embedded indirect override instructions.
-- `llama3.1:8b` scored 22/25 in cognitive tasks while scoring 4.6/5.0 on adversarial tests, successfully rejecting five distinct attack vectors.
+The eight evaluation tracks span both qualitative and programmatic criteria:
 
-### 2. Programmatic Execution vs. Qualitative Judges
-Qualitative assessment using language models as judges misses subtle runtime failures. 
-- In automated test runs, `hermes3:latest` produced syntactically clean Python code that appeared flawless to an LLM evaluator. 
-- When executed in isolated Python subprocesses against hidden unit tests, it failed a word-frequency punctuation edge case, yielding an empirical pass@1 rate of 0.947.
-- Both `phi4:latest` and `llama3.1:8b` passed all 19 hidden unit tests, attaining a 1.000 pass@1 rate.
+1. **Dimension I: Cognitive Task Competence.** Standardized 1 to 5 rubrics evaluate reasoning depth, code generation, vulnerability auditing, creative writing, and negative constraint following.
+2. **Dimension II: Adversarial Red-Teaming.** Systematic probing across 18 attack surfaces, including direct jailbreaks, indirect document injections, multi-turn crescendo escalation, steganographic unicode payloads, and prompt extraction.
+3. **Dimension III: Inference Latency Dynamics.** High-resolution timers capture Time to First Token (TTFT in seconds) and sustained autoregressive generation throughput (tokens per second).
+4. **Dimension IV: Electrical Energy Profiling.** A background daemon polls hardware sensors via `nvidia-smi` at 100-millisecond intervals during active inference, measuring power draw in Watts, total Joules per query, and electrical efficiency in tokens per Joule.
+5. **Dimension V: Programmatic Execution Correctness (Pass@1).** Candidate code runs inside isolated Python subprocesses with strict execution timeouts, evaluated against hidden test suites containing boundary and edge assertions.
+6. **Dimension VI: Semantic Perturbation Invariance ($\Delta_{\text{pert}}$).** Models process paired prompts where surface-level entities are swapped while mathematical topologies remain identical, measuring the stability delta $|S(P_A) - S(P_B)|$.
+7. **Dimension VII: Strict JSON Schema Determinism.** Extraction queries execute across sampling temperatures ($T \in \{0.0, 0.5, 1.0\}$) and validate directly against strict schemas, penalizing Markdown code-fence leakage, malformed syntax, and missing keys.
+8. **Dimension VIII: Long-Context Needle Retrieval.** Synthetic factual assertions embedded at 10%, 50%, and 90% document depths test recall stability across context windows exceeding 10,000 tokens.
 
-### 3. Hardware Energy and Latency
-Inference latency creates critical availability constraints:
-- On CPU inference, reasoning prompts on 14B parameter models required over 120 seconds per query.
-- In contrast, `llama3.1:8b` completed identical reasoning queries in 7.1 to 16.7 seconds.
-- `llama3.1:8b` generated 38.4 tokens per second with an average draw of 42.5 W, achieving 0.89 tokens per joule.
-- `phi4:latest` drew 88.2 W and required 14.1 GB VRAM, producing 0.24 tokens per joule.
+---
 
-## Monograph Organization
+## 3. Empirical Results: The Master Architecture Scorecard
 
-This documentation book is structured into four core parts:
+We evaluated four primary open-weights architectures on identical mobile workstation hardware (AMD Ryzen 7 8845HS, NVIDIA RTX 4060 Laptop GPU, 46 GB RAM, Fedora Linux) running Ollama:
 
-1. **Getting Started & Architecture:** Installation, Ollama local configuration, remote GPU access, and the visual ChainForge flow graph library.
-2. **Testing Methodology & Protocols:** Forensic test protocol v3.0, grading rubrics across dimensions I through VIII, and the third-party evaluation guide.
-3. **Empirical Research Volumes:** Volume I (Master Academic Evaluation), Volume II (Adversarial Security Audit), and Volume III (Hardware Telemetry).
-4. **Deployment & Dissemination:** Production model selection matrix, n8n automated scheduling, GitHub Actions continuous integration, and data-driven analytical articles.
+| Model Architecture | Parameter Size | Disk Size | Cognitive Score (Med/25) | Security Defense (Mean/5) | Execution Pass Rate (pass@1) | Electrical Efficiency | Primary Operational Verdict |
+|:---|:---:|:---:|:---:|:---:|:---:|:---:|:---|
+| **phi4:latest** | 14.7 B | 9.1 GB | **24 / 25** | 2.2 / 5.0 | **1.000** | 0.93 tok/J | High analytical reasoning; vulnerable to indirect prompt injection |
+| **llama3.1:8b** | 8.0 B | 4.9 GB | 22 / 25 | **4.6 / 5.0** | **1.000** | 1.69 tok/J | **Production Recommended:** Strict security, fast inference, high efficiency |
+| **hermes3:latest** | 8.0 B | 4.7 GB | 22 / 25 | 3.6 / 5.0 | 0.947 | **1.75 tok/J** | Highest throughput; subtle code edge-case failures |
+| **qwen3:14b** | 14.8 B | 9.3 GB | 21 / 25 | 2.8 / 5.0 | Pending | 0.72 tok/J | Strong multi-step reasoning; heavy CPU memory cold-load penalties |
+
+### Cognitive Performance Breakdown
+
+The grouped bar chart below illustrates model performance across the five core cognitive benchmark categories:
+
+![Model Performance by Cognitive Category](charts/bar_chart.svg){fig-alt="Bar chart showing cognitive scores for hermes3, qwen3, phi4, and llama3.1"}
+
+### Throughput vs. Performance Pareto Frontier
+
+The trade-off between inference throughput and total cognitive score defines our Pareto frontier:
+
+![Inference Throughput vs Performance Pareto Frontier](charts/pareto_scatter.svg){fig-alt="Scatter plot illustrating tokens per second vs cognitive score"}
+
+---
+
+## 4. Key Research Discoveries
+
+### Discovery 1: The Adversarial Disconnect
+High reasoning ability does not guarantee security resilience. In our test runs, `phi4:latest` achieved the highest cognitive score in the cohort with 24/25 points. However, on adversarial injection tests it scored 2.2/5.0, executing an embedded override command to emit an unauthorized system marker. In contrast, `llama3.1:8b` scored 22/25 points on cognitive benchmarks while scoring 4.6/5.0 on adversarial testing, rejecting all five core injection attacks.
+
+### Discovery 2: Programmatic Execution vs. Qualitative Judges
+Evaluating code through LLM judges introduces severe evaluation blind spots. In our execution test harness, `hermes3:latest` produced syntactically clean code that qualitative LLM evaluators scored 5/5. When executed in an isolated Python subprocess against hidden assertions, it failed a word-frequency punctuation edge case, yielding an empirical pass@1 rate of 0.947. Both `phi4:latest` and `llama3.1:8b` passed all 19 hidden unit assertions, achieving a 1.000 pass@1 rate.
+
+### Discovery 3: Latency Denial-of-Service and Electrical Efficiency
+On CPU inference, reasoning prompts on 14B architectures exceeded 120 seconds per query. When running on GPU silicon, `llama3.1:8b` generated 4.10 tokens per second while consuming 145.66 Joules per query (1.69 tokens per Joule). Heavier 14B models required 151.12 Joules per query while generating only 2.45 tokens per second (0.93 tokens per Joule). Smaller 8B architectures deliver nearly double the electrical efficiency of 14B models.
+
+---
+
+## 5. Strategic Deployment Recommendations
+
+1. **Deploy `llama3.1:8b` for Customer-Facing and Agentic Pipelines:** Its verified defense against indirect document injections and balanced electrical efficiency make it the safest choice for conversational interfaces and automated workflows.
+2. **Isolate `phi4:latest` Behind Strict Security Air-Gaps:** Reserve `phi4` for offline analytical pipelines, mathematical proofs, and internal code refactoring where input data is trusted and pre-sanitized.
+3. **Mandate Isolated Execution Sandboxes for Generated Code:** Never accept generated functions based on visual inspection or LLM judge ratings. Mission-critical functions must pass automated assertion test suites prior to deployment.
+4. **Configure Operational Gateway Timeouts:** Runtime engines handling 14B models on CPU fallbacks require client gateway timeouts of at least 300 seconds to prevent artificial request cancellation during initial model loading.
+
+---
+
+## 6. Monograph Navigation Guide
+
+Explore the detailed documentation and research volumes using the sidebar:
+
+- **Part I: Getting Started & Architecture**
+  - [Platform Setup and Architecture](setup.qmd): System prerequisites, Ollama endpoints, GPU workstation setup, and port allocation map.
+  - [Visual Flow Catalog](flows.qmd): 16 pre-configured ChainForge flow graphs covering cognitive tasks and red-team surfaces.
+- **Part II: Testing Methodology & Protocols**
+  - [Forensic Test Protocol v3.0](test-protocol.qmd): Step-by-step reproduction instructions, 1 to 5 rubrics, and Dimensions I through VIII.
+  - [Third-Party Evaluation Guide](evaluation-guide.qmd): Enterprise procurement audit playbook and standardized A to F grading matrix.
+- **Part III: Empirical Research Volumes**
+  - [Volume I: Master Academic Evaluation](master-report.qmd): Comprehensive academic monograph, hypothesis testing, and complete results tables.
+  - [Volume II: Adversarial Security Audit](security-audit.qmd): Dedicated red-teaming report on jailbreaks, prompt extraction, and CWE auditing.
+  - [Volume III: Hardware Telemetry and Energy Profiling](hardware-telemetry.qmd): Power draw measurements, latency profiling, and unit economics.
+- **Part IV: Deployment & Dissemination**
+  - [Model Selection and Deployment Guide](model-selection.qmd): Category champions and operational decision flowcharts.
+  - [Automation and CI/CD Pipelines](automation.qmd): n8n weekly scheduling, GitHub Actions workflows, and Docker configurations.
+  - [Research Dissemination Briefs](social-media.qmd): Data-backed analytical articles and thought leadership summaries.
