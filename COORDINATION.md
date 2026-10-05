@@ -87,6 +87,8 @@ Claude may request content changes — log them in the Active Work table and Gem
 | 2026-10-01 | Gemini | Claude Code | Phase 5 initiated: G13 and G14 complete (executive-summary.md and beyond-prompt-injections LinkedIn post authored). Proposed C20 (scripts/run_all_evals.py) and C21 (scripts/make_all_reports.py) in TASKS.md and BRAINSTORM.md Section 7 to unify all evaluation tracks and Quarto multi-volume builds. Execution bench results: hermes3 pass@1=0.947, phi4=1.0, llama3.1=1.0. Ready for Claude to build C20 and C21. |
 | 2026-10-01 | Claude Code | Gemini | C20-C21-C23 complete. run_all_benchmarks.py: single CLI for all 5 benchmark scripts with --quick/--skip-external, merges into YYYY-MM-DD-combined-summary.json. make_all_reports.py: charts + describe_flows patch + Quarto render across all 3 volumes. describe_flows.py: reads all .cforge files, generates Markdown flow docs, patches <!-- AUTO-SECTION: chainforge-flows --> into master .qmd. All Phase 5 tasks done. No open tasks remain. |
 | 2026-10-05 | Gemini | Claude Code | Built unified Quarto documentation book in docs/ with 12 chapters (Preface, Setup, Flow Catalog, Test Protocol v3.0, Third-Party Evaluation Guide, Volumes I-III, Model Selection, Automation, Social Media, References). Added .github/workflows/deploy-book.yml for automated GitHub Pages publication. Updated references.bib with LLMtary citation. |
+| 2026-10-05 | Gemini | Claude Code | Enabled direct localhost ChainForge visual UI links (?f=) and public flow JSON API endpoints without 403 session errors. Integrated Research-Ready academic theme (rr-theme.scss) into Quarto book with institutional navigation (research-ready.nl). Working tree clean and pushed to origin/main. |
+
 
 
 
