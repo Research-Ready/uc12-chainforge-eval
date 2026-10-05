@@ -99,36 +99,35 @@ flowchart LR
 Every workflow is committed to git in `chainforge/flows/` and loadable at `http://localhost:8765`:
 
 ::: {.callout-tip}
-## Launching Workflows on Localhost
-When running ChainForge locally on port 8765:
-```bash
-chainforge serve --port 8765 --dir $(pwd)/chainforge/flows
-```
-Clicking any **Open on Localhost** link below immediately takes you to your local ChainForge session at `http://localhost:8765`.
+## How to Run Flows Locally or in the Cloud
+Every workflow can be inspected and run via two convenient methods:
+
+1. **Localhost Server:** Run `chainforge serve --port 8765 --dir $(pwd)/chainforge/flows` and open [http://localhost:8765](http://localhost:8765).
+2. **Online Playground:** Download any `.cforge` file from the table below and load it into the free web version at [https://chainforge.ai/play/](https://chainforge.ai/play/).
 :::
 
-| Workflow File | Evaluation Focus | Input Cases | Scoring Mechanism | Localhost Direct Link |
-|:---|:---|:---:|:---|:---:|
-| [`cognitive.cforge`](flows.qmd#cognitive.cforge) | Multi-Domain Tasks | 8 rows | LLM Judge (1 to 5) | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`execution.cforge`](flows.qmd#execution.cforge) | Programmatic Pass@1 | 6 rows | Subprocess Python Unit Tests | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`reasoning-depth.cforge`](flows.qmd#reasoning-depth.cforge) | Logic & Probability Paradoxes | 6 rows | Reasoning Judge (1 to 5) | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`schema.cforge`](flows.qmd#schema.cforge) | Structured JSON Conformance | 5 rows | SimpleVal `{` check + Schema parse | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`perturbation.cforge`](flows.qmd#perturbation.cforge) | Semantic Invariance Delta | 4 rows | Paired A/B Judges ($\Delta_{\text{pert}}$) | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`multi-judge.cforge`](flows.qmd#multi-judge.cforge) | Inter-Rater Reliability | 6 rows | 3 Parallel Model Judges | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`security.cforge`](flows.qmd#security.cforge) | Baseline Security & Vuln Audits | 6 rows | Fail-String Match + Vuln Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`jailbreak.cforge`](flows.qmd#jailbreak.cforge) | Roleplay & Persona Overrides (DAN) | 6 rows | Fail-String Detector + Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`indirect-injection.cforge`](flows.qmd#indirect-injection.cforge) | Hidden Document Overrides | 5 rows | Injection Success Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`crescendo.cforge`](flows.qmd#crescendo.cforge) | Multi-Turn Escalating Dialogue | 3 rows | Marker Leakage Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`obfuscation.cforge`](flows.qmd#obfuscation.cforge) | Base64 / Hex / ROT13 Evasion | 5 rows | Attack Marker Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`cipher-laundering.cforge`](flows.qmd#cipher-laundering.cforge) | Cross-Language Cipher Wraps | 5 rows | Laundering Resistance Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`steganography.cforge`](flows.qmd#steganography.cforge) | Zero-Width Unicode Injections | 4 rows | Hidden Control Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`many-shot.cforge`](flows.qmd#many-shot.cforge) | In-Context Repetitive Priming | 3 rows | Many-Shot Resistance Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`prompt-extraction.cforge`](flows.qmd#prompt-extraction.cforge) | System Prompt Exfiltration | 5 rows | Extraction Resistance Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`memorization.cforge`](flows.qmd#memorization.cforge) | Training Data Leakage Probing | 5 rows | Verbatim Match Detector | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`dos.cforge`](flows.qmd#dos.cforge) | Algorithmic Resource Exhaustion | 4 rows | Resource Guard Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
-| [`hallucination.cforge`](flows.qmd#hallucination.cforge) | Fabricated APIs & Fake Papers | 6 rows | Epistemic Honesty Judge | [Open in ChainForge (localhost:8765)](http://localhost:8765) |
+| Workflow File | Evaluation Focus | Cases | GitHub Source | Download Raw |
+|:---|:---|:---:|:---:|:---:|
+| [`cognitive.cforge`](flows.html#flow-cognitive) | Multi-Domain Tasks | 8 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/cognitive.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/cognitive.cforge) |
+| [`execution.cforge`](flows.html#flow-execution) | Programmatic Pass@1 | 6 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/execution.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/execution.cforge) |
+| [`reasoning-depth.cforge`](flows.html#flow-reasoning-depth) | Logic & Probability | 6 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/reasoning-depth.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/reasoning-depth.cforge) |
+| [`schema.cforge`](flows.html#flow-schema) | Structured JSON | 5 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/schema.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/schema.cforge) |
+| [`perturbation.cforge`](flows.html#flow-perturbation) | Invariance Delta ($\Delta$) | 4 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/perturbation.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/perturbation.cforge) |
+| [`multi-judge.cforge`](flows.html#flow-multi-judge) | Inter-Rater Consensus | 6 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/multi-judge.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/multi-judge.cforge) |
+| [`security.cforge`](flows.html#flow-security) | Baseline Security & Vulns | 6 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/security.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/security.cforge) |
+| [`jailbreak.cforge`](flows.html#flow-jailbreak) | Roleplay Overrides (DAN) | 6 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/jailbreak.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/jailbreak.cforge) |
+| [`indirect-injection.cforge`](flows.html#flow-indirect-injection) | Document Overrides | 5 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/indirect-injection.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/indirect-injection.cforge) |
+| [`crescendo.cforge`](flows.html#flow-crescendo) | Multi-Turn Escalation | 3 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/crescendo.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/crescendo.cforge) |
+| [`obfuscation.cforge`](flows.html#flow-obfuscation) | Base64 / Hex Evasion | 5 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/obfuscation.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/obfuscation.cforge) |
+| [`cipher-laundering.cforge`](flows.html#flow-cipher-laundering) | Cipher Translations | 5 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/cipher-laundering.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/cipher-laundering.cforge) |
+| [`steganography.cforge`](flows.html#flow-steganography) | Zero-Width Injections | 4 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/steganography.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/steganography.cforge) |
+| [`many-shot.cforge`](flows.html#flow-many-shot) | Long-Context Priming | 3 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/many-shot.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/many-shot.cforge) |
+| [`prompt-extraction.cforge`](flows.html#flow-prompt-extraction) | System Prompt Leakage | 5 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/prompt-extraction.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/prompt-extraction.cforge) |
+| [`memorization.cforge`](flows.html#flow-memorization) | Training Data Extraction | 5 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/memorization.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/memorization.cforge) |
+| [`dos.cforge`](flows.html#flow-dos) | Resource Exhaustion | 4 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/dos.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/dos.cforge) |
+| [`hallucination.cforge`](flows.html#flow-hallucination) | Fabricated APIs | 6 rows | [View on GitHub](https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows/hallucination.cforge) | [Download .cforge](https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows/hallucination.cforge) |
 
-For the full architectural breakdown, node configurations, direct API endpoints, and prompt templates, see the [ChainForge Visual Workflow Catalog](flows.qmd).
+For node topologies, model parameters, and test prompts, see the [ChainForge Visual Workflow Catalog](flows.html).
 
 ---
 

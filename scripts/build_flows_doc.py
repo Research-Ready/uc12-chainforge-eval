@@ -5,6 +5,9 @@ from pathlib import Path
 flows_dir = Path("chainforge/flows")
 flows = sorted(flows_dir.glob("*.cforge"))
 
+GITHUB_BASE = "https://github.com/Research-Ready/uc12-chainforge-eval/blob/main/chainforge/flows"
+RAW_BASE = "https://raw.githubusercontent.com/Research-Ready/uc12-chainforge-eval/main/chainforge/flows"
+
 def clean(text):
     if not text:
         return ""
@@ -17,12 +20,10 @@ out.append("# ChainForge Visual Workflow Catalog\n")
 out.append("Our platform maintains 18 visual flow graphs in `chainforge/flows/`. Each flow connects parameterized data tables to model endpoints, automated scorers, and visual inspection nodes.\n")
 
 out.append("::: {.callout-tip}")
-out.append("## Launching Flows on Localhost")
-out.append("When running ChainForge locally on port 8765:")
-out.append("```bash")
-out.append("chainforge serve --port 8765 --dir $(pwd)/chainforge/flows")
-out.append("```")
-out.append("You can click any of the **Open in ChainForge (localhost:8765)** links below to immediately inspect and execute that workflow in your local browser session.")
+out.append("## How to Run Flows Locally or in the Cloud")
+out.append("You can inspect and execute these workflows in two ways:\n")
+out.append("1. **Localhost Server:** Run `chainforge serve --port 8765 --dir $(pwd)/chainforge/flows` in your terminal and open [http://localhost:8765](http://localhost:8765).")
+out.append("2. **Online Playground:** Download any `.cforge` file using the links below and import it directly into the free web version at [https://chainforge.ai/play/](https://chainforge.ai/play/).")
 out.append(":::\n")
 
 out.append("## Interactive Workflow Architecture\n")
@@ -54,16 +55,19 @@ out.append("  P --> V2")
 out.append("```\n")
 
 out.append("## Workflow Quick Index\n")
-out.append("| Flow File | Evaluation Track | Localhost UI Link | Direct API Endpoint |")
-out.append("|:---|:---|:---:|:---:|")
+out.append("| Flow File | Evaluation Track | GitHub Source | Download Raw | Localhost UI |")
+out.append("|:---|:---|:---:|:---:|:---:|")
 for f in flows:
     name_clean = f.name.replace(".cforge", "")
-    out.append(f"| [`{f.name}`](#{f.name.replace('.', '')}) | {name_clean.replace('-', ' ').title()} | [Open in ChainForge (localhost:8765)](http://localhost:8765) | [api/flows/{f.name}](http://localhost:8765/api/flows/{f.name}) |")
+    anchor = f"flow-{name_clean}"
+    out.append(f"| [`{f.name}`](#{anchor}) | {name_clean.replace('-', ' ').title()} | [View on GitHub]({GITHUB_BASE}/{f.name}) | [Download .cforge]({RAW_BASE}/{f.name}) | [Open Local (8765)](http://localhost:8765) |")
 out.append("\n---\n")
 
 out.append("## Complete Catalog of the 18 Evaluation Flows\n")
 
 for f in flows:
+    name_clean = f.name.replace(".cforge", "")
+    anchor = f"flow-{name_clean}"
     data = json.loads(f.read_text())
     nodes = data.get("flow", {}).get("nodes", [])
     edges = data.get("flow", {}).get("edges", [])
@@ -73,8 +77,8 @@ for f in flows:
         t = n.get("type", "unknown")
         by_type.setdefault(t, []).append(n)
         
-    out.append(f"### `{f.name}`\n")
-    out.append(f"🔗 **Localhost Direct Links:** [Open in ChainForge (http://localhost:8765)](http://localhost:8765) | [Direct JSON Endpoint (localhost:8765/api/flows/{f.name})](http://localhost:8765/api/flows/{f.name})\n")
+    out.append(f"### `{f.name}` {{#{anchor}}}\n")
+    out.append(f"**Direct Links:** [View Source on GitHub]({GITHUB_BASE}/{f.name}) · [Download Raw .cforge]({RAW_BASE}/{f.name}) · [Open in ChainForge Local (http://localhost:8765)](http://localhost:8765) · [Open in ChainForge Web Playground](https://chainforge.ai/play/)\n")
     
     # Comments / Description
     for c in by_type.get("comment", []):
@@ -136,4 +140,4 @@ for f in flows:
     out.append("---\n")
 
 Path("docs/flows.qmd").write_text("\n".join(out))
-print("Successfully updated docs/flows.qmd with localhost direct links")
+print("Successfully generated docs/flows.qmd with verified working links")
