@@ -64,3 +64,8 @@ Commit your changes before handing back to Claude Code. Use:
 git add output/report/ output/social-media/ docs/
 git commit -m "content: <what you changed>"
 ```
+
+## Absolute Veracity & Real-World Deliverable Proof (Never False Completion)
+- **Zero False Completion**: NEVER claim a feature, integration, or system is done, verified, or working based solely on isolated unit tests or files written to disk if the actual user-facing application (e.g., OpenWebUI, database, deployed service) is not genuinely configured, populated, and verified in reality.
+- **Admit Gaps Explicitly**: Admitting an integration gap or failure immediately is mandatory. If assets exist on disk but have not been imported or wired into the running application/UI, state the exact truth: *"The assets exist on disk, but [Application/UI] is not yet configured and cannot use them yet."*
+- **End-User Experience is Ground Truth**: A task is only complete when the user can open the target application and immediately use the functionality as intended.
