@@ -1,5 +1,26 @@
 # UC12 — ChainForge AI Model Evaluation
 
+<!-- coordinator:start -->
+## Reporting to the coordinator
+
+Progress for all use cases is tracked in `ResearchReady/workbook/` (the coordinator). It **reads** this repo
+and never edits it, so the workbook is only as correct as the files below. Keep them true at the end of every
+session. Do not edit files in the workbook yourself.
+
+| Report | Where, in which form |
+|---|---|
+| Task progress | `PLAN.md` (tasks in `TASKS.md`): `### T1 — title ✅ DONE`, `🟡 IN PROGRESS` or `⛔ BLOCKED` in the heading, plus a `**Status (YYYY-MM-DD):**` line saying what was verified |
+| Current state | `PLAN.md` → `## Current status`: short, dated bullets. Name the machine (Ubuntu laptop / Fedora laptop) when it matters |
+| Test evidence | `test-results/dry_run_YYYYMMDD_HHMMSS.json`: `{"timestamp": "...", "steps": [{"name": "...", "status": "PASS" / "FAIL" / "SKIP", "detail": "..."}]}`. Without this file the workbook shows "no evidence" or an old run |
+| Dry-run headline | Optional: `## Dry-run status (YYYY-MM-DD)` in this file with `**N/M PASS**`. Update or delete it; an old headline is read as the latest result |
+| Blockers | A `**Active blocker**: ...` line in this file, or a `BLOCKED.md` naming the infra issue ID (e.g. `D-3`). **Delete the line or the file as soon as it is no longer true**; stale blockers keep this use case amber |
+| Workflow diagram | `docs/workflow.yml`: steps with `id`, `label`, `lane`, `status: working / partial / broken / planned` |
+| Needs from the platform | Write `InstallLocalAiPackage/REQUEST-uc12-<topic>.md` (Report, Request, Done when). Do not edit infra issues or the stack yourself |
+
+Rules: everything is local (no GitHub; the server may be down, see above). Uncommitted changes show as a
+warning in the workbook; commit locally when the user asks.
+<!-- coordinator:end -->
+
 ## What this is
 
 General-purpose AI model evaluation platform using ChainForge. Runs structured tests across
@@ -86,3 +107,8 @@ Summaries (which model wins per category) go in `output/model-selection-guide.md
 - Check `ResearchReadyDocumentation/COORDINATION/BLOCKED.md` before starting
 - Update `COORDINATION/LAPTOP1.md` at session start and end
 - Never commit `.env`
+
+## Absolute Veracity & Real-World Deliverable Proof (Never False Completion)
+- **Zero False Completion**: NEVER claim a feature, integration, or system is done, verified, or working based solely on isolated unit tests or files written to disk if the actual user-facing application (e.g., OpenWebUI, database, deployed service) is not genuinely configured, populated, and verified in reality.
+- **Admit Gaps Explicitly**: Admitting an integration gap or failure immediately is mandatory. If assets exist on disk but have not been imported or wired into the running application/UI, state the exact truth: *"The assets exist on disk, but [Application/UI] is not yet configured and cannot use them yet."*
+- **End-User Experience is Ground Truth**: A task is only complete when the user can open the target application and immediately use the functionality as intended.
