@@ -20,3 +20,6 @@ _site/
 
 # ChainForge runtime autosaves
 chainforge/flows/__autosave.cforge*
+.swarm/
+ruvector.db
+*.db
